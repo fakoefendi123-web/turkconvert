@@ -233,7 +233,7 @@ export function RoyalNoticeBanner() {
           <p className="text-base font-semibold leading-relaxed tracking-tight text-neutral-800 dark:text-neutral-100 sm:text-lg md:text-xl lg:text-2xl">
             <span className="text-amber-500 dark:text-amber-400 mr-1.5 font-serif text-2xl sm:text-3xl">&ldquo;</span>
             <span className="bg-gradient-to-r from-amber-700 via-amber-900 to-yellow-900 bg-clip-text font-serif italic text-transparent transition-all duration-300 group-hover:brightness-110 dark:from-amber-100 dark:via-yellow-200 dark:to-amber-300">
-              Prens Hazretleri’nin yüksek tensipleriyle geliştirilmiş, halkının hizmetine vakfedilmiş asil bir dijital armağan.
+              Kusursuzluk bir lütuf değil, hükümdar buyruğudur: Yüce Prens Hazretleri’nin asil halkına bahşettiği, krallara layık bir dijital saltanat.
             </span>
             <span className="text-amber-500 dark:text-amber-400 ml-1.5 font-serif text-2xl sm:text-3xl">&rdquo;</span>
           </p>
