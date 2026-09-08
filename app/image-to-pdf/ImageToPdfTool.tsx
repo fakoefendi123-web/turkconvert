@@ -88,7 +88,7 @@ export default function ImageToPdfTool() {
       setState("done");
     } catch {
       setErrorMsg(
-        "PDF oluşturulurken bir sorun oluştu. Lütfen tekrar deneyin."
+        "PDF oluÅŸturulurken bir sorun oluÅŸtu. LÃ¼tfen tekrar deneyin."
       );
       setState("error");
     }
@@ -104,7 +104,7 @@ export default function ImageToPdfTool() {
 
   return (
     <div>
-      {/* Dosya Yükleme */}
+      {/* Dosya YÃ¼kleme */}
       {(state === "idle" || (state === "error" && files.length === 0)) && (
         <FileUploader
           accept="image/jpeg,image/png,image/webp"
@@ -115,14 +115,14 @@ export default function ImageToPdfTool() {
         />
       )}
 
-      {/* Dosya Listesi ve Yönetimi */}
+      {/* Dosya Listesi ve YÃ¶netimi */}
       {state === "ready" && files.length > 0 && (
         <div className="space-y-6">
-          {/* Üst Bar: Dosya Sayısı ve Dosya Ekle Butonu */}
+          {/* Ãœst Bar: Dosya SayÄ±sÄ± ve Dosya Ekle Butonu */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                Seçilen Görseller
+                SeÃ§ilen GÃ¶rseller
               </span>
               <span className="rounded-full bg-primary-100 px-2 py-0.5 text-xs font-semibold text-primary-700 dark:bg-primary-900/40 dark:text-primary-300">
                 {files.length} dosya
@@ -149,14 +149,14 @@ export default function ImageToPdfTool() {
             </div>
           </div>
 
-          {/* Dosya Sıralama Listesi */}
+          {/* Dosya SÄ±ralama Listesi */}
           <div className="space-y-2 max-h-96 overflow-y-auto pr-1">
             {files.map((file, index) => (
               <div
                 key={`${file.name}-${file.size}-${index}`}
                 className="flex items-center justify-between gap-3 rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-800/60"
               >
-                {/* Sayfa No ve Görsel İkonu */}
+                {/* Sayfa No ve GÃ¶rsel Ä°konu */}
                 <div className="flex items-center gap-3 min-w-0 flex-1">
                   <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-gray-100 text-xs font-semibold text-gray-600 dark:bg-gray-700 dark:text-gray-300">
                     {index + 1}
@@ -172,15 +172,15 @@ export default function ImageToPdfTool() {
                   </div>
                 </div>
 
-                {/* Sıralama ve Silme Butonları */}
+                {/* SÄ±ralama ve Silme ButonlarÄ± */}
                 <div className="flex items-center gap-1 shrink-0">
                   <button
                     type="button"
                     onClick={() => handleMoveUp(index)}
                     disabled={index === 0}
                     className="rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900 disabled:opacity-30 disabled:hover:bg-transparent dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    title="Yukarı Taşı"
-                    aria-label="Yukarı taşı"
+                    title="YukarÄ± TaÅŸÄ±"
+                    aria-label="YukarÄ± taÅŸÄ±"
                   >
                     <ArrowUp className="h-4 w-4" />
                   </button>
@@ -189,8 +189,8 @@ export default function ImageToPdfTool() {
                     onClick={() => handleMoveDown(index)}
                     disabled={index === files.length - 1}
                     className="rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-900 disabled:opacity-30 disabled:hover:bg-transparent dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                    title="Aşağı Taşı"
-                    aria-label="Aşağı taşı"
+                    title="AÅŸaÄŸÄ± TaÅŸÄ±"
+                    aria-label="AÅŸaÄŸÄ± taÅŸÄ±"
                   >
                     <ArrowDown className="h-4 w-4" />
                   </button>
@@ -198,8 +198,8 @@ export default function ImageToPdfTool() {
                     type="button"
                     onClick={() => handleRemoveFile(index)}
                     className="rounded p-1 text-gray-400 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-950/30 dark:hover:text-red-400"
-                    title="Kaldır"
-                    aria-label="Kaldır"
+                    title="KaldÄ±r"
+                    aria-label="KaldÄ±r"
                   >
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -209,25 +209,25 @@ export default function ImageToPdfTool() {
           </div>
 
           <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-            PDF belgesindeki sayfa sırasını değiştirmek için yukarı/aşağı okları kullanabilirsiniz.
+            PDF belgesindeki sayfa sÄ±rasÄ±nÄ± deÄŸiÅŸtirmek iÃ§in yukarÄ±/aÅŸaÄŸÄ± oklarÄ± kullanabilirsiniz.
           </p>
 
-          {/* PDF Oluştur Butonu */}
+          {/* PDF OluÅŸtur Butonu */}
           <div className="flex justify-center pt-2">
             <button onClick={handleConvert} className="btn-primary gap-2">
               <FileText className="h-4 w-4" />
-              PDF Oluştur ({files.length} Görsel)
+              PDF OluÅŸtur ({files.length} GÃ¶rsel)
             </button>
           </div>
         </div>
       )}
 
-      {/* Dönüştürme Süreci */}
+      {/* DÃ¶nÃ¼ÅŸtÃ¼rme SÃ¼reci */}
       {state === "converting" && (
-        <ConversionProgress message="Görselleriniz birleştirilip PDF belgesi oluşturuluyor..." />
+        <ConversionProgress message="GÃ¶rselleriniz birleÅŸtirilip PDF belgesi oluÅŸturuluyor..." />
       )}
 
-      {/* Sonuç */}
+      {/* SonuÃ§ */}
       {state === "done" && result && (
         <ConversionResult
           fileName={resultName}

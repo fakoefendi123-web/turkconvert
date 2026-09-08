@@ -39,7 +39,7 @@ export default function TextCaseConverterTool() {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Dönüştürmek istediğiniz metni buraya yazın veya yapıştırın..."
+          placeholder="DÃ¶nÃ¼ÅŸtÃ¼rmek istediÄŸiniz metni buraya yazÄ±n veya yapÄ±ÅŸtÄ±rÄ±n..."
           className="w-full rounded-lg border border-gray-300 bg-white p-4 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
           rows={6}
         />
@@ -52,7 +52,7 @@ export default function TextCaseConverterTool() {
           disabled={!input}
           className="btn-primary"
         >
-          BÜYÜK HARF
+          BÃœYÃœK HARF
         </button>
         <button
           type="button"
@@ -60,7 +60,7 @@ export default function TextCaseConverterTool() {
           disabled={!input}
           className="btn-secondary"
         >
-          küçük harf
+          kÃ¼Ã§Ã¼k harf
         </button>
         <button
           type="button"
@@ -68,7 +68,7 @@ export default function TextCaseConverterTool() {
           disabled={!input}
           className="btn-secondary"
         >
-          Başlık Düzeni
+          BaÅŸlÄ±k DÃ¼zeni
         </button>
         <button
           type="button"
@@ -76,7 +76,7 @@ export default function TextCaseConverterTool() {
           disabled={!input}
           className="btn-secondary"
         >
-          Cümle düzeni
+          CÃ¼mle dÃ¼zeni
         </button>
         {(input || output) && (
           <button
@@ -95,7 +95,7 @@ export default function TextCaseConverterTool() {
         <div className="space-y-1">
           <div className="flex items-center justify-between">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Dönüştürülen Metin
+              DÃ¶nÃ¼ÅŸtÃ¼rÃ¼len Metin
             </label>
           </div>
           <div className="relative">
@@ -115,7 +115,7 @@ export default function TextCaseConverterTool() {
                 <>
                   <Check className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
                   <span className="text-green-600 dark:text-green-400">
-                    Kopyalandı!
+                    KopyalandÄ±!
                   </span>
                 </>
               ) : (

@@ -59,14 +59,14 @@ export default function ColorPickerTool() {
     try {
       const imgData = ctx.getImageData(0, 0, width, height).data;
       const colorCounts: { [hex: string]: number } = {};
-      const step = Math.max(1, Math.floor((width * height) / 2000)); // örnekleme adımı
+      const step = Math.max(1, Math.floor((width * height) / 2000)); // Ã¶rnekleme adÄ±mÄ±
 
       for (let i = 0; i < imgData.length; i += 4 * step) {
         const r = Math.round(imgData[i] / 16) * 16;
         const g = Math.round(imgData[i + 1] / 16) * 16;
         const b = Math.round(imgData[i + 2] / 16) * 16;
         const a = imgData[i + 3];
-        if (a < 128) continue; // şeffafları atla
+        if (a < 128) continue; // ÅŸeffaflarÄ± atla
 
         const hex = rgbToHex(Math.min(255, r), Math.min(255, g), Math.min(255, b));
         colorCounts[hex] = (colorCounts[hex] || 0) + 1;
@@ -151,7 +151,7 @@ export default function ColorPickerTool() {
         <div className="space-y-6">
           <FileInfo file={file} onRemove={handleReset} />
 
-          {/* Seçilen Renk Paneli */}
+          {/* SeÃ§ilen Renk Paneli */}
           <div className="flex flex-wrap items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <div
               className="h-16 w-16 shrink-0 rounded-xl border border-gray-300 shadow-inner dark:border-gray-700"
@@ -208,12 +208,12 @@ export default function ColorPickerTool() {
             </div>
           </div>
 
-          {/* Otomatik Çıkarılan Renk Paleti */}
+          {/* Otomatik Ã‡Ä±karÄ±lan Renk Paleti */}
           {palette.length > 0 && (
             <div className="rounded-xl border border-gray-200 bg-gray-50/60 p-4 dark:border-gray-800 dark:bg-gray-900/40">
               <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
                 <Palette className="h-4 w-4 text-primary-500" />
-                <span>Görselin Baskın Renk Paleti (Kopyalamak için tıklayın):</span>
+                <span>GÃ¶rselin BaskÄ±n Renk Paleti (Kopyalamak iÃ§in tÄ±klayÄ±n):</span>
               </div>
               <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
                 {palette.map((hex, idx) => (
@@ -235,7 +235,7 @@ export default function ColorPickerTool() {
                       style={{ backgroundColor: hex }}
                     />
                     <span className="font-mono text-[11px] font-medium text-gray-700 dark:text-gray-300">
-                      {copiedKey === `pal-${idx}` ? "Kopyalandı!" : hex}
+                      {copiedKey === `pal-${idx}` ? "KopyalandÄ±!" : hex}
                     </span>
                   </button>
                 ))}
@@ -243,10 +243,10 @@ export default function ColorPickerTool() {
             </div>
           )}
 
-          {/* Görsel Canvas Seçici */}
+          {/* GÃ¶rsel Canvas SeÃ§ici */}
           <div className="space-y-2">
             <p className="text-center text-xs text-gray-500 dark:text-gray-400">
-              💡 Görselin üzerindeki herhangi bir piksele tıklayarak anında rengini alın.
+              ğŸ’¡ GÃ¶rselin Ã¼zerindeki herhangi bir piksele tÄ±klayarak anÄ±nda rengini alÄ±n.
             </p>
             <div className="flex max-h-[500px] cursor-crosshair items-center justify-center overflow-auto rounded-xl border border-gray-200 bg-gray-50 p-2 dark:border-gray-800 dark:bg-gray-900/50">
               <canvas
@@ -260,7 +260,7 @@ export default function ColorPickerTool() {
           <div className="flex justify-center">
             <button onClick={handleReset} className="btn-secondary gap-2">
               <RefreshCw className="h-4 w-4" />
-              Yeni Görsel Seç
+              Yeni GÃ¶rsel SeÃ§
             </button>
           </div>
         </div>

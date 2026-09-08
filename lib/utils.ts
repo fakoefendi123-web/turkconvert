@@ -1,6 +1,6 @@
 /**
- * Dosya boyutunu okunabilir formata dönüştürür.
- * Örn: 1024 → "1.00 KB"
+ * Dosya boyutunu okunabilir formata dÃ¶nÃ¼ÅŸtÃ¼rÃ¼r.
+ * Ã–rn: 1024 â†’ "1.00 KB"
  */
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return "0 B";
@@ -11,8 +11,8 @@ export function formatFileSize(bytes: number): string {
 }
 
 /**
- * Dosya adından uzantıyı değiştirir.
- * Örn: ("photo.jpg", "png") → "photo.png"
+ * Dosya adÄ±ndan uzantÄ±yÄ± deÄŸiÅŸtirir.
+ * Ã–rn: ("photo.jpg", "png") â†’ "photo.png"
  */
 export function changeFileExtension(
   fileName: string,
@@ -24,7 +24,7 @@ export function changeFileExtension(
 }
 
 /**
- * Yüzde hesaplar.
+ * YÃ¼zde hesaplar.
  */
 export function calculateSavingsPercent(
   originalSize: number,

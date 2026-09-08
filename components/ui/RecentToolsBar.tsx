@@ -29,7 +29,7 @@ export function RecentToolsBar() {
     <div className="mx-auto mt-6 flex max-w-2xl flex-wrap items-center justify-center gap-2 text-xs">
       <div className="flex items-center gap-1 text-gray-400 dark:text-gray-500">
         <Clock className="h-3.5 w-3.5" />
-        <span>Son Kullanılanlar:</span>
+        <span>Son KullanÄ±lanlar:</span>
       </div>
       {matchedTools.map((tool) => (
         <Link

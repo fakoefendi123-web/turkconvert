@@ -9,26 +9,26 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "turkconvert — Ücretsiz Online Dosya Dönüştürme Araçları",
+    default: "turkconvert â€” Ãœcretsiz Online Dosya DÃ¶nÃ¼ÅŸtÃ¼rme AraÃ§larÄ±",
     template: "%s | turkconvert",
   },
   description:
-    "Ücretsiz, hızlı ve reklamsız dosya dönüştürme araçları. JPG, PNG, WEBP dönüştürme, PDF oluşturma, metin araçları ve daha fazlası.",
+    "Ãœcretsiz, hÄ±zlÄ± ve reklamsÄ±z dosya dÃ¶nÃ¼ÅŸtÃ¼rme araÃ§larÄ±. JPG, PNG, WEBP dÃ¶nÃ¼ÅŸtÃ¼rme, PDF oluÅŸturma, metin araÃ§larÄ± ve daha fazlasÄ±.",
   keywords: [
-    "dosya dönüştürme",
-    "jpg png dönüştürme",
-    "online dönüştürücü",
-    "ücretsiz dönüştürücü",
-    "pdf dönüştürme",
-    "görsel dönüştürme",
+    "dosya dÃ¶nÃ¼ÅŸtÃ¼rme",
+    "jpg png dÃ¶nÃ¼ÅŸtÃ¼rme",
+    "online dÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼",
+    "Ã¼cretsiz dÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼",
+    "pdf dÃ¶nÃ¼ÅŸtÃ¼rme",
+    "gÃ¶rsel dÃ¶nÃ¼ÅŸtÃ¼rme",
   ],
   openGraph: {
     type: "website",
     locale: "tr_TR",
     siteName: "turkconvert",
-    title: "turkconvert — Ücretsiz Online Dosya Dönüştürme Araçları",
+    title: "turkconvert â€” Ãœcretsiz Online Dosya DÃ¶nÃ¼ÅŸtÃ¼rme AraÃ§larÄ±",
     description:
-      "Ücretsiz, hızlı ve reklamsız dosya dönüştürme araçları. Üyelik gerekmez.",
+      "Ãœcretsiz, hÄ±zlÄ± ve reklamsÄ±z dosya dÃ¶nÃ¼ÅŸtÃ¼rme araÃ§larÄ±. Ãœyelik gerekmez.",
   },
 };
 

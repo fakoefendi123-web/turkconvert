@@ -5,17 +5,17 @@ import { Upload, File, AlertCircle } from "lucide-react";
 import { formatFileSize } from "@/lib/utils";
 
 interface FileUploaderProps {
-  /** Kabul edilen MIME tipleri, ör: "image/jpeg,image/png" */
+  /** Kabul edilen MIME tipleri, Ã¶r: "image/jpeg,image/png" */
   accept: string;
-  /** Kullanıcıya gösterilecek format etiketi, ör: "JPG" */
+  /** KullanÄ±cÄ±ya gÃ¶sterilecek format etiketi, Ã¶r: "JPG" */
   acceptLabel: string;
-  /** Maksimum dosya boyutu (byte). Varsayılan: 50MB */
+  /** Maksimum dosya boyutu (byte). VarsayÄ±lan: 50MB */
   maxSize?: number;
-  /** Dosya seçildiğinde çağrılır */
+  /** Dosya seÃ§ildiÄŸinde Ã§aÄŸrÄ±lÄ±r */
   onFileSelect: (file: File) => void;
-  /** Çoklu dosya seçimi */
+  /** Ã‡oklu dosya seÃ§imi */
   multiple?: boolean;
-  /** Çoklu dosya seçildiğinde çağrılır */
+  /** Ã‡oklu dosya seÃ§ildiÄŸinde Ã§aÄŸrÄ±lÄ±r */
   onFilesSelect?: (files: File[]) => void;
 }
 
@@ -70,10 +70,10 @@ export function FileUploader({
       });
 
       if (!matches) {
-        return `"${file.name}" dosya türü desteklenmiyor. Lütfen ${acceptLabel} formatında bir dosya seçin.`;
+        return `"${file.name}" dosya tÃ¼rÃ¼ desteklenmiyor. LÃ¼tfen ${acceptLabel} formatÄ±nda bir dosya seÃ§in.`;
       }
       if (file.size > maxSize) {
-        return `"${file.name}" dosya boyutu sınırı aşıyor. Maksimum ${formatFileSize(maxSize)} boyutunda dosya yükleyebilirsiniz.`;
+        return `"${file.name}" dosya boyutu sÄ±nÄ±rÄ± aÅŸÄ±yor. Maksimum ${formatFileSize(maxSize)} boyutunda dosya yÃ¼kleyebilirsiniz.`;
       }
       return null;
     },
@@ -104,10 +104,10 @@ export function FileUploader({
     [validateFile, multiple, onFileSelect, onFilesSelect]
   );
 
-  // Panodan yapıştırma (Ctrl + V) desteği
+  // Panodan yapÄ±ÅŸtÄ±rma (Ctrl + V) desteÄŸi
   useEffect(() => {
     const handlePaste = (e: ClipboardEvent) => {
-      // Eğer kullanıcı bir input/textarea içindeyse müdahale etme
+      // EÄŸer kullanÄ±cÄ± bir input/textarea iÃ§indeyse mÃ¼dahale etme
       const target = e.target as HTMLElement;
       if (
         target &&
@@ -164,7 +164,7 @@ export function FileUploader({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files) {
         handleFiles(e.target.files);
-        // Aynı dosyayı tekrar seçebilmek için input değerini sıfırla
+        // AynÄ± dosyayÄ± tekrar seÃ§ebilmek iÃ§in input deÄŸerini sÄ±fÄ±rla
         e.target.value = "";
       }
     },
@@ -193,24 +193,24 @@ export function FileUploader({
         />
         <p className="mb-1 text-base font-semibold text-gray-800 dark:text-gray-200">
           {multiple
-            ? "Dosyalarınızı buraya sürükleyin"
-            : "Dosyanızı buraya sürükleyin"}
+            ? "DosyalarÄ±nÄ±zÄ± buraya sÃ¼rÃ¼kleyin"
+            : "DosyanÄ±zÄ± buraya sÃ¼rÃ¼kleyin"}
         </p>
         <p className="mb-3 text-sm text-gray-500 dark:text-gray-400">veya</p>
         <div className="flex flex-wrap items-center justify-center gap-2">
           <span className="btn-primary text-sm">
-            {multiple ? "Dosyaları Seç (Çoklu)" : "Dosya Seç"}
+            {multiple ? "DosyalarÄ± SeÃ§ (Ã‡oklu)" : "Dosya SeÃ§"}
           </span>
         </div>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400 dark:text-gray-500">
           <span>Desteklenen: {acceptLabel}</span>
-          <span>•</span>
+          <span>â€¢</span>
           <span>Maks: {formatFileSize(maxSize)}</span>
-          <span>•</span>
+          <span>â€¢</span>
           <span className="rounded bg-gray-200 px-1.5 py-0.5 font-mono text-[10px] text-gray-600 dark:bg-gray-800 dark:text-gray-300">
             Ctrl + V
           </span>
-          <span>ile yapıştır</span>
+          <span>ile yapÄ±ÅŸtÄ±r</span>
         </div>
         <input
           ref={inputRef}
@@ -232,7 +232,7 @@ export function FileUploader({
   );
 }
 
-/** Seçilen dosya bilgilerini gösteren bileşen */
+/** SeÃ§ilen dosya bilgilerini gÃ¶steren bileÅŸen */
 export function FileInfo({
   file,
   onRemove,
@@ -272,16 +272,16 @@ export function FileInfo({
           {file.name}
         </p>
         <p className="text-xs text-gray-500 dark:text-gray-400">
-          {formatFileSize(file.size)} · {file.type || "Bilinmeyen tür"}
+          {formatFileSize(file.size)} Â· {file.type || "Bilinmeyen tÃ¼r"}
         </p>
       </div>
       {onRemove && (
         <button
           onClick={onRemove}
           className="shrink-0 rounded p-1 text-sm text-gray-400 transition-colors hover:bg-gray-100 hover:text-red-500 dark:hover:bg-gray-800"
-          aria-label="Dosyayı kaldır"
+          aria-label="DosyayÄ± kaldÄ±r"
         >
-          ✕
+          âœ•
         </button>
       )}
     </div>

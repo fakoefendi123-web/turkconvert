@@ -3,20 +3,20 @@ import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import SvgToPngTool from "./SvgToPngTool";
 
 export const metadata: Metadata = {
-  title: "SVG PNG Dönüştürücü - Ücretsiz Online",
+  title: "SVG PNG DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online",
   description:
-    "Vektörel SVG dosyalarınızı yüksek çözünürlüklü (1x, 2x, 4x, 8x) şeffaf veya beyaz zeminli PNG formatına dönüştürün. Ücretsiz ve reklamsız.",
+    "VektÃ¶rel SVG dosyalarÄ±nÄ±zÄ± yÃ¼ksek Ã§Ã¶zÃ¼nÃ¼rlÃ¼klÃ¼ (1x, 2x, 4x, 8x) ÅŸeffaf veya beyaz zeminli PNG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n. Ãœcretsiz ve reklamsÄ±z.",
   openGraph: {
-    title: "SVG PNG Dönüştürücü - Ücretsiz Online | turkconvert",
-    description: "SVG vektörlerini anında yüksek kaliteli PNG'ye çevirin.",
+    title: "SVG PNG DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online | turkconvert",
+    description: "SVG vektÃ¶rlerini anÄ±nda yÃ¼ksek kaliteli PNG'ye Ã§evirin.",
   },
 };
 
 export default function SvgToPngPage() {
   return (
     <ToolPageLayout
-      title="SVG → PNG Dönüştürücü"
-      description="SVG vektör grafiklerinizi istediğiniz çözünürlükte ve arka plan tercihiyle net bir PNG formatına dönüştürün."
+      title="SVG â†’ PNG DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼"
+      description="SVG vektÃ¶r grafiklerinizi istediÄŸiniz Ã§Ã¶zÃ¼nÃ¼rlÃ¼kte ve arka plan tercihiyle net bir PNG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n."
     >
       <SvgToPngTool />
     </ToolPageLayout>

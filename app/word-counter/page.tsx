@@ -3,21 +3,21 @@ import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import WordCounterTool from "./WordCounterTool";
 
 export const metadata: Metadata = {
-  title: "Metin Sayacı - Kelime ve Karakter Sayacı",
+  title: "Metin SayacÄ± - Kelime ve Karakter SayacÄ±",
   description:
-    "Metninizin kelime, karakter, satır, cümle ve paragraf sayısını anında hesaplayın.",
+    "Metninizin kelime, karakter, satÄ±r, cÃ¼mle ve paragraf sayÄ±sÄ±nÄ± anÄ±nda hesaplayÄ±n.",
   openGraph: {
-    title: "Metin Sayacı - Kelime ve Karakter Sayacı",
+    title: "Metin SayacÄ± - Kelime ve Karakter SayacÄ±",
     description:
-      "Metninizin kelime, karakter, satır, cümle ve paragraf sayısını anında hesaplayın.",
+      "Metninizin kelime, karakter, satÄ±r, cÃ¼mle ve paragraf sayÄ±sÄ±nÄ± anÄ±nda hesaplayÄ±n.",
   },
 };
 
 export default function WordCounterPage() {
   return (
     <ToolPageLayout
-      title="Metin Sayacı"
-      description="Metninizin kelime, karakter, satır, cümle ve paragraf sayısını anında hesaplayın."
+      title="Metin SayacÄ±"
+      description="Metninizin kelime, karakter, satÄ±r, cÃ¼mle ve paragraf sayÄ±sÄ±nÄ± anÄ±nda hesaplayÄ±n."
     >
       <WordCounterTool />
     </ToolPageLayout>

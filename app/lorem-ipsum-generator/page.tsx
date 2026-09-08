@@ -3,20 +3,20 @@ import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import LoremIpsumTool from "./LoremIpsumTool";
 
 export const metadata: Metadata = {
-  title: "Lorem Ipsum Üretici - Yer Tutucu Metin Oluşturucu",
+  title: "Lorem Ipsum Ãœretici - Yer Tutucu Metin OluÅŸturucu",
   description:
-    "Tasarım, web sitesi ve baskı projeleriniz için paragraf, cümle veya kelime bazında klasik veya Türkçe Lorem Ipsum metinleri üretin. Ücretsiz ve hızlı.",
+    "TasarÄ±m, web sitesi ve baskÄ± projeleriniz iÃ§in paragraf, cÃ¼mle veya kelime bazÄ±nda klasik veya TÃ¼rkÃ§e Lorem Ipsum metinleri Ã¼retin. Ãœcretsiz ve hÄ±zlÄ±.",
   openGraph: {
-    title: "Lorem Ipsum Üretici | turkconvert",
-    description: "Anında paragraf ve kelime bazında yer tutucu metin üretin.",
+    title: "Lorem Ipsum Ãœretici | turkconvert",
+    description: "AnÄ±nda paragraf ve kelime bazÄ±nda yer tutucu metin Ã¼retin.",
   },
 };
 
 export default function LoremIpsumPage() {
   return (
     <ToolPageLayout
-      title="Lorem Ipsum Üretici"
-      description="Tasarım ve geliştirme projeleriniz için paragraf, cümle veya kelime bazında yer tutucu metin oluşturun."
+      title="Lorem Ipsum Ãœretici"
+      description="TasarÄ±m ve geliÅŸtirme projeleriniz iÃ§in paragraf, cÃ¼mle veya kelime bazÄ±nda yer tutucu metin oluÅŸturun."
     >
       <LoremIpsumTool />
     </ToolPageLayout>

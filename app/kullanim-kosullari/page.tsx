@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kullanım Koşulları",
-  description: "turkconvert kullanım koşulları ve hizmet şartları.",
+  title: "KullanÄ±m KoÅŸullarÄ±",
+  description: "turkconvert kullanÄ±m koÅŸullarÄ± ve hizmet ÅŸartlarÄ±.",
   openGraph: {
-    title: "Kullanım Koşulları | turkconvert",
-    description: "turkconvert kullanım koşulları ve hizmet şartları.",
+    title: "KullanÄ±m KoÅŸullarÄ± | turkconvert",
+    description: "turkconvert kullanÄ±m koÅŸullarÄ± ve hizmet ÅŸartlarÄ±.",
     type: "website",
     locale: "tr_TR",
     siteName: "turkconvert",
@@ -16,7 +16,7 @@ export default function KullanimKosullariPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
-        Kullanım Koşulları
+        KullanÄ±m KoÅŸullarÄ±
       </h1>
 
       <div className="mt-8 space-y-6 text-gray-600 dark:text-gray-300">
@@ -25,54 +25,54 @@ export default function KullanimKosullariPage() {
             Genel
           </h2>
           <p className="mt-2 leading-relaxed">
-            turkconvert&apos;yi kullanarak aşağıdaki koşulları kabul etmiş
+            turkconvert&apos;yi kullanarak aÅŸaÄŸÄ±daki koÅŸullarÄ± kabul etmiÅŸ
             olursunuz.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Hizmet Açıklaması
+            Hizmet AÃ§Ä±klamasÄ±
           </h2>
           <p className="mt-2 leading-relaxed">
-            turkconvert, ücretsiz online dosya dönüştürme hizmeti sunar. Hizmet
-            &quot;olduğu gibi&quot; sunulmaktadır.
+            turkconvert, Ã¼cretsiz online dosya dÃ¶nÃ¼ÅŸtÃ¼rme hizmeti sunar. Hizmet
+            &quot;olduÄŸu gibi&quot; sunulmaktadÄ±r.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Kullanım Kuralları
+            KullanÄ±m KurallarÄ±
           </h2>
           <p className="mt-2 leading-relaxed">
-            Hizmeti yasalara uygun şekilde kullanmalısınız. Kötüye kullanım
-            durumunda erişim kısıtlanabilir.
+            Hizmeti yasalara uygun ÅŸekilde kullanmalÄ±sÄ±nÄ±z. KÃ¶tÃ¼ye kullanÄ±m
+            durumunda eriÅŸim kÄ±sÄ±tlanabilir.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Sorumluluk Sınırı
+            Sorumluluk SÄ±nÄ±rÄ±
           </h2>
           <p className="mt-2 leading-relaxed">
-            turkconvert, dosya dönüştürme işlemleri sırasında oluşabilecek veri
-            kayıplarından sorumlu tutulamaz. Önemli dosyalarınızın yedeğini
-            almanız önerilir.
+            turkconvert, dosya dÃ¶nÃ¼ÅŸtÃ¼rme iÅŸlemleri sÄ±rasÄ±nda oluÅŸabilecek veri
+            kayÄ±plarÄ±ndan sorumlu tutulamaz. Ã–nemli dosyalarÄ±nÄ±zÄ±n yedeÄŸini
+            almanÄ±z Ã¶nerilir.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Değişiklikler
+            DeÄŸiÅŸiklikler
           </h2>
           <p className="mt-2 leading-relaxed">
-            Bu koşullar önceden haber verilmeksizin güncellenebilir.
+            Bu koÅŸullar Ã¶nceden haber verilmeksizin gÃ¼ncellenebilir.
           </p>
         </section>
 
         <section className="pt-4 border-t border-gray-200 dark:border-gray-800">
           <p className="text-sm text-gray-400 dark:text-gray-500">
-            Son güncelleme: Eylül 2026
+            Son gÃ¼ncelleme: EylÃ¼l 2026
           </p>
         </section>
       </div>

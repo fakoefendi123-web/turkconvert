@@ -50,28 +50,28 @@ export default function ImageCropperTool() {
 
     ctx.drawImage(img, 0, 0);
 
-    // Kırpma alanı dışını karart
+    // KÄ±rpma alanÄ± dÄ±ÅŸÄ±nÄ± karart
     const rx = (xPct / 100) * canvas.width;
     const ry = (yPct / 100) * canvas.height;
     const rw = (wPct / 100) * canvas.width;
     const rh = (hPct / 100) * canvas.height;
 
     ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-    // Üst
+    // Ãœst
     ctx.fillRect(0, 0, canvas.width, ry);
     // Alt
     ctx.fillRect(0, ry + rh, canvas.width, canvas.height - (ry + rh));
     // Sol
     ctx.fillRect(0, ry, rx, rh);
-    // Sağ
+    // SaÄŸ
     ctx.fillRect(rx + rw, ry, canvas.width - (rx + rw), rh);
 
-    // Kırpma çerçevesi çizgisi
+    // KÄ±rpma Ã§erÃ§evesi Ã§izgisi
     ctx.strokeStyle = "#2563eb";
     ctx.lineWidth = Math.max(3, canvas.width * 0.003);
     ctx.strokeRect(rx, ry, rw, rh);
 
-    // Köşelere tutamaçlar
+    // KÃ¶ÅŸelere tutamaÃ§lar
     const handleSize = Math.max(8, canvas.width * 0.01);
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(rx - handleSize / 2, ry - handleSize / 2, handleSize, handleSize);
@@ -99,7 +99,7 @@ export default function ImageCropperTool() {
     if (ratio === "9:16") targetRatio = 9 / 16;
 
     if (imgAspect > targetRatio) {
-      // Görsel daha geniş, yüksekliği baz al
+      // GÃ¶rsel daha geniÅŸ, yÃ¼ksekliÄŸi baz al
       const newHeight = 80;
       const pixelHeight = (newHeight / 100) * img.naturalHeight;
       const pixelWidth = pixelHeight * targetRatio;
@@ -109,7 +109,7 @@ export default function ImageCropperTool() {
       setCropX(Math.round((100 - newWidth) / 2));
       setCropY(10);
     } else {
-      // Görsel daha dar, genişliği baz al
+      // GÃ¶rsel daha dar, geniÅŸliÄŸi baz al
       const newWidth = 80;
       const pixelWidth = (newWidth / 100) * img.naturalWidth;
       const pixelHeight = pixelWidth / targetRatio;
@@ -170,7 +170,7 @@ export default function ImageCropperTool() {
         <div className="space-y-6">
           <FileInfo file={file} onRemove={handleReset} />
 
-          {/* En-Boy Oranı Butonları */}
+          {/* En-Boy OranÄ± ButonlarÄ± */}
           <div className="flex flex-wrap items-center justify-center gap-2">
             <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
               Oran:
@@ -191,10 +191,10 @@ export default function ImageCropperTool() {
             ))}
           </div>
 
-          {/* Slider Ayarları */}
+          {/* Slider AyarlarÄ± */}
           <div className="grid grid-cols-2 gap-4 rounded-xl border border-gray-200 bg-gray-50 p-4 text-xs dark:border-gray-800 dark:bg-gray-900/50 sm:grid-cols-4">
             <div>
-              <label className="text-gray-500 dark:text-gray-400">Genişlik: %{cropWidth}</label>
+              <label className="text-gray-500 dark:text-gray-400">GeniÅŸlik: %{cropWidth}</label>
               <input
                 type="range"
                 min="10"
@@ -205,7 +205,7 @@ export default function ImageCropperTool() {
               />
             </div>
             <div>
-              <label className="text-gray-500 dark:text-gray-400">Yükseklik: %{cropHeight}</label>
+              <label className="text-gray-500 dark:text-gray-400">YÃ¼kseklik: %{cropHeight}</label>
               <input
                 type="range"
                 min="10"
@@ -239,7 +239,7 @@ export default function ImageCropperTool() {
             </div>
           </div>
 
-          {/* Canlı Kırpma Önizleme */}
+          {/* CanlÄ± KÄ±rpma Ã–nizleme */}
           <div className="flex max-h-[500px] items-center justify-center overflow-hidden rounded-xl border border-gray-200 bg-gray-50/50 p-4 dark:border-gray-800 dark:bg-gray-900/50">
             <canvas
               ref={canvasRef}
@@ -247,15 +247,15 @@ export default function ImageCropperTool() {
             />
           </div>
 
-          {/* Kırp ve İndir Butonu */}
+          {/* KÄ±rp ve Ä°ndir Butonu */}
           <div className="flex flex-wrap justify-center gap-3">
             <button onClick={handleDownloadCrop} className="btn-primary gap-2">
               <Crop className="h-4 w-4" />
-              Kırp ve İndir (PNG)
+              KÄ±rp ve Ä°ndir (PNG)
             </button>
             <button onClick={handleReset} className="btn-secondary gap-2">
               <RefreshCw className="h-4 w-4" />
-              Yeni Görsel
+              Yeni GÃ¶rsel
             </button>
           </div>
         </div>

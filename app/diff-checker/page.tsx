@@ -3,20 +3,20 @@ import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import DiffCheckerTool from "./DiffCheckerTool";
 
 export const metadata: Metadata = {
-  title: "Metin Karşılaştırıcı - Diff Checker Online",
+  title: "Metin KarÅŸÄ±laÅŸtÄ±rÄ±cÄ± - Diff Checker Online",
   description:
-    "İki metin arasındaki farkları, eklenen ve silinen satırları renkli olarak anında karşılaştırın. Kod, makale ve metinler için ücretsiz araç.",
+    "Ä°ki metin arasÄ±ndaki farklarÄ±, eklenen ve silinen satÄ±rlarÄ± renkli olarak anÄ±nda karÅŸÄ±laÅŸtÄ±rÄ±n. Kod, makale ve metinler iÃ§in Ã¼cretsiz araÃ§.",
   openGraph: {
-    title: "Metin Karşılaştırıcı - Diff Checker | turkconvert",
-    description: "Metinler arasındaki farkları satır satır karşılaştırın.",
+    title: "Metin KarÅŸÄ±laÅŸtÄ±rÄ±cÄ± - Diff Checker | turkconvert",
+    description: "Metinler arasÄ±ndaki farklarÄ± satÄ±r satÄ±r karÅŸÄ±laÅŸtÄ±rÄ±n.",
   },
 };
 
 export default function DiffCheckerPage() {
   return (
     <ToolPageLayout
-      title="Metin Karşılaştırıcı (Diff)"
-      description="İki metin arasındaki tüm değişiklikleri, eklemeleri ve silinmeleri satır satır kolayca inceleyin."
+      title="Metin KarÅŸÄ±laÅŸtÄ±rÄ±cÄ± (Diff)"
+      description="Ä°ki metin arasÄ±ndaki tÃ¼m deÄŸiÅŸiklikleri, eklemeleri ve silinmeleri satÄ±r satÄ±r kolayca inceleyin."
     >
       <DiffCheckerTool />
     </ToolPageLayout>

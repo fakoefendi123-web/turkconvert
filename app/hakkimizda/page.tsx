@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Hakkımızda",
-  description: "turkconvert hakkında bilgi edinin.",
+  title: "HakkÄ±mÄ±zda",
+  description: "turkconvert hakkÄ±nda bilgi edinin.",
   openGraph: {
-    title: "Hakkımızda | turkconvert",
-    description: "turkconvert hakkında bilgi edinin.",
+    title: "HakkÄ±mÄ±zda | turkconvert",
+    description: "turkconvert hakkÄ±nda bilgi edinin.",
     type: "website",
     locale: "tr_TR",
     siteName: "turkconvert",
@@ -16,14 +16,14 @@ export default function HakkimizdaPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
-        Hakkımızda
+        HakkÄ±mÄ±zda
       </h1>
 
       <div className="mt-8 space-y-6 text-gray-600 dark:text-gray-300">
         <section>
           <p className="leading-relaxed">
-            turkconvert, dosyalarınızı hızlı ve güvenli bir şekilde dönüştürmenizi
-            sağlayan ücretsiz bir online araçtır.
+            turkconvert, dosyalarÄ±nÄ±zÄ± hÄ±zlÄ± ve gÃ¼venli bir ÅŸekilde dÃ¶nÃ¼ÅŸtÃ¼rmenizi
+            saÄŸlayan Ã¼cretsiz bir online araÃ§tÄ±r.
           </p>
         </section>
 
@@ -32,29 +32,29 @@ export default function HakkimizdaPage() {
             Misyonumuz
           </h2>
           <p className="mt-2 leading-relaxed">
-            Amacımız, kullanıcılarımıza reklamsız, üyelik gerektirmeyen ve mümkün
-            olduğunca basit bir deneyim sunmaktır.
+            AmacÄ±mÄ±z, kullanÄ±cÄ±larÄ±mÄ±za reklamsÄ±z, Ã¼yelik gerektirmeyen ve mÃ¼mkÃ¼n
+            olduÄŸunca basit bir deneyim sunmaktÄ±r.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Gizlilik ve Güvenlik
+            Gizlilik ve GÃ¼venlik
           </h2>
           <p className="mt-2 leading-relaxed">
-            Dosyalarınız mümkün olan durumlarda tarayıcınızda işlenir ve
-            sunucularımıza gönderilmez. Kullanıcı gizliliği ve veri güvenliği en
-            temel önceliğimizdir.
+            DosyalarÄ±nÄ±z mÃ¼mkÃ¼n olan durumlarda tarayÄ±cÄ±nÄ±zda iÅŸlenir ve
+            sunucularÄ±mÄ±za gÃ¶nderilmez. KullanÄ±cÄ± gizliliÄŸi ve veri gÃ¼venliÄŸi en
+            temel Ã¶nceliÄŸimizdir.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Sürekli Gelişim
+            SÃ¼rekli GeliÅŸim
           </h2>
           <p className="mt-2 leading-relaxed">
-            turkconvert sürekli olarak geliştirilmektedir. Yeni araçlar ve
-            özellikler düzenli olarak eklenmektedir.
+            turkconvert sÃ¼rekli olarak geliÅŸtirilmektedir. Yeni araÃ§lar ve
+            Ã¶zellikler dÃ¼zenli olarak eklenmektedir.
           </p>
         </section>
       </div>

@@ -3,21 +3,21 @@ import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import TextCaseConverterTool from "./TextCaseConverterTool";
 
 export const metadata: Metadata = {
-  title: "Büyük Küçük Harf Dönüştürücü",
+  title: "BÃ¼yÃ¼k KÃ¼Ã§Ã¼k Harf DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼",
   description:
-    "Metinlerinizi büyük harf, küçük harf veya başlık düzenine dönüştürün.",
+    "Metinlerinizi bÃ¼yÃ¼k harf, kÃ¼Ã§Ã¼k harf veya baÅŸlÄ±k dÃ¼zenine dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
   openGraph: {
-    title: "Büyük Küçük Harf Dönüştürücü",
+    title: "BÃ¼yÃ¼k KÃ¼Ã§Ã¼k Harf DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼",
     description:
-      "Metinlerinizi büyük harf, küçük harf veya başlık düzenine dönüştürün.",
+      "Metinlerinizi bÃ¼yÃ¼k harf, kÃ¼Ã§Ã¼k harf veya baÅŸlÄ±k dÃ¼zenine dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
   },
 };
 
 export default function TextCaseConverterPage() {
   return (
     <ToolPageLayout
-      title="Büyük Küçük Harf Dönüştürücü"
-      description="Metinlerinizi büyük harf, küçük harf veya başlık düzenine dönüştürün."
+      title="BÃ¼yÃ¼k KÃ¼Ã§Ã¼k Harf DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼"
+      description="Metinlerinizi bÃ¼yÃ¼k harf, kÃ¼Ã§Ã¼k harf veya baÅŸlÄ±k dÃ¼zenine dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n."
     >
       <TextCaseConverterTool />
     </ToolPageLayout>

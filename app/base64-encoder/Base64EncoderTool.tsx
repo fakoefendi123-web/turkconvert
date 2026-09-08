@@ -12,7 +12,7 @@ export default function Base64EncoderTool() {
 
   const handleProcess = () => {
     if (!input) {
-      setError("Lütfen kodlamak için bir metin girin.");
+      setError("LÃ¼tfen kodlamak iÃ§in bir metin girin.");
       setOutput("");
       return;
     }
@@ -22,7 +22,7 @@ export default function Base64EncoderTool() {
       const result = encodeBase64(input);
       setOutput(result);
     } catch {
-      setError("Kodlama sırasında bir hata oluştu.");
+      setError("Kodlama sÄ±rasÄ±nda bir hata oluÅŸtu.");
       setOutput("");
     }
   };
@@ -43,7 +43,7 @@ export default function Base64EncoderTool() {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Base64 formatına dönüştürmek istediğiniz metni buraya yapıştırın..."
+          placeholder="Base64 formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rmek istediÄŸiniz metni buraya yapÄ±ÅŸtÄ±rÄ±n..."
           className="w-full rounded-lg border border-gray-300 bg-white p-4 font-mono text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
           rows={6}
         />
@@ -68,7 +68,7 @@ export default function Base64EncoderTool() {
       {output && (
         <div className="space-y-1">
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-            Base64 Çıktısı
+            Base64 Ã‡Ä±ktÄ±sÄ±
           </label>
           <div className="relative">
             <textarea
@@ -87,7 +87,7 @@ export default function Base64EncoderTool() {
                 <>
                   <Check className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
                   <span className="text-green-600 dark:text-green-400">
-                    Kopyalandı!
+                    KopyalandÄ±!
                   </span>
                 </>
               ) : (

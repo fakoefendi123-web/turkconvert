@@ -3,20 +3,20 @@ import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import ColorPickerTool from "./ColorPickerTool";
 
 export const metadata: Metadata = {
-  title: "Görsel Renk Seçici ve Palet Çıkarıcı - Ücretsiz Online",
+  title: "GÃ¶rsel Renk SeÃ§ici ve Palet Ã‡Ä±karÄ±cÄ± - Ãœcretsiz Online",
   description:
-    "Görsellerinizden damlalık aracıyla piksel renklerini HEX, RGB ve HSL olarak alın, otomatik renk paletini çıkarın. Ücretsiz ve reklamsız.",
+    "GÃ¶rsellerinizden damlalÄ±k aracÄ±yla piksel renklerini HEX, RGB ve HSL olarak alÄ±n, otomatik renk paletini Ã§Ä±karÄ±n. Ãœcretsiz ve reklamsÄ±z.",
   openGraph: {
-    title: "Görsel Renk Seçici ve Palet Çıkarıcı | turkconvert",
-    description: "Görsellerinizden renk kodlarını anında kopyalayın.",
+    title: "GÃ¶rsel Renk SeÃ§ici ve Palet Ã‡Ä±karÄ±cÄ± | turkconvert",
+    description: "GÃ¶rsellerinizden renk kodlarÄ±nÄ± anÄ±nda kopyalayÄ±n.",
   },
 };
 
 export default function ColorPickerPage() {
   return (
     <ToolPageLayout
-      title="Renk Seçici & Palet"
-      description="Görselinizden dilediğiniz rengi seçin, HEX/RGB kodlarını kopyalayın ve otomatik renk paletini keşfedin."
+      title="Renk SeÃ§ici & Palet"
+      description="GÃ¶rselinizden dilediÄŸiniz rengi seÃ§in, HEX/RGB kodlarÄ±nÄ± kopyalayÄ±n ve otomatik renk paletini keÅŸfedin."
     >
       <ColorPickerTool />
     </ToolPageLayout>

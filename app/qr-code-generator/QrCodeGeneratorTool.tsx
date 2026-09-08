@@ -23,7 +23,7 @@ export function QrCodeGeneratorTool() {
   const handleGenerate = useCallback(async () => {
     const trimmed = text.trim();
     if (!trimmed) {
-      setError("Lütfen QR kod oluşturmak için bir metin veya URL adresi girin.");
+      setError("LÃ¼tfen QR kod oluÅŸturmak iÃ§in bir metin veya URL adresi girin.");
       return;
     }
 
@@ -37,7 +37,7 @@ export function QrCodeGeneratorTool() {
       }
     } catch {
       setError(
-        "QR kod oluşturulurken bir hata oluştu. Lütfen girdiğiniz metni kontrol edip tekrar deneyin."
+        "QR kod oluÅŸturulurken bir hata oluÅŸtu. LÃ¼tfen girdiÄŸiniz metni kontrol edip tekrar deneyin."
       );
       setIsGenerated(false);
     }
@@ -55,7 +55,7 @@ export function QrCodeGeneratorTool() {
       link.click();
       document.body.removeChild(link);
     } catch {
-      setError("QR kod indirilirken bir sorun oluştu. Lütfen tekrar deneyin.");
+      setError("QR kod indirilirken bir sorun oluÅŸtu. LÃ¼tfen tekrar deneyin.");
     }
   }, [generatedText]);
 
@@ -68,7 +68,7 @@ export function QrCodeGeneratorTool() {
 
   return (
     <div className="space-y-6">
-      {/* Giriş Alanı */}
+      {/* GiriÅŸ AlanÄ± */}
       <div>
         <label
           htmlFor="qr-text-input"
@@ -86,7 +86,7 @@ export function QrCodeGeneratorTool() {
               if (error) setError("");
             }}
             onKeyDown={handleKeyDown}
-            placeholder="Örn: https://example.com veya herhangi bir metin"
+            placeholder="Ã–rn: https://example.com veya herhangi bir metin"
             className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
           />
           <button
@@ -95,12 +95,12 @@ export function QrCodeGeneratorTool() {
             className="btn-primary whitespace-nowrap gap-2"
           >
             <QrCodeIcon className="h-4 w-4" />
-            <span>QR Kod Oluştur</span>
+            <span>QR Kod OluÅŸtur</span>
           </button>
         </div>
       </div>
 
-      {/* Hata Mesajı */}
+      {/* Hata MesajÄ± */}
       {error && (
         <div className="flex items-center gap-2 rounded-lg bg-red-50 p-3 text-sm text-red-700 dark:bg-red-950/30 dark:text-red-400">
           <AlertCircle className="h-4 w-4 flex-shrink-0" />
@@ -108,7 +108,7 @@ export function QrCodeGeneratorTool() {
         </div>
       )}
 
-      {/* QR Kod Çıktısı (Canvas) */}
+      {/* QR Kod Ã‡Ä±ktÄ±sÄ± (Canvas) */}
       <div
         className={`flex flex-col items-center justify-center rounded-xl border border-dashed border-gray-200 bg-gray-50/50 p-6 dark:border-gray-800 dark:bg-gray-800/30 ${
           isGenerated ? "block" : "hidden"
@@ -129,7 +129,7 @@ export function QrCodeGeneratorTool() {
               className="btn-primary gap-2"
             >
               <Download className="h-4 w-4" />
-              <span>PNG Olarak İndir</span>
+              <span>PNG Olarak Ä°ndir</span>
             </button>
           </div>
         )}

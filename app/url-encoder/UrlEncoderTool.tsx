@@ -12,7 +12,7 @@ export default function UrlEncoderTool() {
 
   const handleProcess = () => {
     if (!input) {
-      setError("Lütfen kodlamak için bir metin veya URL girin.");
+      setError("LÃ¼tfen kodlamak iÃ§in bir metin veya URL girin.");
       setOutput("");
       return;
     }
@@ -22,7 +22,7 @@ export default function UrlEncoderTool() {
       const result = encodeURL(input);
       setOutput(result);
     } catch {
-      setError("Kodlama sırasında bir hata oluştu.");
+      setError("Kodlama sÄ±rasÄ±nda bir hata oluÅŸtu.");
       setOutput("");
     }
   };
@@ -43,7 +43,7 @@ export default function UrlEncoderTool() {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="URL kodlamak istediğiniz metni veya parametreleri buraya yapıştırın..."
+          placeholder="URL kodlamak istediÄŸiniz metni veya parametreleri buraya yapÄ±ÅŸtÄ±rÄ±n..."
           className="w-full rounded-lg border border-gray-300 bg-white p-4 font-mono text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
           rows={6}
         />
@@ -68,7 +68,7 @@ export default function UrlEncoderTool() {
       {output && (
         <div className="space-y-1">
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-            URL Kodlu Çıktı
+            URL Kodlu Ã‡Ä±ktÄ±
           </label>
           <div className="relative">
             <textarea
@@ -87,7 +87,7 @@ export default function UrlEncoderTool() {
                 <>
                   <Check className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
                   <span className="text-green-600 dark:text-green-400">
-                    Kopyalandı!
+                    KopyalandÄ±!
                   </span>
                 </>
               ) : (

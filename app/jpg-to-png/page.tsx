@@ -3,21 +3,21 @@ import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import { ImageFormatConverter } from "@/components/ui/ImageFormatConverter";
 
 export const metadata: Metadata = {
-  title: "JPG PNG Dönüştürücü - Ücretsiz Online",
+  title: "JPG PNG DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online",
   description:
-    "JPG dosyalarınızı ücretsiz ve kolayca PNG formatına dönüştürün. Üyelik ve reklam gerekmez.",
+    "JPG dosyalarÄ±nÄ±zÄ± Ã¼cretsiz ve kolayca PNG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n. Ãœyelik ve reklam gerekmez.",
   openGraph: {
-    title: "JPG PNG Dönüştürücü - Ücretsiz Online",
+    title: "JPG PNG DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online",
     description:
-      "JPG dosyalarınızı ücretsiz ve kolayca PNG formatına dönüştürün. Üyelik ve reklam gerekmez.",
+      "JPG dosyalarÄ±nÄ±zÄ± Ã¼cretsiz ve kolayca PNG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n. Ãœyelik ve reklam gerekmez.",
   },
 };
 
 export default function JpgToPngPage() {
   return (
     <ToolPageLayout
-      title="JPG → PNG"
-      description="JPG görsellerinizi ücretsiz olarak PNG formatına dönüştürün."
+      title="JPG â†’ PNG"
+      description="JPG gÃ¶rsellerinizi Ã¼cretsiz olarak PNG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n."
     >
       <ImageFormatConverter
         acceptTypes="image/jpeg,image/jpg,.jpg,.jpeg"

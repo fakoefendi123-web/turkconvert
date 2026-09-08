@@ -4,13 +4,13 @@ import { CheckCircle2, Download, RefreshCw } from "lucide-react";
 import { formatFileSize, calculateSavingsPercent } from "@/lib/utils";
 
 interface ConversionResultProps {
-  /** İndirilecek dosya adı */
+  /** Ä°ndirilecek dosya adÄ± */
   fileName: string;
-  /** Dönüştürülen dosyanın Blob'u */
+  /** DÃ¶nÃ¼ÅŸtÃ¼rÃ¼len dosyanÄ±n Blob'u */
   blob: Blob;
-  /** Orijinal dosya boyutu (sıkıştırıcı için) */
+  /** Orijinal dosya boyutu (sÄ±kÄ±ÅŸtÄ±rÄ±cÄ± iÃ§in) */
   originalSize?: number;
-  /** Yeni dönüşüm başlatma callback'i */
+  /** Yeni dÃ¶nÃ¼ÅŸÃ¼m baÅŸlatma callback'i */
   onReset: () => void;
 }
 
@@ -38,14 +38,14 @@ export function ConversionResult({
 
   return (
     <div className="flex flex-col items-center gap-5 py-6">
-      {/* Başarı ikonu */}
+      {/* BaÅŸarÄ± ikonu */}
       <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
         <CheckCircle2 className="h-7 w-7 text-green-600 dark:text-green-400" />
       </div>
 
       <div className="text-center">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          Dönüştürme tamamlandı!
+          DÃ¶nÃ¼ÅŸtÃ¼rme tamamlandÄ±!
         </h3>
         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
           {fileName}
@@ -83,11 +83,11 @@ export function ConversionResult({
       <div className="flex flex-wrap justify-center gap-3">
         <button onClick={handleDownload} className="btn-primary gap-2">
           <Download className="h-4 w-4" />
-          İndir
+          Ä°ndir
         </button>
         <button onClick={onReset} className="btn-secondary gap-2">
           <RefreshCw className="h-4 w-4" />
-          Yeni Dosya Dönüştür
+          Yeni Dosya DÃ¶nÃ¼ÅŸtÃ¼r
         </button>
       </div>
     </div>

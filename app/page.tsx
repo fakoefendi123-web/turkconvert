@@ -7,58 +7,58 @@ import { RecentToolsBar } from "@/components/ui/RecentToolsBar";
 import { Zap, ShieldCheck, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Ücretsiz Online Dosya Dönüştürme Araçları",
+  title: "Ãœcretsiz Online Dosya DÃ¶nÃ¼ÅŸtÃ¼rme AraÃ§larÄ±",
   description:
-    "Görsellerinizi, PDF dosyalarınızı ve metinlerinizi tarayıcınızda ücretsiz, hızlı ve güvenle dönüştürün. Reklamsız, üyelik ve kurulum gerektirmez.",
+    "GÃ¶rsellerinizi, PDF dosyalarÄ±nÄ±zÄ± ve metinlerinizi tarayÄ±cÄ±nÄ±zda Ã¼cretsiz, hÄ±zlÄ± ve gÃ¼venle dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n. ReklamsÄ±z, Ã¼yelik ve kurulum gerektirmez.",
   openGraph: {
-    title: "turkconvert — Ücretsiz Online Dosya Dönüştürme Araçları",
+    title: "turkconvert â€” Ãœcretsiz Online Dosya DÃ¶nÃ¼ÅŸtÃ¼rme AraÃ§larÄ±",
     description:
-      "Ücretsiz, hızlı ve reklamsız dosya dönüştürme araçları. Tarayıcınızda güvenli dönüştürme.",
+      "Ãœcretsiz, hÄ±zlÄ± ve reklamsÄ±z dosya dÃ¶nÃ¼ÅŸtÃ¼rme araÃ§larÄ±. TarayÄ±cÄ±nÄ±zda gÃ¼venli dÃ¶nÃ¼ÅŸtÃ¼rme.",
   },
 };
 
 export default function HomePage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-      {/* Hero Bölümü */}
+      {/* Hero BÃ¶lÃ¼mÃ¼ */}
       <section className="text-center">
         <div className="inline-flex items-center gap-2 rounded-full bg-primary-50 px-4 py-1.5 text-xs font-semibold text-primary-700 dark:bg-primary-950/50 dark:text-primary-300">
           <Sparkles className="h-3.5 w-3.5" />
-          <span>Hızlı, Güvenli ve Tamamen Ücretsiz</span>
+          <span>HÄ±zlÄ±, GÃ¼venli ve Tamamen Ãœcretsiz</span>
         </div>
         <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
-          Dosyalarınızı kolayca dönüştürün
+          DosyalarÄ±nÄ±zÄ± kolayca dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg">
-          Ücretsiz, hızlı ve reklamsız dosya dönüştürme araçları.
+          Ãœcretsiz, hÄ±zlÄ± ve reklamsÄ±z dosya dÃ¶nÃ¼ÅŸtÃ¼rme araÃ§larÄ±.
         </p>
 
-        {/* Hızlı Arama Kutusu */}
+        {/* HÄ±zlÄ± Arama Kutusu */}
         <HeroSearchTrigger />
 
-        {/* Son Kullanılanlar */}
+        {/* Son KullanÄ±lanlar */}
         <RecentToolsBar />
 
-        {/* Özellik Rozetleri */}
+        {/* Ã–zellik Rozetleri */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
           <div className="flex items-center gap-1.5">
             <Zap className="h-4 w-4 text-primary-500" />
-            <span>Anında İşlem</span>
+            <span>AnÄ±nda Ä°ÅŸlem</span>
           </div>
           <div className="flex items-center gap-1.5">
             <ShieldCheck className="h-4 w-4 text-primary-500" />
-            <span>Tarayıcıda Güvenli Dönüştürme</span>
+            <span>TarayÄ±cÄ±da GÃ¼venli DÃ¶nÃ¼ÅŸtÃ¼rme</span>
           </div>
           <div className="flex items-center gap-1.5">
             <Sparkles className="h-4 w-4 text-primary-500" />
-            <span>Üyelik Gerekmez</span>
+            <span>Ãœyelik Gerekmez</span>
           </div>
         </div>
       </section>
 
-      {/* Kategori Kartları Grid */}
+      {/* Kategori KartlarÄ± Grid */}
       <section id="araclar" className="mt-12 scroll-mt-20">
-        <h2 className="sr-only">Araç Kategorileri</h2>
+        <h2 className="sr-only">AraÃ§ Kategorileri</h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {categories.map((category) => (
             <CategoryCard
@@ -72,7 +72,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Kategori Bazlı Araç Listeleri */}
+      {/* Kategori BazlÄ± AraÃ§ Listeleri */}
       <div className="mt-16 space-y-16">
         {categories.map((category) => {
           const categoryTools = getToolsByCategory(category.id);
@@ -127,7 +127,7 @@ export default function HomePage() {
                 url: "https://turkconvert.online",
                 name: "turkconvert",
                 description:
-                  "Ücretsiz, hızlı ve reklamsız dosya dönüştürme araçları. Görsel, PDF, metin ve yazılımcı araçları.",
+                  "Ãœcretsiz, hÄ±zlÄ± ve reklamsÄ±z dosya dÃ¶nÃ¼ÅŸtÃ¼rme araÃ§larÄ±. GÃ¶rsel, PDF, metin ve yazÄ±lÄ±mcÄ± araÃ§larÄ±.",
                 inLanguage: "tr-TR",
               },
               {

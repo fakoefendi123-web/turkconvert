@@ -33,9 +33,9 @@ export default function WordCounterTool() {
   const statItems = [
     { label: "Kelime", value: stats.words },
     { label: "Karakter", value: stats.characters },
-    { label: "Boşluksuz Karakter", value: stats.charactersNoSpaces },
-    { label: "Satır", value: stats.lines },
-    { label: "Cümle", value: stats.sentences },
+    { label: "BoÅŸluksuz Karakter", value: stats.charactersNoSpaces },
+    { label: "SatÄ±r", value: stats.lines },
+    { label: "CÃ¼mle", value: stats.sentences },
     { label: "Paragraf", value: stats.paragraphs },
   ];
 
@@ -45,7 +45,7 @@ export default function WordCounterTool() {
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Metninizi buraya yazın veya yapıştırın..."
+          placeholder="Metninizi buraya yazÄ±n veya yapÄ±ÅŸtÄ±rÄ±n..."
           className="w-full rounded-lg border border-gray-300 bg-white p-4 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
           rows={8}
         />
@@ -62,7 +62,7 @@ export default function WordCounterTool() {
         </div>
       </div>
 
-      {/* Tahmini Süreler */}
+      {/* Tahmini SÃ¼reler */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800/80">
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/40 dark:text-blue-400">
@@ -70,7 +70,7 @@ export default function WordCounterTool() {
           </div>
           <div>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              Tahmini Okuma Süresi (200 kelime/dk)
+              Tahmini Okuma SÃ¼resi (200 kelime/dk)
             </p>
             <p className="text-lg font-bold text-gray-900 dark:text-white">
               {readingTime}
@@ -84,7 +84,7 @@ export default function WordCounterTool() {
           </div>
           <div>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              Tahmini Konuşma Süresi (130 kelime/dk)
+              Tahmini KonuÅŸma SÃ¼resi (130 kelime/dk)
             </p>
             <p className="text-lg font-bold text-gray-900 dark:text-white">
               {speakingTime}
@@ -93,7 +93,7 @@ export default function WordCounterTool() {
         </div>
       </div>
 
-      {/* İstatistik Kartları */}
+      {/* Ä°statistik KartlarÄ± */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
         {statItems.map((item) => (
           <div

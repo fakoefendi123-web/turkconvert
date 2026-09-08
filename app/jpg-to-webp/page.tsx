@@ -3,21 +3,21 @@ import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import { ImageFormatConverter } from "@/components/ui/ImageFormatConverter";
 
 export const metadata: Metadata = {
-  title: "JPG WEBP Dönüştürücü - Ücretsiz Online",
+  title: "JPG WEBP DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online",
   description:
-    "JPG dosyalarınızı ücretsiz ve kolayca WEBP formatına dönüştürün. Üyelik ve reklam gerekmez.",
+    "JPG dosyalarÄ±nÄ±zÄ± Ã¼cretsiz ve kolayca WEBP formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n. Ãœyelik ve reklam gerekmez.",
   openGraph: {
-    title: "JPG WEBP Dönüştürücü - Ücretsiz Online",
+    title: "JPG WEBP DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online",
     description:
-      "JPG dosyalarınızı ücretsiz ve kolayca WEBP formatına dönüştürün. Üyelik ve reklam gerekmez.",
+      "JPG dosyalarÄ±nÄ±zÄ± Ã¼cretsiz ve kolayca WEBP formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n. Ãœyelik ve reklam gerekmez.",
   },
 };
 
 export default function JpgToWebpPage() {
   return (
     <ToolPageLayout
-      title="JPG → WEBP"
-      description="JPG görsellerinizi ücretsiz olarak WEBP formatına dönüştürün."
+      title="JPG â†’ WEBP"
+      description="JPG gÃ¶rsellerinizi Ã¼cretsiz olarak WEBP formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n."
     >
       <ImageFormatConverter
         acceptTypes="image/jpeg,image/jpg,.jpg,.jpeg"

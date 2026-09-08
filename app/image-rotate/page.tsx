@@ -3,21 +3,21 @@ import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import ImageRotateTool from "./ImageRotateTool";
 
 export const metadata: Metadata = {
-  title: "Görsel Döndürme ve Çevirme - Ücretsiz Online",
+  title: "GÃ¶rsel DÃ¶ndÃ¼rme ve Ã‡evirme - Ãœcretsiz Online",
   description:
-    "Görsellerinizi 90°, 180° veya 270° döndürün, yatay ve dikey olarak aynalayın. Tarayıcınızda ücretsiz, hızlı ve güvenli.",
+    "GÃ¶rsellerinizi 90Â°, 180Â° veya 270Â° dÃ¶ndÃ¼rÃ¼n, yatay ve dikey olarak aynalayÄ±n. TarayÄ±cÄ±nÄ±zda Ã¼cretsiz, hÄ±zlÄ± ve gÃ¼venli.",
   openGraph: {
-    title: "Görsel Döndürme ve Çevirme - Ücretsiz Online | turkconvert",
+    title: "GÃ¶rsel DÃ¶ndÃ¼rme ve Ã‡evirme - Ãœcretsiz Online | turkconvert",
     description:
-      "Görsellerinizi ücretsiz olarak döndürün ve aynalayın. Üyelik gerekmez.",
+      "GÃ¶rsellerinizi Ã¼cretsiz olarak dÃ¶ndÃ¼rÃ¼n ve aynalayÄ±n. Ãœyelik gerekmez.",
   },
 };
 
 export default function ImageRotatePage() {
   return (
     <ToolPageLayout
-      title="Görsel Döndürme & Çevirme"
-      description="Görsellerinizi istediğiniz açıda döndürün veya yatay/dikey olarak aynalayın."
+      title="GÃ¶rsel DÃ¶ndÃ¼rme & Ã‡evirme"
+      description="GÃ¶rsellerinizi istediÄŸiniz aÃ§Ä±da dÃ¶ndÃ¼rÃ¼n veya yatay/dikey olarak aynalayÄ±n."
     >
       <ImageRotateTool />
     </ToolPageLayout>

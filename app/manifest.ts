@@ -2,10 +2,10 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "turkconvert — Ücretsiz Online Dosya Dönüştürme",
+    name: "turkconvert â€” Ãœcretsiz Online Dosya DÃ¶nÃ¼ÅŸtÃ¼rme",
     short_name: "turkconvert",
     description:
-      "Ücretsiz, hızlı ve reklamsız dosya dönüştürme araçları. Üyelik gerekmez.",
+      "Ãœcretsiz, hÄ±zlÄ± ve reklamsÄ±z dosya dÃ¶nÃ¼ÅŸtÃ¼rme araÃ§larÄ±. Ãœyelik gerekmez.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

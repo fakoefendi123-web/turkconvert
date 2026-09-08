@@ -60,7 +60,7 @@ export function ToolPageLayout({
         </span>
       </nav>
 
-      {/* Başlık */}
+      {/* BaÅŸlÄ±k */}
       <div className="mb-8 text-center">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-3xl">
           {title}
@@ -70,13 +70,13 @@ export function ToolPageLayout({
         </p>
       </div>
 
-      {/* Araç içeriği */}
+      {/* AraÃ§ iÃ§eriÄŸi */}
       <div className="card p-6 sm:p-8">{children}</div>
 
-      {/* Nasıl Kullanılır? (SEO & UX) */}
+      {/* NasÄ±l KullanÄ±lÄ±r? (SEO & UX) */}
       <section className="mt-14 border-t border-gray-200 pt-10 dark:border-gray-800">
         <h2 className="mb-6 text-center text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
-          {title} Nasıl Kullanılır?
+          {title} NasÄ±l KullanÄ±lÄ±r?
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div className="rounded-xl border border-gray-100 bg-gray-50/60 p-4 text-center dark:border-gray-800 dark:bg-gray-900/40">
@@ -84,10 +84,10 @@ export function ToolPageLayout({
               1
             </div>
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
-              Dosyanızı Yükleyin
+              DosyanÄ±zÄ± YÃ¼kleyin
             </h3>
             <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-              Dosyanızı sürükleyin, seçin veya Ctrl+V ile panodan yapıştırın.
+              DosyanÄ±zÄ± sÃ¼rÃ¼kleyin, seÃ§in veya Ctrl+V ile panodan yapÄ±ÅŸtÄ±rÄ±n.
             </p>
           </div>
 
@@ -96,10 +96,10 @@ export function ToolPageLayout({
               2
             </div>
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
-              Dönüştürün
+              DÃ¶nÃ¼ÅŸtÃ¼rÃ¼n
             </h3>
             <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-              İşlem saniyeler içinde doğrudan tarayıcınızda güvenle gerçekleşir.
+              Ä°ÅŸlem saniyeler iÃ§inde doÄŸrudan tarayÄ±cÄ±nÄ±zda gÃ¼venle gerÃ§ekleÅŸir.
             </p>
           </div>
 
@@ -108,69 +108,69 @@ export function ToolPageLayout({
               3
             </div>
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
-              İndirin
+              Ä°ndirin
             </h3>
             <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-              Dönüştürülen dosyanızı anında veya toplu ZIP olarak cihazınıza kaydedin.
+              DÃ¶nÃ¼ÅŸtÃ¼rÃ¼len dosyanÄ±zÄ± anÄ±nda veya toplu ZIP olarak cihazÄ±nÄ±za kaydedin.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Sıkça Sorulan Sorular (FAQ) & Schema */}
+      {/* SÄ±kÃ§a Sorulan Sorular (FAQ) & Schema */}
       <section className="mt-12 border-t border-gray-200 pt-10 dark:border-gray-800">
         <h2 className="mb-6 text-center text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
-          Sıkça Sorulan Sorular
+          SÄ±kÃ§a Sorulan Sorular
         </h2>
         <div className="space-y-3">
           <details className="group rounded-xl border border-gray-200 bg-white p-4 open:shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <summary className="cursor-pointer font-medium text-sm text-gray-900 dark:text-gray-100">
-              {title} işlemi sırasında dosyalarım güvende mi?
+              {title} iÅŸlemi sÄ±rasÄ±nda dosyalarÄ±m gÃ¼vende mi?
             </summary>
             <p className="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400 sm:text-sm">
-              Evet, kesinlikle güvende. turkconvert dosya dönüştürme ve işleme
-              adımlarını doğrudan sizin cihazınızda (tarayıcınızda)
-              gerçekleştirir. Dosyalarınız hiçbir uzak sunucuya aktarılmaz veya
+              Evet, kesinlikle gÃ¼vende. turkconvert dosya dÃ¶nÃ¼ÅŸtÃ¼rme ve iÅŸleme
+              adÄ±mlarÄ±nÄ± doÄŸrudan sizin cihazÄ±nÄ±zda (tarayÄ±cÄ±nÄ±zda)
+              gerÃ§ekleÅŸtirir. DosyalarÄ±nÄ±z hiÃ§bir uzak sunucuya aktarÄ±lmaz veya
               kaydedilmez.
             </p>
           </details>
 
           <details className="group rounded-xl border border-gray-200 bg-white p-4 open:shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <summary className="cursor-pointer font-medium text-sm text-gray-900 dark:text-gray-100">
-              turkconvert kullanımı ücretsiz mi ve üyelik gerekli mi?
+              turkconvert kullanÄ±mÄ± Ã¼cretsiz mi ve Ã¼yelik gerekli mi?
             </summary>
             <p className="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400 sm:text-sm">
-              turkconvert tamamen ücretsizdir. Herhangi bir üyelik, kayıt veya
-              kart bilgisi gerektirmez ve reklamsız olarak hizmet verir.
+              turkconvert tamamen Ã¼cretsizdir. Herhangi bir Ã¼yelik, kayÄ±t veya
+              kart bilgisi gerektirmez ve reklamsÄ±z olarak hizmet verir.
             </p>
           </details>
 
           <details className="group rounded-xl border border-gray-200 bg-white p-4 open:shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <summary className="cursor-pointer font-medium text-sm text-gray-900 dark:text-gray-100">
-              Dönüştürme sırasında kalite kaybı yaşanır mı?
+              DÃ¶nÃ¼ÅŸtÃ¼rme sÄ±rasÄ±nda kalite kaybÄ± yaÅŸanÄ±r mÄ±?
             </summary>
             <p className="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400 sm:text-sm">
-              Gelişmiş algoritmalarımız sayesinde dönüştürme ve sıkıştırma
-              işlemleri görsel ve metin kalitesini maksimum düzeyde koruyacak
-              şekilde optimize edilir.
+              GeliÅŸmiÅŸ algoritmalarÄ±mÄ±z sayesinde dÃ¶nÃ¼ÅŸtÃ¼rme ve sÄ±kÄ±ÅŸtÄ±rma
+              iÅŸlemleri gÃ¶rsel ve metin kalitesini maksimum dÃ¼zeyde koruyacak
+              ÅŸekilde optimize edilir.
             </p>
           </details>
         </div>
       </section>
 
-      {/* İlgili Araçlar */}
+      {/* Ä°lgili AraÃ§lar */}
       {relatedTools.length > 0 && (
         <section className="mt-12 border-t border-gray-200 pt-10 dark:border-gray-800">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
-              İlgili Araçlar
+              Ä°lgili AraÃ§lar
             </h2>
             {currentCategory && (
               <Link
                 href={`/#${currentCategory.anchor}`}
                 className="text-xs font-semibold text-primary-600 hover:underline dark:text-primary-400 sm:text-sm"
               >
-                Tümünü Gör →
+                TÃ¼mÃ¼nÃ¼ GÃ¶r â†’
               </Link>
             )}
           </div>
@@ -188,7 +188,7 @@ export function ToolPageLayout({
         </section>
       )}
 
-      {/* Google Yapılandırılmış Veri (JSON-LD Schemas) */}
+      {/* Google YapÄ±landÄ±rÄ±lmÄ±ÅŸ Veri (JSON-LD Schemas) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -241,26 +241,26 @@ export function ToolPageLayout({
               mainEntity: [
                 {
                   "@type": "Question",
-                  name: `${title} işlemi sırasında dosyalarım güvende mi?`,
+                  name: `${title} iÅŸlemi sÄ±rasÄ±nda dosyalarÄ±m gÃ¼vende mi?`,
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Evet, kesinlikle güvende. turkconvert dosya dönüştürme ve işleme adımlarını doğrudan sizin cihazınızda (tarayıcınızda) gerçekleştirir. Dosyalarınız hiçbir uzak sunucuya aktarılmaz veya kaydedilmez.",
+                    text: "Evet, kesinlikle gÃ¼vende. turkconvert dosya dÃ¶nÃ¼ÅŸtÃ¼rme ve iÅŸleme adÄ±mlarÄ±nÄ± doÄŸrudan sizin cihazÄ±nÄ±zda (tarayÄ±cÄ±nÄ±zda) gerÃ§ekleÅŸtirir. DosyalarÄ±nÄ±z hiÃ§bir uzak sunucuya aktarÄ±lmaz veya kaydedilmez.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "turkconvert kullanımı ücretsiz mi ve üyelik gerekli mi?",
+                  name: "turkconvert kullanÄ±mÄ± Ã¼cretsiz mi ve Ã¼yelik gerekli mi?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "turkconvert tamamen ücretsizdir. Herhangi bir üyelik, kayıt veya kart bilgisi gerektirmez ve reklamsız olarak hizmet verir.",
+                    text: "turkconvert tamamen Ã¼cretsizdir. Herhangi bir Ã¼yelik, kayÄ±t veya kart bilgisi gerektirmez ve reklamsÄ±z olarak hizmet verir.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "Dönüştürme sırasında kalite kaybı yaşanır mı?",
+                  name: "DÃ¶nÃ¼ÅŸtÃ¼rme sÄ±rasÄ±nda kalite kaybÄ± yaÅŸanÄ±r mÄ±?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Gelişmiş algoritmalarımız sayesinde dönüştürme ve sıkıştırma işlemleri görsel ve metin kalitesini maksimum düzeyde koruyacak şekilde optimize edilir.",
+                    text: "GeliÅŸmiÅŸ algoritmalarÄ±mÄ±z sayesinde dÃ¶nÃ¼ÅŸtÃ¼rme ve sÄ±kÄ±ÅŸtÄ±rma iÅŸlemleri gÃ¶rsel ve metin kalitesini maksimum dÃ¼zeyde koruyacak ÅŸekilde optimize edilir.",
                   },
                 },
               ],

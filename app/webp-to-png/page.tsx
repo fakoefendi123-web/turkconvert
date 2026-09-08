@@ -3,21 +3,21 @@ import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import { ImageFormatConverter } from "@/components/ui/ImageFormatConverter";
 
 export const metadata: Metadata = {
-  title: "WEBP PNG Dönüştürücü - Ücretsiz Online",
+  title: "WEBP PNG DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online",
   description:
-    "WEBP dosyalarınızı ücretsiz ve kolayca PNG formatına dönüştürün. Üyelik ve reklam gerekmez.",
+    "WEBP dosyalarÄ±nÄ±zÄ± Ã¼cretsiz ve kolayca PNG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n. Ãœyelik ve reklam gerekmez.",
   openGraph: {
-    title: "WEBP PNG Dönüştürücü - Ücretsiz Online",
+    title: "WEBP PNG DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online",
     description:
-      "WEBP dosyalarınızı ücretsiz ve kolayca PNG formatına dönüştürün. Üyelik ve reklam gerekmez.",
+      "WEBP dosyalarÄ±nÄ±zÄ± Ã¼cretsiz ve kolayca PNG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n. Ãœyelik ve reklam gerekmez.",
   },
 };
 
 export default function WebpToPngPage() {
   return (
     <ToolPageLayout
-      title="WEBP → PNG"
-      description="WEBP görsellerinizi ücretsiz olarak PNG formatına dönüştürün."
+      title="WEBP â†’ PNG"
+      description="WEBP gÃ¶rsellerinizi Ã¼cretsiz olarak PNG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n."
     >
       <ImageFormatConverter
         acceptTypes="image/webp,.webp"

@@ -1,10 +1,10 @@
 /**
- * Client-side görsel dönüştürme işlemleri.
- * Canvas API kullanarak ek bağımlılık gerektirmez.
+ * Client-side gÃ¶rsel dÃ¶nÃ¼ÅŸtÃ¼rme iÅŸlemleri.
+ * Canvas API kullanarak ek baÄŸÄ±mlÄ±lÄ±k gerektirmez.
  */
 
 /**
- * Görseli hedef formata dönüştürür.
+ * GÃ¶rseli hedef formata dÃ¶nÃ¼ÅŸtÃ¼rÃ¼r.
  */
 export async function convertImage(
   file: File,
@@ -19,7 +19,7 @@ export async function convertImage(
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Canvas desteklenmiyor.");
 
-  // JPEG formatında şeffaf arka plan beyaz olmalı
+  // JPEG formatÄ±nda ÅŸeffaf arka plan beyaz olmalÄ±
   if (targetFormat === "image/jpeg") {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -31,7 +31,7 @@ export async function convertImage(
     canvas.toBlob(
       (blob) => {
         if (blob) resolve(blob);
-        else reject(new Error("Dönüştürme başarısız."));
+        else reject(new Error("DÃ¶nÃ¼ÅŸtÃ¼rme baÅŸarÄ±sÄ±z."));
       },
       targetFormat,
       quality ?? (targetFormat === "image/jpeg" ? 0.92 : undefined)
@@ -40,7 +40,7 @@ export async function convertImage(
 }
 
 /**
- * Görseli yeniden boyutlandırır.
+ * GÃ¶rseli yeniden boyutlandÄ±rÄ±r.
  */
 export async function resizeImage(
   file: File,
@@ -60,7 +60,7 @@ export async function resizeImage(
     } else if (height && !width) {
       targetWidth = Math.round(height * aspectRatio);
     } else {
-      // Her ikisi de verilmişse genişliğe göre oran koru
+      // Her ikisi de verilmiÅŸse geniÅŸliÄŸe gÃ¶re oran koru
       targetHeight = Math.round(width / aspectRatio);
     }
   }
@@ -76,14 +76,14 @@ export async function resizeImage(
   ctx.imageSmoothingQuality = "high";
   ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
 
-  // Orijinal formatı koru
+  // Orijinal formatÄ± koru
   const format = getImageFormat(file.type);
 
   return new Promise((resolve, reject) => {
     canvas.toBlob(
       (blob) => {
         if (blob) resolve(blob);
-        else reject(new Error("Boyutlandırma başarısız."));
+        else reject(new Error("BoyutlandÄ±rma baÅŸarÄ±sÄ±z."));
       },
       format,
       format === "image/jpeg" ? 0.92 : undefined
@@ -92,8 +92,8 @@ export async function resizeImage(
 }
 
 /**
- * Görseli sıkıştırır.
- * @param quality 0-1 arası kalite değeri
+ * GÃ¶rseli sÄ±kÄ±ÅŸtÄ±rÄ±r.
+ * @param quality 0-1 arasÄ± kalite deÄŸeri
  */
 export async function compressImage(
   file: File,
@@ -107,7 +107,7 @@ export async function compressImage(
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Canvas desteklenmiyor.");
 
-  // Sıkıştırma için JPEG/WEBP kullan (PNG sıkıştırma desteklemez)
+  // SÄ±kÄ±ÅŸtÄ±rma iÃ§in JPEG/WEBP kullan (PNG sÄ±kÄ±ÅŸtÄ±rma desteklemez)
   const format =
     file.type === "image/webp" ? "image/webp" : "image/jpeg";
 
@@ -122,7 +122,7 @@ export async function compressImage(
     canvas.toBlob(
       (blob) => {
         if (blob) resolve(blob);
-        else reject(new Error("Sıkıştırma başarısız."));
+        else reject(new Error("SÄ±kÄ±ÅŸtÄ±rma baÅŸarÄ±sÄ±z."));
       },
       format,
       quality
@@ -131,7 +131,7 @@ export async function compressImage(
 }
 
 /**
- * Dosyadan Image elementi yükler.
+ * Dosyadan Image elementi yÃ¼kler.
  */
 function loadImage(file: File): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -145,7 +145,7 @@ function loadImage(file: File): Promise<HTMLImageElement> {
 
     img.onerror = () => {
       URL.revokeObjectURL(url);
-      reject(new Error("Görsel yüklenemedi."));
+      reject(new Error("GÃ¶rsel yÃ¼klenemedi."));
     };
 
     img.src = url;
@@ -153,7 +153,7 @@ function loadImage(file: File): Promise<HTMLImageElement> {
 }
 
 /**
- * MIME tipinden format döndürür.
+ * MIME tipinden format dÃ¶ndÃ¼rÃ¼r.
  */
 function getImageFormat(
   mimeType: string

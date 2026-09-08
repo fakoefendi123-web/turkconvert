@@ -3,21 +3,21 @@ import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import ImageCompressorTool from "./ImageCompressorTool";
 
 export const metadata: Metadata = {
-  title: "Görsel Sıkıştırıcı - Ücretsiz Online | turkconvert",
+  title: "GÃ¶rsel SÄ±kÄ±ÅŸtÄ±rÄ±cÄ± - Ãœcretsiz Online | turkconvert",
   description:
-    "Görsellerinizin dosya boyutunu kalite kaybı yaşamadan ücretsiz küçültün. JPG, PNG ve WEBP sıkıştırma desteği.",
+    "GÃ¶rsellerinizin dosya boyutunu kalite kaybÄ± yaÅŸamadan Ã¼cretsiz kÃ¼Ã§Ã¼ltÃ¼n. JPG, PNG ve WEBP sÄ±kÄ±ÅŸtÄ±rma desteÄŸi.",
   openGraph: {
-    title: "Görsel Sıkıştırıcı - Ücretsiz Online | turkconvert",
+    title: "GÃ¶rsel SÄ±kÄ±ÅŸtÄ±rÄ±cÄ± - Ãœcretsiz Online | turkconvert",
     description:
-      "Görsellerinizin dosya boyutunu kalite kaybı yaşamadan ücretsiz küçültün.",
+      "GÃ¶rsellerinizin dosya boyutunu kalite kaybÄ± yaÅŸamadan Ã¼cretsiz kÃ¼Ã§Ã¼ltÃ¼n.",
   },
 };
 
 export default function ImageCompressorPage() {
   return (
     <ToolPageLayout
-      title="Görsel Sıkıştırıcı"
-      description="Görsellerinizi kalite kaybı minimize ederek sıkıştırın."
+      title="GÃ¶rsel SÄ±kÄ±ÅŸtÄ±rÄ±cÄ±"
+      description="GÃ¶rsellerinizi kalite kaybÄ± minimize ederek sÄ±kÄ±ÅŸtÄ±rÄ±n."
     >
       <ImageCompressorTool />
     </ToolPageLayout>

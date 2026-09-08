@@ -3,21 +3,21 @@ import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import JpgToPdfTool from "./JpgToPdfTool";
 
 export const metadata: Metadata = {
-  title: "JPG PDF Dönüştürücü - Ücretsiz Online | turkconvert",
+  title: "JPG PDF DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online | turkconvert",
   description:
-    "JPG formatındaki görsellerinizi hızlı ve ücretsiz olarak yüksek kaliteli PDF belgesine dönüştürün. Kurulum veya üyelik gerektirmez.",
+    "JPG formatÄ±ndaki gÃ¶rsellerinizi hÄ±zlÄ± ve Ã¼cretsiz olarak yÃ¼ksek kaliteli PDF belgesine dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n. Kurulum veya Ã¼yelik gerektirmez.",
   openGraph: {
-    title: "JPG PDF Dönüştürücü - Ücretsiz Online | turkconvert",
+    title: "JPG PDF DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online | turkconvert",
     description:
-      "JPG formatındaki görsellerinizi hızlı ve ücretsiz olarak PDF belgesine dönüştürün.",
+      "JPG formatÄ±ndaki gÃ¶rsellerinizi hÄ±zlÄ± ve Ã¼cretsiz olarak PDF belgesine dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
   },
 };
 
 export default function JpgToPdfPage() {
   return (
     <ToolPageLayout
-      title="JPG › PDF Dönüştürücü"
-      description="JPG görsellerinizi PDF formatına dönüştürün."
+      title="JPG â€º PDF DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼"
+      description="JPG gÃ¶rsellerinizi PDF formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n."
     >
       <JpgToPdfTool />
     </ToolPageLayout>

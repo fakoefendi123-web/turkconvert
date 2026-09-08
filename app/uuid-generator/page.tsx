@@ -3,13 +3,13 @@ import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import { UuidGeneratorTool } from "./UuidGeneratorTool";
 
 export const metadata: Metadata = {
-  title: "UUID Generator - UUID Oluþturucu",
+  title: "UUID Generator - UUID OluÅŸturucu",
   description:
-    "Benzersiz UUID (v4) deðerleri oluþturun. Tekli veya toplu UUID üretimi.",
+    "Benzersiz UUID (v4) deÄŸerleri oluÅŸturun. Tekli veya toplu UUID Ã¼retimi.",
   openGraph: {
-    title: "UUID Generator - UUID Oluþturucu | turkconvert",
+    title: "UUID Generator - UUID OluÅŸturucu | turkconvert",
     description:
-      "Benzersiz UUID (v4) deðerleri oluþturun. Tekli veya toplu UUID üretimi.",
+      "Benzersiz UUID (v4) deÄŸerleri oluÅŸturun. Tekli veya toplu UUID Ã¼retimi.",
     type: "website",
     locale: "tr_TR",
     siteName: "turkconvert",
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 export default function UuidGeneratorPage() {
   return (
     <ToolPageLayout
-      title="UUID Generator - UUID Oluþturucu"
-      description="Benzersiz UUID (v4) deðerleri oluþturun. Tekli veya toplu UUID üretimi."
+      title="UUID Generator - UUID OluÅŸturucu"
+      description="Benzersiz UUID (v4) deÄŸerleri oluÅŸturun. Tekli veya toplu UUID Ã¼retimi."
     >
       <UuidGeneratorTool />
     </ToolPageLayout>

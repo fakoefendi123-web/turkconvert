@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
-// ─── Tipler ──────────────────────────────────────────────────────
+// â”€â”€â”€ Tipler â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export type ToolCategory = "image" | "pdf" | "text" | "developer" | "other";
 
@@ -48,186 +48,186 @@ export interface CategoryInfo {
   anchor: string;
 }
 
-// ─── Kategoriler ─────────────────────────────────────────────────
+// â”€â”€â”€ Kategoriler â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const categories: CategoryInfo[] = [
   {
     id: "image",
-    name: "Görsel Araçları",
-    description: "JPG, PNG ve WEBP dosyalarını kolayca dönüştürün.",
+    name: "GÃ¶rsel AraÃ§larÄ±",
+    description: "JPG, PNG ve WEBP dosyalarÄ±nÄ± kolayca dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     icon: Image,
     anchor: "gorsel",
   },
   {
     id: "pdf",
-    name: "PDF Araçları",
-    description: "Görsellerinizi PDF'e dönüştürün.",
+    name: "PDF AraÃ§larÄ±",
+    description: "GÃ¶rsellerinizi PDF'e dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     icon: FileText,
     anchor: "pdf",
   },
   {
     id: "text",
-    name: "Metin Araçları",
-    description: "Metinlerinizi düzenleyin ve analiz edin.",
+    name: "Metin AraÃ§larÄ±",
+    description: "Metinlerinizi dÃ¼zenleyin ve analiz edin.",
     icon: Type,
     anchor: "metin",
   },
   {
     id: "developer",
-    name: "Geliştirici Araçları",
-    description: "JSON, Base64, URL ve diğer geliştirici araçları.",
+    name: "GeliÅŸtirici AraÃ§larÄ±",
+    description: "JSON, Base64, URL ve diÄŸer geliÅŸtirici araÃ§larÄ±.",
     icon: Code,
     anchor: "gelistirici",
   },
   {
     id: "other",
-    name: "Diğer Araçlar",
-    description: "QR kod ve diğer faydalı araçlar.",
+    name: "DiÄŸer AraÃ§lar",
+    description: "QR kod ve diÄŸer faydalÄ± araÃ§lar.",
     icon: QrCode,
     anchor: "diger",
   },
 ];
 
-// ─── Araçlar ─────────────────────────────────────────────────────
+// â”€â”€â”€ AraÃ§lar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const tools: ToolInfo[] = [
-  // Görsel Araçları
+  // GÃ¶rsel AraÃ§larÄ±
   {
     id: "jpg-to-png",
-    name: "JPG → PNG",
-    description: "JPG görsellerinizi PNG formatına dönüştürün.",
+    name: "JPG â†’ PNG",
+    description: "JPG gÃ¶rsellerinizi PNG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/jpg-to-png",
     category: "image",
     icon: ArrowRightLeft,
   },
   {
     id: "png-to-jpg",
-    name: "PNG → JPG",
-    description: "PNG görsellerinizi JPG formatına dönüştürün.",
+    name: "PNG â†’ JPG",
+    description: "PNG gÃ¶rsellerinizi JPG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/png-to-jpg",
     category: "image",
     icon: ArrowRightLeft,
   },
   {
     id: "jpg-to-webp",
-    name: "JPG → WEBP",
-    description: "JPG görsellerinizi WEBP formatına dönüştürün.",
+    name: "JPG â†’ WEBP",
+    description: "JPG gÃ¶rsellerinizi WEBP formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/jpg-to-webp",
     category: "image",
     icon: ArrowRightLeft,
   },
   {
     id: "png-to-webp",
-    name: "PNG → WEBP",
-    description: "PNG görsellerinizi WEBP formatına dönüştürün.",
+    name: "PNG â†’ WEBP",
+    description: "PNG gÃ¶rsellerinizi WEBP formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/png-to-webp",
     category: "image",
     icon: ArrowRightLeft,
   },
   {
     id: "webp-to-jpg",
-    name: "WEBP → JPG",
-    description: "WEBP görsellerinizi JPG formatına dönüştürün.",
+    name: "WEBP â†’ JPG",
+    description: "WEBP gÃ¶rsellerinizi JPG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/webp-to-jpg",
     category: "image",
     icon: ArrowRightLeft,
   },
   {
     id: "webp-to-png",
-    name: "WEBP → PNG",
-    description: "WEBP görsellerinizi PNG formatına dönüştürün.",
+    name: "WEBP â†’ PNG",
+    description: "WEBP gÃ¶rsellerinizi PNG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/webp-to-png",
     category: "image",
     icon: ArrowRightLeft,
   },
   {
     id: "image-resizer",
-    name: "Görsel Boyutlandırıcı",
-    description: "Görsellerinizi istediğiniz boyuta yeniden boyutlandırın.",
+    name: "GÃ¶rsel BoyutlandÄ±rÄ±cÄ±",
+    description: "GÃ¶rsellerinizi istediÄŸiniz boyuta yeniden boyutlandÄ±rÄ±n.",
     href: "/image-resizer",
     category: "image",
     icon: Maximize,
   },
   {
     id: "image-compressor",
-    name: "Görsel Sıkıştırıcı",
-    description: "Görsellerinizi kalite kaybı minimize ederek sıkıştırın.",
+    name: "GÃ¶rsel SÄ±kÄ±ÅŸtÄ±rÄ±cÄ±",
+    description: "GÃ¶rsellerinizi kalite kaybÄ± minimize ederek sÄ±kÄ±ÅŸtÄ±rÄ±n.",
     href: "/image-compressor",
     category: "image",
     icon: Minimize2,
   },
   {
     id: "image-rotate",
-    name: "Görsel Döndürme & Çevirme",
-    description: "Görsellerinizi 90°/180° döndürün veya yatay/dikey aynalayın.",
+    name: "GÃ¶rsel DÃ¶ndÃ¼rme & Ã‡evirme",
+    description: "GÃ¶rsellerinizi 90Â°/180Â° dÃ¶ndÃ¼rÃ¼n veya yatay/dikey aynalayÄ±n.",
     href: "/image-rotate",
     category: "image",
     icon: RotateCw,
   },
   {
     id: "image-cropper",
-    name: "Görsel Kırpıcı",
-    description: "Görsellerinizi istediğiniz oranda kırpın ve kesin.",
+    name: "GÃ¶rsel KÄ±rpÄ±cÄ±",
+    description: "GÃ¶rsellerinizi istediÄŸiniz oranda kÄ±rpÄ±n ve kesin.",
     href: "/image-cropper",
     category: "image",
     icon: Crop,
   },
   {
     id: "color-picker",
-    name: "Renk Seçici & Palet",
-    description: "Görsellerden renk kodu seçin ve renk paleti çıkarın.",
+    name: "Renk SeÃ§ici & Palet",
+    description: "GÃ¶rsellerden renk kodu seÃ§in ve renk paleti Ã§Ä±karÄ±n.",
     href: "/color-picker",
     category: "image",
     icon: Pipette,
   },
   {
     id: "svg-to-png",
-    name: "SVG → PNG",
-    description: "Vektörel SVG dosyalarını yüksek çözünürlüklü PNG'ye dönüştürün.",
+    name: "SVG â†’ PNG",
+    description: "VektÃ¶rel SVG dosyalarÄ±nÄ± yÃ¼ksek Ã§Ã¶zÃ¼nÃ¼rlÃ¼klÃ¼ PNG'ye dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/svg-to-png",
     category: "image",
     icon: FileImage,
   },
 
-  // PDF Araçları
+  // PDF AraÃ§larÄ±
   {
     id: "jpg-to-pdf",
-    name: "JPG → PDF",
-    description: "JPG görsellerinizi PDF formatına dönüştürün.",
+    name: "JPG â†’ PDF",
+    description: "JPG gÃ¶rsellerinizi PDF formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/jpg-to-pdf",
     category: "pdf",
     icon: FileImage,
   },
   {
     id: "png-to-pdf",
-    name: "PNG → PDF",
-    description: "PNG görsellerinizi PDF formatına dönüştürün.",
+    name: "PNG â†’ PDF",
+    description: "PNG gÃ¶rsellerinizi PDF formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/png-to-pdf",
     category: "pdf",
     icon: FileImage,
   },
   {
     id: "image-to-pdf",
-    name: "Görseller → PDF",
-    description: "Birden fazla görseli tek bir PDF'e dönüştürün.",
+    name: "GÃ¶rseller â†’ PDF",
+    description: "Birden fazla gÃ¶rseli tek bir PDF'e dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/image-to-pdf",
     category: "pdf",
     icon: Images,
   },
 
-  // Metin Araçları
+  // Metin AraÃ§larÄ±
   {
     id: "word-counter",
-    name: "Metin Sayacı",
-    description: "Kelime, karakter ve satır sayısını hesaplayın.",
+    name: "Metin SayacÄ±",
+    description: "Kelime, karakter ve satÄ±r sayÄ±sÄ±nÄ± hesaplayÄ±n.",
     href: "/word-counter",
     category: "text",
     icon: Hash,
   },
   {
     id: "text-case-converter",
-    name: "Harf Dönüştürücü",
-    description: "Metni büyük veya küçük harfe dönüştürün.",
+    name: "Harf DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼",
+    description: "Metni bÃ¼yÃ¼k veya kÃ¼Ã§Ã¼k harfe dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/text-case-converter",
     category: "text",
     icon: CaseSensitive,
@@ -235,33 +235,33 @@ export const tools: ToolInfo[] = [
   {
     id: "text-cleaner",
     name: "Metin Temizleyici",
-    description: "Fazla boşlukları ve gereksiz karakterleri temizleyin.",
+    description: "Fazla boÅŸluklarÄ± ve gereksiz karakterleri temizleyin.",
     href: "/text-cleaner",
     category: "text",
     icon: Eraser,
   },
   {
     id: "markdown-previewer",
-    name: "Markdown Önizleyici",
-    description: "Markdown yazın, canlı HTML önizleyin ve dışa aktarın.",
+    name: "Markdown Ã–nizleyici",
+    description: "Markdown yazÄ±n, canlÄ± HTML Ã¶nizleyin ve dÄ±ÅŸa aktarÄ±n.",
     href: "/markdown-previewer",
     category: "text",
     icon: FileCode2,
   },
   {
     id: "lorem-ipsum-generator",
-    name: "Lorem Ipsum Üretici",
-    description: "Tasarım ve testleriniz için yer tutucu metin oluşturun.",
+    name: "Lorem Ipsum Ãœretici",
+    description: "TasarÄ±m ve testleriniz iÃ§in yer tutucu metin oluÅŸturun.",
     href: "/lorem-ipsum-generator",
     category: "text",
     icon: AlignLeft,
   },
 
-  // Geliştirici Araçları
+  // GeliÅŸtirici AraÃ§larÄ±
   {
     id: "json-formatter",
     name: "JSON Formatter",
-    description: "JSON verilerinizi okunabilir formata dönüştürün.",
+    description: "JSON verilerinizi okunabilir formata dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/json-formatter",
     category: "developer",
     icon: Braces,
@@ -269,7 +269,7 @@ export const tools: ToolInfo[] = [
   {
     id: "json-minifier",
     name: "JSON Minifier",
-    description: "JSON verilerinizi sıkıştırılmış formata dönüştürün.",
+    description: "JSON verilerinizi sÄ±kÄ±ÅŸtÄ±rÄ±lmÄ±ÅŸ formata dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/json-minifier",
     category: "developer",
     icon: Braces,
@@ -277,7 +277,7 @@ export const tools: ToolInfo[] = [
   {
     id: "base64-encoder",
     name: "Base64 Encoder",
-    description: "Metni Base64 formatına dönüştürün.",
+    description: "Metni Base64 formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/base64-encoder",
     category: "developer",
     icon: Binary,
@@ -285,7 +285,7 @@ export const tools: ToolInfo[] = [
   {
     id: "base64-decoder",
     name: "Base64 Decoder",
-    description: "Base64 verisini orijinal metne dönüştürün.",
+    description: "Base64 verisini orijinal metne dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/base64-decoder",
     category: "developer",
     icon: Binary,
@@ -293,7 +293,7 @@ export const tools: ToolInfo[] = [
   {
     id: "url-encoder",
     name: "URL Encoder",
-    description: "Metni URL-safe formata dönüştürün.",
+    description: "Metni URL-safe formata dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/url-encoder",
     category: "developer",
     icon: Link2,
@@ -301,7 +301,7 @@ export const tools: ToolInfo[] = [
   {
     id: "url-decoder",
     name: "URL Decoder",
-    description: "URL-encoded metni orijinal haline dönüştürün.",
+    description: "URL-encoded metni orijinal haline dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
     href: "/url-decoder",
     category: "developer",
     icon: Link2,
@@ -309,41 +309,41 @@ export const tools: ToolInfo[] = [
   {
     id: "uuid-generator",
     name: "UUID Generator",
-    description: "Benzersiz UUID (v4) değerleri oluşturun.",
+    description: "Benzersiz UUID (v4) deÄŸerleri oluÅŸturun.",
     href: "/uuid-generator",
     category: "developer",
     icon: KeyRound,
   },
   {
     id: "password-generator",
-    name: "Şifre Oluşturucu",
-    description: "Güçlü, kırılması zor ve güvenli parolalar oluşturun.",
+    name: "Åifre OluÅŸturucu",
+    description: "GÃ¼Ã§lÃ¼, kÄ±rÄ±lmasÄ± zor ve gÃ¼venli parolalar oluÅŸturun.",
     href: "/password-generator",
     category: "developer",
     icon: Shield,
   },
   {
     id: "hash-generator",
-    name: "Hash Oluşturucu",
-    description: "SHA-256, MD5 ve SHA-512 hash değerleri hesaplayın.",
+    name: "Hash OluÅŸturucu",
+    description: "SHA-256, MD5 ve SHA-512 hash deÄŸerleri hesaplayÄ±n.",
     href: "/hash-generator",
     category: "developer",
     icon: Fingerprint,
   },
   {
     id: "diff-checker",
-    name: "Metin Karşılaştırıcı",
-    description: "İki metin arasındaki farkları satır satır karşılaştırın.",
+    name: "Metin KarÅŸÄ±laÅŸtÄ±rÄ±cÄ±",
+    description: "Ä°ki metin arasÄ±ndaki farklarÄ± satÄ±r satÄ±r karÅŸÄ±laÅŸtÄ±rÄ±n.",
     href: "/diff-checker",
     category: "developer",
     icon: GitCompare,
   },
 
-  // Diğer
+  // DiÄŸer
   {
     id: "qr-code-generator",
-    name: "QR Kod Oluşturucu",
-    description: "Metin veya URL'den QR kod oluşturun.",
+    name: "QR Kod OluÅŸturucu",
+    description: "Metin veya URL'den QR kod oluÅŸturun.",
     href: "/qr-code-generator",
     category: "other",
     icon: QrCode,
@@ -351,7 +351,7 @@ export const tools: ToolInfo[] = [
 ];
 
 /**
- * Kategoriye göre araçları filtreler.
+ * Kategoriye gÃ¶re araÃ§larÄ± filtreler.
  */
 export function getToolsByCategory(category: ToolCategory): ToolInfo[] {
   return tools.filter((t) => t.category === category);

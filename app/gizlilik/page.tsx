@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Gizlilik Politikası",
-  description: "turkconvert gizlilik politikası ve veri güvenliği ilkeleri.",
+  title: "Gizlilik PolitikasÄ±",
+  description: "turkconvert gizlilik politikasÄ± ve veri gÃ¼venliÄŸi ilkeleri.",
   openGraph: {
-    title: "Gizlilik Politikası | turkconvert",
-    description: "turkconvert gizlilik politikası ve veri güvenliği ilkeleri.",
+    title: "Gizlilik PolitikasÄ± | turkconvert",
+    description: "turkconvert gizlilik politikasÄ± ve veri gÃ¼venliÄŸi ilkeleri.",
     type: "website",
     locale: "tr_TR",
     siteName: "turkconvert",
@@ -17,72 +17,72 @@ export default function GizlilikPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
-        Gizlilik Politikası
+        Gizlilik PolitikasÄ±
       </h1>
 
       <div className="mt-8 space-y-6 text-gray-600 dark:text-gray-300">
         <section>
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Verilerinizin Güvenliği
+            Verilerinizin GÃ¼venliÄŸi
           </h2>
           <p className="mt-2 leading-relaxed">
-            turkconvert olarak kullanıcı gizliliğine büyük önem veriyoruz.
+            turkconvert olarak kullanÄ±cÄ± gizliliÄŸine bÃ¼yÃ¼k Ã¶nem veriyoruz.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Dosya İşleme
+            Dosya Ä°ÅŸleme
           </h2>
           <p className="mt-2 leading-relaxed">
-            Görsel dönüştürme, metin işleme ve geliştirici araçları gibi
-            işlemler tamamen tarayıcınızda gerçekleştirilir. Dosyalarınız
-            sunucularımıza gönderilmez.
+            GÃ¶rsel dÃ¶nÃ¼ÅŸtÃ¼rme, metin iÅŸleme ve geliÅŸtirici araÃ§larÄ± gibi
+            iÅŸlemler tamamen tarayÄ±cÄ±nÄ±zda gerÃ§ekleÅŸtirilir. DosyalarÄ±nÄ±z
+            sunucularÄ±mÄ±za gÃ¶nderilmez.
           </p>
           <p className="mt-2 leading-relaxed">
-            Sunucu tarafında işlenmesi gereken dosyalar, işlem tamamlandıktan
-            sonra otomatik olarak silinir ve kalıcı olarak saklanmaz.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Çerezler
-          </h2>
-          <p className="mt-2 leading-relaxed">
-            Sitemiz yalnızca tema tercihinizi (açık/koyu mod) saklamak için yerel
-            depolama kullanır. Takip amaçlı çerez kullanılmamaktadır.
+            Sunucu tarafÄ±nda iÅŸlenmesi gereken dosyalar, iÅŸlem tamamlandÄ±ktan
+            sonra otomatik olarak silinir ve kalÄ±cÄ± olarak saklanmaz.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Üçüncü Taraf Paylaşımı
+            Ã‡erezler
           </h2>
           <p className="mt-2 leading-relaxed">
-            Verileriniz hiçbir şekilde üçüncü taraflarla paylaşılmaz.
+            Sitemiz yalnÄ±zca tema tercihinizi (aÃ§Ä±k/koyu mod) saklamak iÃ§in yerel
+            depolama kullanÄ±r. Takip amaÃ§lÄ± Ã§erez kullanÄ±lmamaktadÄ±r.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            İletişim
+            ÃœÃ§Ã¼ncÃ¼ Taraf PaylaÅŸÄ±mÄ±
           </h2>
           <p className="mt-2 leading-relaxed">
-            Gizlilik politikamız hakkında sorularınız için{" "}
+            Verileriniz hiÃ§bir ÅŸekilde Ã¼Ã§Ã¼ncÃ¼ taraflarla paylaÅŸÄ±lmaz.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Ä°letiÅŸim
+          </h2>
+          <p className="mt-2 leading-relaxed">
+            Gizlilik politikamÄ±z hakkÄ±nda sorularÄ±nÄ±z iÃ§in{" "}
             <Link
               href="/iletisim"
               className="text-primary-600 hover:underline dark:text-primary-400"
             >
-              iletişim sayfamızdan
+              iletiÅŸim sayfamÄ±zdan
             </Link>{" "}
-            bize ulaşabilirsiniz.
+            bize ulaÅŸabilirsiniz.
           </p>
         </section>
 
         <section className="pt-4 border-t border-gray-200 dark:border-gray-800">
           <p className="text-sm text-gray-400 dark:text-gray-500">
-            Son güncelleme: Eylül 2026
+            Son gÃ¼ncelleme: EylÃ¼l 2026
           </p>
         </section>
       </div>

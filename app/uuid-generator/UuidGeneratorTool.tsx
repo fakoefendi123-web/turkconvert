@@ -12,7 +12,7 @@ export function UuidGeneratorTool() {
   const [bulkUuids, setBulkUuids] = useState<string>("");
   const [copiedBulk, setCopiedBulk] = useState(false);
 
-  // Sayfa yüklendiğinde bir adet UUID oluştur
+  // Sayfa yÃ¼klendiÄŸinde bir adet UUID oluÅŸtur
   useEffect(() => {
     setSingleUuid(generateUUID());
   }, []);
@@ -29,7 +29,7 @@ export function UuidGeneratorTool() {
       setCopiedSingle(true);
       setTimeout(() => setCopiedSingle(false), 2000);
     } catch {
-      // Hata durumunda sessizce geç
+      // Hata durumunda sessizce geÃ§
     }
   }, [singleUuid]);
 
@@ -50,19 +50,19 @@ export function UuidGeneratorTool() {
       setCopiedBulk(true);
       setTimeout(() => setCopiedBulk(false), 2000);
     } catch {
-      // Hata durumunda sessizce geç
+      // Hata durumunda sessizce geÃ§
     }
   }, [bulkUuids]);
 
   return (
     <div className="space-y-8">
-      {/* Tekli UUID Bölümü */}
+      {/* Tekli UUID BÃ¶lÃ¼mÃ¼ */}
       <div>
         <label
           htmlFor="single-uuid"
           className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
         >
-          Oluşturulan UUID (v4)
+          OluÅŸturulan UUID (v4)
         </label>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="relative flex-1">
@@ -71,7 +71,7 @@ export function UuidGeneratorTool() {
               type="text"
               readOnly
               value={singleUuid}
-              placeholder="UUID oluşturuluyor..."
+              placeholder="UUID oluÅŸturuluyor..."
               className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 font-mono text-base text-gray-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
             />
           </div>
@@ -87,7 +87,7 @@ export function UuidGeneratorTool() {
               {copiedSingle ? (
                 <>
                   <Check className="h-4 w-4 text-green-500" />
-                  <span>Kopyalandı</span>
+                  <span>KopyalandÄ±</span>
                 </>
               ) : (
                 <>
@@ -103,21 +103,21 @@ export function UuidGeneratorTool() {
               className="btn-primary flex-1 gap-2 px-4 py-3 sm:flex-initial"
             >
               <RefreshCw className="h-4 w-4" />
-              <span>Yeni UUID Oluştur</span>
+              <span>Yeni UUID OluÅŸtur</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Toplu UUID Oluşturma Bölümü */}
+      {/* Toplu UUID OluÅŸturma BÃ¶lÃ¼mÃ¼ */}
       <div className="border-t border-gray-200 pt-8 dark:border-gray-800">
         <div className="mb-4">
           <h2 className="flex items-center gap-2 text-lg font-semibold text-gray-900 dark:text-white">
             <Layers className="h-5 w-5 text-primary-600 dark:text-primary-400" />
-            Toplu Oluştur
+            Toplu OluÅŸtur
           </h2>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Aynı anda 1 ile 100 arasında UUID oluşturun.
+            AynÄ± anda 1 ile 100 arasÄ±nda UUID oluÅŸturun.
           </p>
         </div>
 
@@ -149,7 +149,7 @@ export function UuidGeneratorTool() {
             className="btn-primary gap-2 py-2.5"
           >
             <RefreshCw className="h-4 w-4" />
-            <span>Oluştur</span>
+            <span>OluÅŸtur</span>
           </button>
         </div>
 
@@ -157,7 +157,7 @@ export function UuidGeneratorTool() {
           <div className="mt-4 space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
-                {bulkUuids.split("\n").length} adet UUID oluşturuldu
+                {bulkUuids.split("\n").length} adet UUID oluÅŸturuldu
               </span>
               <button
                 type="button"
@@ -167,12 +167,12 @@ export function UuidGeneratorTool() {
                 {copiedBulk ? (
                   <>
                     <Check className="h-3.5 w-3.5 text-green-500" />
-                    <span>Kopyalandı</span>
+                    <span>KopyalandÄ±</span>
                   </>
                 ) : (
                   <>
                     <Copy className="h-3.5 w-3.5" />
-                    <span>Tümünü Kopyala</span>
+                    <span>TÃ¼mÃ¼nÃ¼ Kopyala</span>
                   </>
                 )}
               </button>
