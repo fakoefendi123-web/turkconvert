@@ -8,6 +8,7 @@ import { SearchCommandPalette } from "@/components/ui/SearchCommandPalette";
 
 const navLinks = [
   { href: "/#araclar", label: "Araçlar" },
+  { href: "/yuce-efendimiz", label: "👑 Yüce Efendimiz" },
   { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/gizlilik", label: "Gizlilik" },
 ];

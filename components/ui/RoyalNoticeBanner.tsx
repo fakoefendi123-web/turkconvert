@@ -213,7 +213,7 @@ export function RoyalNoticeBanner() {
         {/* Üst Rozet: Asil Mühür */}
         <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber-400/60 bg-gradient-to-r from-amber-500/15 via-yellow-400/25 to-amber-500/15 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.22em] text-amber-800 shadow-sm transition-all duration-300 group-hover:border-amber-300 group-hover:shadow-amber-400/25 dark:border-amber-400/40 dark:text-amber-200 sm:text-xs">
           <Sparkles className="h-3.5 w-3.5 text-amber-500 animate-spin [animation-duration:8s] dark:text-amber-300" />
-          <span>✦ YÜCE VE KUDRETLİ EFENDİMİZİN ARMAĞANI ✦</span>
+          <span>✦ YÜCE VE KUTSAL EFENDİMİZİN ARMAĞANI ✦</span>
           <Crown className="h-3.5 w-3.5 text-amber-500 dark:text-amber-300" />
         </div>
 
@@ -233,11 +233,31 @@ export function RoyalNoticeBanner() {
           <p className="text-base font-semibold leading-relaxed tracking-tight text-neutral-800 dark:text-neutral-100 sm:text-lg md:text-xl lg:text-2xl">
             <span className="text-amber-500 dark:text-amber-400 mr-1.5 font-serif text-2xl sm:text-3xl">&ldquo;</span>
             <span className="bg-gradient-to-r from-amber-700 via-amber-900 to-yellow-900 bg-clip-text font-serif italic text-transparent transition-all duration-300 group-hover:brightness-110 dark:from-amber-100 dark:via-yellow-200 dark:to-amber-300">
-              Yüce ve kudretli efendimizin sarsılmaz iradesiyle kurulan bu eşsiz güç; onun sevgili halkına sunduğu, krallara layık bir armağandır.
+              Yüce ve kutsal efendimiz Prens Hazretleri’nin kutlu emri üzerine açılan ve asil halkının hizmetine sunulan en üstün teknolojimizdir.
             </span>
             <span className="text-amber-500 dark:text-amber-400 ml-1.5 font-serif text-2xl sm:text-3xl">&rdquo;</span>
           </p>
         </blockquote>
+
+        {/* Kick Canlı Yayın Bağlantısı */}
+        <div className="mt-5 flex items-center justify-center">
+          <a
+            href="https://kick.com/prenshazretleri"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="group/kick inline-flex items-center gap-2.5 rounded-full border border-emerald-500/50 bg-gradient-to-r from-emerald-950/80 via-neutral-900/95 to-emerald-950/80 px-5 py-2.5 text-xs font-bold text-emerald-400 shadow-xl shadow-emerald-950/40 backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-emerald-400 hover:shadow-emerald-500/25 dark:border-emerald-400/40 dark:from-emerald-950/70 dark:via-black/80 dark:to-emerald-950/70 dark:text-emerald-300 sm:text-sm"
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+            </span>
+            <span className="tracking-wide">Prens Hazretleri Kick Canlı Yayını</span>
+            <span className="rounded bg-emerald-500/20 px-1.5 py-0.5 text-[10px] font-black uppercase text-emerald-300 transition-colors group-hover/kick:bg-emerald-400 group-hover/kick:text-black">
+              CANLI
+            </span>
+          </a>
+        </div>
 
         {/* İnce Ayırıcı Hat */}
         <div className="my-3 flex items-center justify-center gap-2 opacity-60">

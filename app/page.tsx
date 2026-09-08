@@ -5,7 +5,6 @@ import { ToolCard } from "@/components/ui/ToolCard";
 import { HeroSearchTrigger } from "@/components/ui/HeroSearchTrigger";
 import { RecentToolsBar } from "@/components/ui/RecentToolsBar";
 import { Zap, ShieldCheck, Sparkles } from "lucide-react";
-import { RoyalNoticeBanner } from "@/components/ui/RoyalNoticeBanner";
 
 export const metadata: Metadata = {
   title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme Araçları",
@@ -34,9 +33,6 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-      {/* Özel Bildiri */}
-      <RoyalNoticeBanner />
-
       {/* Hero Bölümü */}
       <section className="text-center">
         <div className="inline-flex items-center gap-2 rounded-full bg-primary-50 px-4 py-1.5 text-xs font-semibold text-primary-700 dark:bg-primary-950/50 dark:text-primary-300">
