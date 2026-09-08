@@ -1,14 +1,14 @@
-ï»¿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import { QrCodeGeneratorTool } from "./QrCodeGeneratorTool";
 
 export const metadata: Metadata = {
-  title: "QR Kod OluÅŸturucu - Ãœcretsiz Online",
-  description: "Metin veya URL adresinden Ã¼cretsiz QR kod oluÅŸturun ve indirin.",
+  title: "QR Kod Oluþturucu - Ücretsiz Online",
+  description: "Metin veya URL adresinden ücretsiz QR kod oluþturun ve indirin.",
   openGraph: {
-    title: "QR Kod OluÅŸturucu - Ãœcretsiz Online | turkconvert",
+    title: "QR Kod Oluþturucu - Ücretsiz Online | turkconvert",
     description:
-      "Metin veya URL adresinden Ã¼cretsiz QR kod oluÅŸturun ve indirin.",
+      "Metin veya URL adresinden ücretsiz QR kod oluþturun ve indirin.",
     type: "website",
     locale: "tr_TR",
     siteName: "turkconvert",
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
 export default function QrCodeGeneratorPage() {
   return (
     <ToolPageLayout
-      title="QR Kod OluÅŸturucu"
-      description="Metin veya URL adresinden Ã¼cretsiz QR kod oluÅŸturun ve indirin."
+      title="QR Kod Oluþturucu"
+      description="Metin veya URL adresinden ücretsiz QR kod oluþturun ve indirin."
     >
       <QrCodeGeneratorTool />
     </ToolPageLayout>

@@ -197,7 +197,7 @@ export function ToolPageLayout({
               "@context": "https://schema.org",
               "@type": "WebApplication",
               name: `${title} | turkconvert`,
-              url: `https://turkconvert.com${pathname}`,
+              url: `https://turkconvert.online${pathname}`,
               description: description,
               applicationCategory: "UtilityApplication",
               operatingSystem: "All",
@@ -215,7 +215,7 @@ export function ToolPageLayout({
                   "@type": "ListItem",
                   position: 1,
                   name: "Ana Sayfa",
-                  item: "https://turkconvert.com",
+                  item: "https://turkconvert.online",
                 },
                 ...(currentCategory
                   ? [
@@ -223,7 +223,7 @@ export function ToolPageLayout({
                         "@type": "ListItem",
                         position: 2,
                         name: currentCategory.name,
-                        item: `https://turkconvert.com/#${currentCategory.anchor}`,
+                        item: `https://turkconvert.online/#${currentCategory.anchor}`,
                       },
                     ]
                   : []),
@@ -231,7 +231,7 @@ export function ToolPageLayout({
                   "@type": "ListItem",
                   position: currentCategory ? 3 : 2,
                   name: title,
-                  item: `https://turkconvert.com${pathname}`,
+                  item: `https://turkconvert.online${pathname}`,
                 },
               ],
             },

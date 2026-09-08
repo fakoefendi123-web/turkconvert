@@ -123,8 +123,8 @@ export default function HomePage() {
             "@graph": [
               {
                 "@type": "WebSite",
-                "@id": "https://turkconvert.com/#website",
-                url: "https://turkconvert.com",
+                "@id": "https://turkconvert.online/#website",
+                url: "https://turkconvert.online",
                 name: "turkconvert",
                 description:
                   "Ücretsiz, hızlı ve reklamsız dosya dönüştürme araçları. Görsel, PDF, metin ve yazılımcı araçları.",
@@ -132,10 +132,10 @@ export default function HomePage() {
               },
               {
                 "@type": "Organization",
-                "@id": "https://turkconvert.com/#organization",
+                "@id": "https://turkconvert.online/#organization",
                 name: "turkconvert",
-                url: "https://turkconvert.com",
-                logo: "https://turkconvert.com/icon.svg",
+                url: "https://turkconvert.online",
+                logo: "https://turkconvert.online/icon.svg",
               },
             ],
           }),

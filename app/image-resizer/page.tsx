@@ -1,23 +1,23 @@
-ï»¿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import ImageResizerTool from "./ImageResizerTool";
 
 export const metadata: Metadata = {
-  title: "GÃ¶rsel BoyutlandÄ±rÄ±cÄ± - Ãœcretsiz Online | turkconvert",
+  title: "Görsel Boyutlandırıcı - Ücretsiz Online | turkconvert",
   description:
-    "GÃ¶rsellerinizi istediÄŸiniz piksel boyutuna Ã¼cretsiz ve anÄ±nda yeniden boyutlandÄ±rÄ±n. En-boy oranÄ±nÄ± koruyarak veya Ã¶zel boyutlarla boyutlandÄ±rma yapÄ±n.",
+    "Görsellerinizi istediğiniz piksel boyutuna ücretsiz ve anında yeniden boyutlandırın. En-boy oranını koruyarak veya özel boyutlarla boyutlandırma yapın.",
   openGraph: {
-    title: "GÃ¶rsel BoyutlandÄ±rÄ±cÄ± - Ãœcretsiz Online | turkconvert",
+    title: "Görsel Boyutlandırıcı - Ücretsiz Online | turkconvert",
     description:
-      "GÃ¶rsellerinizi istediÄŸiniz boyuta Ã¼cretsiz olarak yeniden boyutlandÄ±rÄ±n.",
+      "Görsellerinizi istediğiniz boyuta ücretsiz olarak yeniden boyutlandırın.",
   },
 };
 
 export default function ImageResizerPage() {
   return (
     <ToolPageLayout
-      title="GÃ¶rsel BoyutlandÄ±rÄ±cÄ±"
-      description="GÃ¶rsellerinizi istediÄŸiniz boyuta yeniden boyutlandÄ±rÄ±n."
+      title="Görsel Boyutlandırıcı"
+      description="Görsellerinizi istediğiniz boyuta yeniden boyutlandırın."
     >
       <ImageResizerTool />
     </ToolPageLayout>

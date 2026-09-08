@@ -1,23 +1,23 @@
-ï»¿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import PngToPdfTool from "./PngToPdfTool";
 
 export const metadata: Metadata = {
-  title: "PNG PDF DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online | turkconvert",
+  title: "PNG PDF Dönüştürücü - Ücretsiz Online | turkconvert",
   description:
-    "PNG formatÄ±ndaki gÃ¶rsellerinizi ÅŸeffaflÄ±k ve kalite kaybÄ± olmadan Ã¼cretsiz olarak PDF belgesine dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
+    "PNG formatındaki görsellerinizi şeffaflık ve kalite kaybı olmadan ücretsiz olarak PDF belgesine dönüştürün.",
   openGraph: {
-    title: "PNG PDF DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online | turkconvert",
+    title: "PNG PDF Dönüştürücü - Ücretsiz Online | turkconvert",
     description:
-      "PNG formatÄ±ndaki gÃ¶rsellerinizi hÄ±zlÄ± ve Ã¼cretsiz olarak PDF belgesine dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
+      "PNG formatındaki görsellerinizi hızlı ve ücretsiz olarak PDF belgesine dönüştürün.",
   },
 };
 
 export default function PngToPdfPage() {
   return (
     <ToolPageLayout
-      title="PNG â†’ PDF DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼"
-      description="PNG gÃ¶rsellerinizi PDF formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n."
+      title="PNG › PDF Dönüştürücü"
+      description="PNG görsellerinizi PDF formatına dönüştürün."
     >
       <PngToPdfTool />
     </ToolPageLayout>

@@ -1,23 +1,23 @@
-ï»¿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
 import ImageToPdfTool from "./ImageToPdfTool";
 
 export const metadata: Metadata = {
-  title: "GÃ¶rselleri PDF Yapma - Ãœcretsiz Online | turkconvert",
+  title: "Görselleri PDF Yapma - Ücretsiz Online | turkconvert",
   description:
-    "Birden fazla JPG, PNG veya WEBP gÃ¶rselini tek bir PDF belgesinde birleÅŸtirin. Sayfa sÄ±rasÄ±nÄ± serbestÃ§e belirleyin, tamamen Ã¼cretsiz ve gÃ¼venli.",
+    "Birden fazla JPG, PNG veya WEBP görselini tek bir PDF belgesinde birleþtirin. Sayfa sýrasýný serbestçe belirleyin, tamamen ücretsiz ve güvenli.",
   openGraph: {
-    title: "GÃ¶rselleri PDF Yapma - Ãœcretsiz Online | turkconvert",
+    title: "Görselleri PDF Yapma - Ücretsiz Online | turkconvert",
     description:
-      "Birden fazla gÃ¶rseli tek bir PDF belgesinde birleÅŸtirin.",
+      "Birden fazla görseli tek bir PDF belgesinde birleþtirin.",
   },
 };
 
 export default function ImageToPdfPage() {
   return (
     <ToolPageLayout
-      title="GÃ¶rseller â†’ PDF DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼"
-      description="Birden fazla gÃ¶rseli tek bir PDF dosyasÄ±nda birleÅŸtirin."
+      title="Görseller › PDF Dönüþtürücü"
+      description="Birden fazla görseli tek bir PDF dosyasýnda birleþtirin."
     >
       <ImageToPdfTool />
     </ToolPageLayout>

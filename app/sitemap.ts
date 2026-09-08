@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { tools } from "@/lib/constants/tools";
 
-const BASE_URL = "https://turkconvert.com";
+const BASE_URL = "https://turkconvert.online";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const toolPages = tools.map((tool) => ({
