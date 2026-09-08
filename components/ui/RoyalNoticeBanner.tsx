@@ -210,10 +210,10 @@ export function RoyalNoticeBanner() {
 
       {/* Ana İçerik Gövdesi */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center">
-        {/* Üst Rozet: Kraliyet Mührü */}
+        {/* Üst Rozet: Asil Mühür */}
         <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-amber-400/60 bg-gradient-to-r from-amber-500/15 via-yellow-400/25 to-amber-500/15 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.22em] text-amber-800 shadow-sm transition-all duration-300 group-hover:border-amber-300 group-hover:shadow-amber-400/25 dark:border-amber-400/40 dark:text-amber-200 sm:text-xs">
           <Sparkles className="h-3.5 w-3.5 text-amber-500 animate-spin [animation-duration:8s] dark:text-amber-300" />
-          <span>✦ ROYAL EDITION • MAJESTİK İHSAN ✦</span>
+          <span>✦ YÜCE VE KUDRETLİ EFENDİMİZİN ARMAĞANI ✦</span>
           <Crown className="h-3.5 w-3.5 text-amber-500 dark:text-amber-300" />
         </div>
 
@@ -233,7 +233,7 @@ export function RoyalNoticeBanner() {
           <p className="text-base font-semibold leading-relaxed tracking-tight text-neutral-800 dark:text-neutral-100 sm:text-lg md:text-xl lg:text-2xl">
             <span className="text-amber-500 dark:text-amber-400 mr-1.5 font-serif text-2xl sm:text-3xl">&ldquo;</span>
             <span className="bg-gradient-to-r from-amber-700 via-amber-900 to-yellow-900 bg-clip-text font-serif italic text-transparent transition-all duration-300 group-hover:brightness-110 dark:from-amber-100 dark:via-yellow-200 dark:to-amber-300">
-              Kusursuzluk bir lütuf değil, hükümdar buyruğudur: Yüce Prens Hazretleri’nin asil halkına bahşettiği, krallara layık bir dijital saltanat.
+              Yüce ve kudretli efendimizin sarsılmaz iradesiyle kurulan bu eşsiz güç; onun sevgili halkına sunduğu, krallara layık bir armağandır.
             </span>
             <span className="text-amber-500 dark:text-amber-400 ml-1.5 font-serif text-2xl sm:text-3xl">&rdquo;</span>
           </p>
@@ -250,15 +250,15 @@ export function RoyalNoticeBanner() {
         <div className="flex flex-wrap items-center justify-center gap-3 text-[11px] font-medium tracking-widest text-amber-700/80 uppercase dark:text-amber-300/80 sm:text-xs">
           <span>Tavizsiz Hız</span>
           <span className="text-amber-400">◈</span>
-          <span>Sonsuz Gizlilik</span>
+          <span>Tam Gizlilik</span>
           <span className="text-amber-400">◈</span>
-          <span>Halkın İkbaline</span>
+          <span>Halkın Hizmetinde</span>
         </div>
 
         {/* Etkileşim İpucu */}
         {clickCount > 0 && (
           <div className="mt-2 text-[10px] text-amber-500/70 dark:text-amber-400/60 animate-fade-in">
-            ✦ {clickCount} kez tebcil edildi ✦
+            ✦ {clickCount} kez selamlandı ✦
           </div>
         )}
       </div>
