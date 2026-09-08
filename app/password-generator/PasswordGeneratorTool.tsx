@@ -68,10 +68,10 @@ export default function PasswordGeneratorTool() {
     if (/[0-9]/.test(pwd)) score += 1;
     if (/[^A-Za-z0-9]/.test(pwd)) score += 1;
 
-    if (score <= 2) return { label: "ZayÄ±f", color: "bg-red-500", width: "w-1/4" };
+    if (score <= 2) return { label: "Zayıf", color: "bg-red-500", width: "w-1/4" };
     if (score <= 4) return { label: "Orta", color: "bg-yellow-500", width: "w-2/4" };
-    if (score <= 6) return { label: "GÃ¼Ã§lÃ¼", color: "bg-green-500", width: "w-3/4" };
-    return { label: "KÄ±rÄ±lamaz / Ã‡ok GÃ¼Ã§lÃ¼", color: "bg-emerald-600", width: "w-full" };
+    if (score <= 6) return { label: "Güçlü", color: "bg-green-500", width: "w-3/4" };
+    return { label: "Kırılamaz / Çok Güçlü", color: "bg-emerald-600", width: "w-full" };
   };
 
   const strength = calculateStrength(password);
@@ -98,7 +98,7 @@ export default function PasswordGeneratorTool() {
 
   return (
     <div className="space-y-6">
-      {/* Åifre GÃ¶stergesi */}
+      {/* Şifre Göstergesi */}
       <div className="relative rounded-2xl border border-gray-200 bg-gray-50/70 p-4 dark:border-gray-800 dark:bg-gray-900/60 sm:p-6">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0 flex-1 overflow-x-auto font-mono text-xl font-bold tracking-wider text-gray-900 dark:text-white sm:text-2xl">
@@ -109,7 +109,7 @@ export default function PasswordGeneratorTool() {
               type="button"
               onClick={generateNewPassword}
               className="rounded-xl border border-gray-200 bg-white p-2.5 text-gray-600 shadow-sm transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
-              title="Yeni Åifre Ãœret"
+              title="Yeni Şifre Üret"
             >
               <RefreshCw className="h-4 w-4" />
             </button>
@@ -121,7 +121,7 @@ export default function PasswordGeneratorTool() {
               {copied ? (
                 <>
                   <Check className="h-4 w-4" />
-                  <span>KopyalandÄ±!</span>
+                  <span>Kopyalandı!</span>
                 </>
               ) : (
                 <>
@@ -133,10 +133,10 @@ export default function PasswordGeneratorTool() {
           </div>
         </div>
 
-        {/* GÃ¼Ã§ GÃ¶stergesi Bar */}
+        {/* Güç Göstergesi Bar */}
         <div className="mt-4">
           <div className="flex items-center justify-between text-xs">
-            <span className="text-gray-500 dark:text-gray-400">Åifre GÃ¼cÃ¼:</span>
+            <span className="text-gray-500 dark:text-gray-400">Şifre Gücü:</span>
             <span className="font-semibold text-gray-800 dark:text-gray-200">
               {strength.label}
             </span>
@@ -149,11 +149,11 @@ export default function PasswordGeneratorTool() {
         </div>
       </div>
 
-      {/* Åifre AyarlarÄ± */}
+      {/* Şifre Ayarları */}
       <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900 space-y-5">
         <div>
           <div className="flex items-center justify-between text-sm font-semibold text-gray-800 dark:text-gray-200">
-            <span>Åifre UzunluÄŸu</span>
+            <span>Şifre Uzunluğu</span>
             <span className="font-mono text-base text-primary-600 dark:text-primary-400">
               {length} karakter
             </span>
@@ -182,7 +182,7 @@ export default function PasswordGeneratorTool() {
               onChange={(e) => setIncludeUpper(e.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
             />
-            <span>BÃ¼yÃ¼k Harfler (A-Z)</span>
+            <span>Büyük Harfler (A-Z)</span>
           </label>
 
           <label className="flex cursor-pointer items-center gap-2.5 text-sm text-gray-700 dark:text-gray-300">
@@ -192,7 +192,7 @@ export default function PasswordGeneratorTool() {
               onChange={(e) => setIncludeLower(e.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
             />
-            <span>KÃ¼Ã§Ã¼k Harfler (a-z)</span>
+            <span>Küçük Harfler (a-z)</span>
           </label>
 
           <label className="flex cursor-pointer items-center gap-2.5 text-sm text-gray-700 dark:text-gray-300">
@@ -212,7 +212,7 @@ export default function PasswordGeneratorTool() {
               onChange={(e) => setIncludeSymbols(e.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
             />
-            <span>Ã–zel Karakterler (!@#$%^&*)</span>
+            <span>Özel Karakterler (!@#$%^&*)</span>
           </label>
 
           <label className="flex cursor-pointer items-center gap-2.5 text-sm text-gray-700 dark:text-gray-300 sm:col-span-2">
@@ -222,17 +222,17 @@ export default function PasswordGeneratorTool() {
               onChange={(e) => setExcludeSimilar(e.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
             />
-            <span>Benzer karakterleri hariÃ§ tut (0, O, l, 1, I)</span>
+            <span>Benzer karakterleri hariç tut (0, O, l, 1, I)</span>
           </label>
         </div>
       </div>
 
-      {/* Toplu Ãœretim BÃ¶lÃ¼mÃ¼ */}
+      {/* Toplu Üretim Bölümü */}
       <div className="rounded-2xl border border-gray-200 bg-gray-50/50 p-6 dark:border-gray-800 dark:bg-gray-900/40">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-sm font-semibold text-gray-800 dark:text-gray-200">
             <ListFilter className="h-4 w-4 text-primary-500" />
-            <span>Toplu Åifre Ãœretimi</span>
+            <span>Toplu Şifre Üretimi</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -250,7 +250,7 @@ export default function PasswordGeneratorTool() {
               onClick={handleGenerateBatch}
               className="btn-secondary !px-3 !py-1.5 text-xs"
             >
-              Ãœret
+              Üret
             </button>
           </div>
         </div>
@@ -271,7 +271,7 @@ export default function PasswordGeneratorTool() {
                 className="btn-secondary !px-3 !py-1.5 text-xs gap-1"
               >
                 {batchCopied ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
-                {batchCopied ? "TÃ¼mÃ¼ KopyalandÄ±!" : "TÃ¼mÃ¼nÃ¼ Kopyala"}
+                {batchCopied ? "Tümü Kopyalandı!" : "Tümünü Kopyala"}
               </button>
             </div>
           </div>

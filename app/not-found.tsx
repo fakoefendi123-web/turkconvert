@@ -8,17 +8,17 @@ export default function NotFound() {
         <FileQuestion className="h-10 w-10 text-gray-400 dark:text-gray-500" />
       </div>
       <h1 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
-        Sayfa BulunamadÄ±
+        Sayfa Bulunamadı
       </h1>
       <p className="mt-3 max-w-md text-gray-500 dark:text-gray-400">
-        AradÄ±ÄŸÄ±nÄ±z sayfa mevcut deÄŸil veya taÅŸÄ±nmÄ±ÅŸ olabilir.
+        Aradığınız sayfa mevcut değil veya taşınmış olabilir.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Link href="/" className="btn-primary">
-          Ana Sayfaya DÃ¶n
+          Ana Sayfaya Dön
         </Link>
         <Link href="/#araclar" className="btn-secondary">
-          AraÃ§lara GÃ¶z At
+          Araçlara Göz At
         </Link>
       </div>
     </div>

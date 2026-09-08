@@ -54,16 +54,16 @@ export default function ImageRotateTool() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
 
-    // Merkeze taÅŸÄ±
+    // Merkeze taşı
     ctx.translate(canvas.width / 2, canvas.height / 2);
 
-    // DÃ¶ndÃ¼r
+    // Döndür
     ctx.rotate((rot * Math.PI) / 180);
 
     // Aynala
     ctx.scale(fH ? -1 : 1, fV ? -1 : 1);
 
-    // Ã‡iz
+    // Çiz
     ctx.drawImage(
       img,
       -img.naturalWidth / 2,
@@ -133,7 +133,7 @@ export default function ImageRotateTool() {
         <div className="space-y-6">
           <FileInfo file={file} onRemove={handleReset} />
 
-          {/* Kontrol ButonlarÄ± */}
+          {/* Kontrol Butonları */}
           <div className="flex flex-wrap items-center justify-center gap-2">
             <button
               type="button"
@@ -141,7 +141,7 @@ export default function ImageRotateTool() {
               className="btn-secondary gap-1.5 !px-3 !py-2 text-xs"
             >
               <RotateCcw className="h-4 w-4" />
-              90Â° Sola
+              90° Sola
             </button>
             <button
               type="button"
@@ -149,14 +149,14 @@ export default function ImageRotateTool() {
               className="btn-secondary gap-1.5 !px-3 !py-2 text-xs"
             >
               <RotateCw className="h-4 w-4" />
-              90Â° SaÄŸa
+              90° Sağa
             </button>
             <button
               type="button"
               onClick={handleRotate180}
               className="btn-secondary gap-1.5 !px-3 !py-2 text-xs"
             >
-              180Â° Ã‡evir
+              180° Çevir
             </button>
             <button
               type="button"
@@ -187,11 +187,11 @@ export default function ImageRotateTool() {
               }}
               className="rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-500 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800"
             >
-              SÄ±fÄ±rla
+              Sıfırla
             </button>
           </div>
 
-          {/* CanlÄ± Canvas Ã–nizleme */}
+          {/* Canlı Canvas Önizleme */}
           <div className="flex max-h-[500px] items-center justify-center overflow-hidden rounded-xl border border-gray-200 bg-gray-50/50 p-4 dark:border-gray-800 dark:bg-gray-900/50">
             <canvas
               ref={canvasRef}
@@ -199,15 +199,15 @@ export default function ImageRotateTool() {
             />
           </div>
 
-          {/* Ä°ndir & Yeni Dosya */}
+          {/* İndir & Yeni Dosya */}
           <div className="flex flex-wrap justify-center gap-3">
             <button onClick={handleDownload} className="btn-primary gap-2">
               <Download className="h-4 w-4" />
-              DÃ¶ndÃ¼rÃ¼lmÃ¼ÅŸ GÃ¶rseli Ä°ndir (PNG)
+              Döndürülmüş Görseli İndir (PNG)
             </button>
             <button onClick={handleReset} className="btn-secondary gap-2">
               <RefreshCw className="h-4 w-4" />
-              Yeni GÃ¶rsel
+              Yeni Görsel
             </button>
           </div>
         </div>

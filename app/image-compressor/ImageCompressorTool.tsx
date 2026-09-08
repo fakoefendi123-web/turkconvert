@@ -20,20 +20,20 @@ interface QualityOption {
 const QUALITY_OPTIONS: QualityOption[] = [
   {
     value: 0.8,
-    label: "YÃ¼ksek",
+    label: "Yüksek",
     badge: "%80 Kalite",
-    description: "Daha az sÄ±kÄ±ÅŸtÄ±rma, maksimum gÃ¶rsel netliÄŸi",
+    description: "Daha az sıkıştırma, maksimum görsel netliği",
   },
   {
     value: 0.6,
     label: "Orta",
-    badge: "Ã–nerilen",
-    description: "Optimum dosya boyutu ve yÃ¼ksek gÃ¶rsel kalitesi",
+    badge: "Önerilen",
+    description: "Optimum dosya boyutu ve yüksek görsel kalitesi",
   },
   {
     value: 0.3,
-    label: "DÃ¼ÅŸÃ¼k",
-    badge: "En KÃ¼Ã§Ã¼k Boyut",
+    label: "Düşük",
+    badge: "En Küçük Boyut",
     description: "Maksimum dosya boyutu tasarrufu",
   },
 ];
@@ -65,7 +65,7 @@ export default function ImageCompressorTool() {
       setState("done");
     } catch {
       setErrorMsg(
-        "GÃ¶rsel sÄ±kÄ±ÅŸtÄ±rÄ±lÄ±rken bir sorun oluÅŸtu. LÃ¼tfen tekrar deneyin."
+        "Görsel sıkıştırılırken bir sorun oluştu. Lütfen tekrar deneyin."
       );
       setState("error");
     }
@@ -82,7 +82,7 @@ export default function ImageCompressorTool() {
 
   return (
     <div>
-      {/* Dosya YÃ¼kleme */}
+      {/* Dosya Yükleme */}
       {(state === "idle" || (state === "error" && !file)) && (
         <FileUploader
           accept="image/jpeg,image/png,image/webp"
@@ -91,15 +91,15 @@ export default function ImageCompressorTool() {
         />
       )}
 
-      {/* SÄ±kÄ±ÅŸtÄ±rma AyarlarÄ± ve Buton */}
+      {/* Sıkıştırma Ayarları ve Buton */}
       {state === "ready" && file && (
         <div className="space-y-6">
           <FileInfo file={file} onRemove={handleReset} />
 
-          {/* Kalite SeÃ§imi */}
+          {/* Kalite Seçimi */}
           <div>
             <label className="mb-3 block text-sm font-medium text-gray-700 dark:text-gray-300">
-              SÄ±kÄ±ÅŸtÄ±rma Seviyesi
+              Sıkıştırma Seviyesi
             </label>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               {QUALITY_OPTIONS.map((opt) => {
@@ -146,21 +146,21 @@ export default function ImageCompressorTool() {
             </div>
           </div>
 
-          {/* SÄ±kÄ±ÅŸtÄ±r Butonu */}
+          {/* Sıkıştır Butonu */}
           <div className="flex justify-center pt-2">
             <button onClick={handleCompress} className="btn-primary">
-              SÄ±kÄ±ÅŸtÄ±r
+              Sıkıştır
             </button>
           </div>
         </div>
       )}
 
-      {/* SÄ±kÄ±ÅŸtÄ±rma SÃ¼reci */}
+      {/* Sıkıştırma Süreci */}
       {state === "converting" && (
-        <ConversionProgress message="GÃ¶rseliniz sÄ±kÄ±ÅŸtÄ±rÄ±lÄ±yor..." />
+        <ConversionProgress message="Görseliniz sıkıştırılıyor..." />
       )}
 
-      {/* SonuÃ§ */}
+      {/* Sonuç */}
       {state === "done" && result && file && (
         <ConversionResult
           fileName={resultName}

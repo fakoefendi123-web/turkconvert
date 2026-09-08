@@ -3,13 +3,17 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Gizlilik Politikası",
-  description: "turkconvert gizlilik politikası ve veri güvenliği ilkeleri.",
+  description: "TurkConvert gizlilik politikası ve veri güvenliği ilkeleri.",
+  alternates: {
+    canonical: "https://turkconvert.online/gizlilik",
+  },
   openGraph: {
-    title: "Gizlilik Politikası | turkconvert",
-    description: "turkconvert gizlilik politikası ve veri güvenliği ilkeleri.",
+    title: "Gizlilik Politikası | TurkConvert",
+    description: "TurkConvert gizlilik politikası ve veri güvenliği ilkeleri.",
+    url: "https://turkconvert.online/gizlilik",
     type: "website",
     locale: "tr_TR",
-    siteName: "turkconvert",
+    siteName: "TurkConvert",
   },
 };
 

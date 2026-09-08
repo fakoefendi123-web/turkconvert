@@ -5,7 +5,7 @@ interface ConversionProgressProps {
 }
 
 export function ConversionProgress({
-  message = "DosyanÄ±z dÃ¶nÃ¼ÅŸtÃ¼rÃ¼lÃ¼yor...",
+  message = "Dosyanız dönüştürülüyor...",
 }: ConversionProgressProps) {
   return (
     <div className="flex flex-col items-center gap-4 py-8">

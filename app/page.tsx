@@ -7,58 +7,71 @@ import { RecentToolsBar } from "@/components/ui/RecentToolsBar";
 import { Zap, ShieldCheck, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Ãœcretsiz Online Dosya DÃ¶nÃ¼ÅŸtÃ¼rme AraÃ§larÄ±",
+  title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme Araçları",
   description:
-    "GÃ¶rsellerinizi, PDF dosyalarÄ±nÄ±zÄ± ve metinlerinizi tarayÄ±cÄ±nÄ±zda Ã¼cretsiz, hÄ±zlÄ± ve gÃ¼venle dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n. ReklamsÄ±z, Ã¼yelik ve kurulum gerektirmez.",
+    "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
+  alternates: {
+    canonical: "https://turkconvert.online/",
+  },
   openGraph: {
-    title: "turkconvert â€” Ãœcretsiz Online Dosya DÃ¶nÃ¼ÅŸtÃ¼rme AraÃ§larÄ±",
+    title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme Araçları",
     description:
-      "Ãœcretsiz, hÄ±zlÄ± ve reklamsÄ±z dosya dÃ¶nÃ¼ÅŸtÃ¼rme araÃ§larÄ±. TarayÄ±cÄ±nÄ±zda gÃ¼venli dÃ¶nÃ¼ÅŸtÃ¼rme.",
+      "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
+    url: "https://turkconvert.online/",
+    siteName: "TurkConvert",
+    type: "website",
+    locale: "tr_TR",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme Araçları",
+    description:
+      "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
   },
 };
 
 export default function HomePage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
-      {/* Hero BÃ¶lÃ¼mÃ¼ */}
+      {/* Hero Bölümü */}
       <section className="text-center">
         <div className="inline-flex items-center gap-2 rounded-full bg-primary-50 px-4 py-1.5 text-xs font-semibold text-primary-700 dark:bg-primary-950/50 dark:text-primary-300">
           <Sparkles className="h-3.5 w-3.5" />
-          <span>HÄ±zlÄ±, GÃ¼venli ve Tamamen Ãœcretsiz</span>
+          <span>Hızlı, Güvenli ve Tamamen Ücretsiz</span>
         </div>
         <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
-          DosyalarÄ±nÄ±zÄ± kolayca dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n
+          Dosyalarınızı kolayca dönüştürün
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg">
-          Ãœcretsiz, hÄ±zlÄ± ve reklamsÄ±z dosya dÃ¶nÃ¼ÅŸtÃ¼rme araÃ§larÄ±.
+          Ücretsiz, hızlı ve reklamsız dosya dönüştürme araçları.
         </p>
 
-        {/* HÄ±zlÄ± Arama Kutusu */}
+        {/* Hızlı Arama Kutusu */}
         <HeroSearchTrigger />
 
-        {/* Son KullanÄ±lanlar */}
+        {/* Son Kullanılanlar */}
         <RecentToolsBar />
 
-        {/* Ã–zellik Rozetleri */}
+        {/* Özellik Rozetleri */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
           <div className="flex items-center gap-1.5">
             <Zap className="h-4 w-4 text-primary-500" />
-            <span>AnÄ±nda Ä°ÅŸlem</span>
+            <span>Anında İşlem</span>
           </div>
           <div className="flex items-center gap-1.5">
             <ShieldCheck className="h-4 w-4 text-primary-500" />
-            <span>TarayÄ±cÄ±da GÃ¼venli DÃ¶nÃ¼ÅŸtÃ¼rme</span>
+            <span>Tarayıcıda Güvenli Dönüştürme</span>
           </div>
           <div className="flex items-center gap-1.5">
             <Sparkles className="h-4 w-4 text-primary-500" />
-            <span>Ãœyelik Gerekmez</span>
+            <span>Üyelik Gerekmez</span>
           </div>
         </div>
       </section>
 
-      {/* Kategori KartlarÄ± Grid */}
+      {/* Kategori Kartları Grid */}
       <section id="araclar" className="mt-12 scroll-mt-20">
-        <h2 className="sr-only">AraÃ§ Kategorileri</h2>
+        <h2 className="sr-only">Araç Kategorileri</h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {categories.map((category) => (
             <CategoryCard
@@ -72,7 +85,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Kategori BazlÄ± AraÃ§ Listeleri */}
+      {/* Kategori Bazlı Araç Listeleri */}
       <div className="mt-16 space-y-16">
         {categories.map((category) => {
           const categoryTools = getToolsByCategory(category.id);
@@ -125,15 +138,15 @@ export default function HomePage() {
                 "@type": "WebSite",
                 "@id": "https://turkconvert.online/#website",
                 url: "https://turkconvert.online",
-                name: "turkconvert",
+                name: "TurkConvert",
                 description:
-                  "Ãœcretsiz, hÄ±zlÄ± ve reklamsÄ±z dosya dÃ¶nÃ¼ÅŸtÃ¼rme araÃ§larÄ±. GÃ¶rsel, PDF, metin ve yazÄ±lÄ±mcÄ± araÃ§larÄ±.",
+                  "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
                 inLanguage: "tr-TR",
               },
               {
                 "@type": "Organization",
                 "@id": "https://turkconvert.online/#organization",
-                name: "turkconvert",
+                name: "TurkConvert",
                 url: "https://turkconvert.online",
                 logo: "https://turkconvert.online/icon.svg",
               },

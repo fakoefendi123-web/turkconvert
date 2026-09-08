@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Copy, Check, Fingerprint, FileText, Upload } from "lucide-react";
 
-// HÄ±zlÄ± ve baÄŸÄ±msÄ±z MD5 implementasyonu
+// Hızlı ve bağımsız MD5 implementasyonu
 function md5(string: string): string {
   function md5cycle(x: number[], k: number[]) {
     let a = x[0],
@@ -193,7 +193,7 @@ export default function HashGeneratorTool() {
   const hashList = [
     { key: "md5", name: "MD5", bit: "128-bit" },
     { key: "sha1", name: "SHA-1", bit: "160-bit" },
-    { key: "sha256", name: "SHA-256 (Ã–nerilen)", bit: "256-bit" },
+    { key: "sha256", name: "SHA-256 (Önerilen)", bit: "256-bit" },
     { key: "sha512", name: "SHA-512", bit: "512-bit" },
   ];
 
@@ -206,7 +206,7 @@ export default function HashGeneratorTool() {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Hash deÄŸerini hesaplamak istediÄŸiniz metni buraya yazÄ±n..."
+          placeholder="Hash değerini hesaplamak istediğiniz metni buraya yazın..."
           className="w-full rounded-xl border border-gray-300 bg-white p-4 font-mono text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
           rows={4}
         />
@@ -218,7 +218,7 @@ export default function HashGeneratorTool() {
               onChange={(e) => setUppercase(e.target.checked)}
               className="h-3.5 w-3.5 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
             />
-            <span>BÃ¼yÃ¼k Harf Ã‡Ä±ktÄ± (UPPERCASE)</span>
+            <span>Büyük Harf Çıktı (UPPERCASE)</span>
           </label>
 
           {input && (
@@ -232,7 +232,7 @@ export default function HashGeneratorTool() {
         </div>
       </div>
 
-      {/* Hesaplanan Hash SonuÃ§larÄ± */}
+      {/* Hesaplanan Hash Sonuçları */}
       <div className="space-y-4">
         {hashList.map(({ key, name, bit }) => {
           const val = hashes[key] || "";
@@ -260,7 +260,7 @@ export default function HashGeneratorTool() {
                     {copiedKey === key ? (
                       <>
                         <Check className="h-3.5 w-3.5 text-green-500" />
-                        <span className="text-green-500">KopyalandÄ±!</span>
+                        <span className="text-green-500">Kopyalandı!</span>
                       </>
                     ) : (
                       <>
@@ -275,7 +275,7 @@ export default function HashGeneratorTool() {
               <div className="overflow-x-auto rounded-lg bg-gray-50 p-2.5 font-mono text-xs text-gray-800 dark:bg-gray-800/60 dark:text-gray-200">
                 {displayVal || (
                   <span className="text-gray-400 dark:text-gray-500">
-                    HesaplanÄ±yor veya girdi bekleniyor...
+                    Hesaplanıyor veya girdi bekleniyor...
                   </span>
                 )}
               </div>

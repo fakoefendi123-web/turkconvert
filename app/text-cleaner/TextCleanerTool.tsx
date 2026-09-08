@@ -45,7 +45,7 @@ export default function TextCleanerTool() {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Temizlemek istediÄŸiniz metni buraya yazÄ±n veya yapÄ±ÅŸtÄ±rÄ±n..."
+          placeholder="Temizlemek istediğiniz metni buraya yazın veya yapıştırın..."
           className="w-full rounded-lg border border-gray-300 bg-white p-4 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
           rows={6}
         />
@@ -53,7 +53,7 @@ export default function TextCleanerTool() {
 
       <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800/40">
         <span className="mb-3 block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-          Temizleme SeÃ§enekleri
+          Temizleme Seçenekleri
         </span>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label className="flex cursor-pointer items-center gap-2.5 text-sm text-gray-700 dark:text-gray-300">
@@ -63,7 +63,7 @@ export default function TextCleanerTool() {
               onChange={(e) => setTrimLines(e.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700"
             />
-            SatÄ±r baÅŸÄ±/sonu boÅŸluklarÄ±nÄ± temizle
+            Satır başı/sonu boşluklarını temizle
           </label>
           <label className="flex cursor-pointer items-center gap-2.5 text-sm text-gray-700 dark:text-gray-300">
             <input
@@ -72,7 +72,7 @@ export default function TextCleanerTool() {
               onChange={(e) => setRemoveExtraSpaces(e.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700"
             />
-            Fazla boÅŸluklarÄ± kaldÄ±r
+            Fazla boşlukları kaldır
           </label>
           <label className="flex cursor-pointer items-center gap-2.5 text-sm text-gray-700 dark:text-gray-300">
             <input
@@ -81,7 +81,7 @@ export default function TextCleanerTool() {
               onChange={(e) => setRemoveEmptyLines(e.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700"
             />
-            BoÅŸ satÄ±rlarÄ± kaldÄ±r
+            Boş satırları kaldır
           </label>
           <label className="flex cursor-pointer items-center gap-2.5 text-sm text-gray-700 dark:text-gray-300">
             <input
@@ -90,7 +90,7 @@ export default function TextCleanerTool() {
               onChange={(e) => setRemoveLineBreaks(e.target.checked)}
               className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700"
             />
-            TÃ¼m satÄ±r sonlarÄ±nÄ± kaldÄ±r
+            Tüm satır sonlarını kaldır
           </label>
         </div>
       </div>
@@ -113,7 +113,7 @@ export default function TextCleanerTool() {
             title="Temizle"
           >
             <Trash2 className="h-4 w-4" />
-            SÄ±fÄ±rla
+            Sıfırla
           </button>
         )}
       </div>
@@ -121,7 +121,7 @@ export default function TextCleanerTool() {
       {output && (
         <div className="space-y-1">
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-            TemizlenmiÅŸ Metin
+            Temizlenmiş Metin
           </label>
           <div className="relative">
             <textarea
@@ -140,7 +140,7 @@ export default function TextCleanerTool() {
                 <>
                   <Check className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
                   <span className="text-green-600 dark:text-green-400">
-                    KopyalandÄ±!
+                    Kopyalandı!
                   </span>
                 </>
               ) : (

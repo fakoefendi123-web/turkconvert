@@ -8,12 +8,13 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://turkconvert.online"),
   title: {
-    default: "turkconvert — Ücretsiz Online Dosya Dönüştürme Araçları",
-    template: "%s | turkconvert",
+    default: "TurkConvert - Ücretsiz Online Dosya Dönüştürme Araçları",
+    template: "%s | TurkConvert",
   },
   description:
-    "Ücretsiz, hızlı ve reklamsız dosya dönüştürme araçları. JPG, PNG, WEBP dönüştürme, PDF oluşturma, metin araçları ve daha fazlası.",
+    "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
   keywords: [
     "dosya dönüştürme",
     "jpg png dönüştürme",
@@ -21,14 +22,31 @@ export const metadata: Metadata = {
     "ücretsiz dönüştürücü",
     "pdf dönüştürme",
     "görsel dönüştürme",
+    "resim boyutlandırma",
+    "resim sıkıştırma",
+    "turkconvert",
   ],
+  alternates: {
+    canonical: "https://turkconvert.online",
+  },
   openGraph: {
     type: "website",
     locale: "tr_TR",
-    siteName: "turkconvert",
-    title: "turkconvert — Ücretsiz Online Dosya Dönüştürme Araçları",
+    url: "https://turkconvert.online",
+    siteName: "TurkConvert",
+    title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme Araçları",
     description:
-      "Ücretsiz, hızlı ve reklamsız dosya dönüştürme araçları. Üyelik gerekmez.",
+      "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme Araçları",
+    description:
+      "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

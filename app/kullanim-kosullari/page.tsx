@@ -2,13 +2,17 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Kullanım Koşulları",
-  description: "turkconvert kullanım koşulları ve hizmet şartları.",
+  description: "TurkConvert kullanım koşulları ve hizmet şartları.",
+  alternates: {
+    canonical: "https://turkconvert.online/kullanim-kosullari",
+  },
   openGraph: {
-    title: "Kullanım Koşulları | turkconvert",
-    description: "turkconvert kullanım koşulları ve hizmet şartları.",
+    title: "Kullanım Koşulları | TurkConvert",
+    description: "TurkConvert kullanım koşulları ve hizmet şartları.",
+    url: "https://turkconvert.online/kullanim-kosullari",
     type: "website",
     locale: "tr_TR",
-    siteName: "turkconvert",
+    siteName: "TurkConvert",
   },
 };
 

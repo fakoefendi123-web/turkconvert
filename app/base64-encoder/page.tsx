@@ -1,22 +1,13 @@
 import type { Metadata } from "next";
 import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
+import { getToolMetadata } from "@/lib/constants/tool-seo";
 import Base64EncoderTool from "./Base64EncoderTool";
 
-export const metadata: Metadata = {
-  title: "Base64 Encoder - Base64 KodlayÄ±cÄ±",
-  description: "Metinlerinizi Base64 formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
-  openGraph: {
-    title: "Base64 Encoder - Base64 KodlayÄ±cÄ±",
-    description: "Metinlerinizi Base64 formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
-  },
-};
+export const metadata: Metadata = getToolMetadata("base64-encoder");
 
 export default function Base64EncoderPage() {
   return (
-    <ToolPageLayout
-      title="Base64 Encoder"
-      description="Metinlerinizi Base64 formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n."
-    >
+    <ToolPageLayout toolId="base64-encoder">
       <Base64EncoderTool />
     </ToolPageLayout>
   );

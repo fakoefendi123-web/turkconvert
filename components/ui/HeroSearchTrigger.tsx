@@ -15,7 +15,7 @@ export function HeroSearchTrigger() {
       >
         <div className="flex items-center gap-3">
           <Search className="h-5 w-5 text-gray-400 dark:text-gray-500" />
-          <span>DÃ¶nÃ¼ÅŸtÃ¼rmek istediÄŸiniz aracÄ± arayÄ±n...</span>
+          <span>Dönüştürmek istediğiniz aracı arayın...</span>
         </div>
         <kbd className="hidden rounded-md border border-gray-200 bg-gray-100 px-2 py-1 text-xs font-semibold text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 sm:inline-block">
           Ctrl K

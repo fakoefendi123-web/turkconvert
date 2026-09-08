@@ -25,15 +25,15 @@ interface ConvertedFileItem {
 }
 
 interface ImageFormatConverterProps {
-  /** Kabul edilen MIME tipleri, Ã¶r: "image/jpeg" */
+  /** Kabul edilen MIME tipleri, ör: "image/jpeg" */
   acceptTypes: string;
-  /** KullanÄ±cÄ±ya gÃ¶sterilecek kaynak format etiketi, Ã¶r: "JPG" */
+  /** Kullanıcıya gösterilecek kaynak format etiketi, ör: "JPG" */
   sourceLabel: string;
   /** Hedef MIME tipi */
   targetFormat: "image/png" | "image/jpeg" | "image/webp";
-  /** Hedef dosya uzantÄ±sÄ±, Ã¶r: "png" */
+  /** Hedef dosya uzantısı, ör: "png" */
   targetExtension: string;
-  /** Hedef format etiketi, Ã¶r: "PNG" */
+  /** Hedef format etiketi, ör: "PNG" */
   targetLabel: string;
 }
 
@@ -123,8 +123,8 @@ export function ImageFormatConverter({
         const current = files[i];
         setProgressText(
           files.length > 1
-            ? `DÃ¶nÃ¼ÅŸtÃ¼rÃ¼lÃ¼yor (${i + 1}/${files.length}): ${current.name}...`
-            : "DosyanÄ±z dÃ¶nÃ¼ÅŸtÃ¼rÃ¼lÃ¼yor..."
+            ? `Dönüştürülüyor (${i + 1}/${files.length}): ${current.name}...`
+            : "Dosyanız dönüştürülüyor..."
         );
 
         const blob = await convertImage(current, targetFormat);
@@ -140,7 +140,7 @@ export function ImageFormatConverter({
       setState("done");
     } catch {
       setErrorMsg(
-        "Dosya dÃ¶nÃ¼ÅŸtÃ¼rÃ¼lÃ¼rken bir sorun oluÅŸtu. LÃ¼tfen tekrar deneyin."
+        "Dosya dönüştürülürken bir sorun oluştu. Lütfen tekrar deneyin."
       );
       setState("error");
     }
@@ -191,7 +191,7 @@ export function ImageFormatConverter({
 
   return (
     <div>
-      {/* Gizli Ã§oklu dosya ekleme input'u */}
+      {/* Gizli çoklu dosya ekleme input'u */}
       <input
         ref={addMoreInputRef}
         type="file"
@@ -201,7 +201,7 @@ export function ImageFormatConverter({
         onChange={handleAddMoreChange}
       />
 
-      {/* Dosya YÃ¼kleme */}
+      {/* Dosya Yükleme */}
       {(state === "idle" || (state === "error" && files.length === 0)) && (
         <FileUploader
           accept={acceptTypes}
@@ -212,7 +212,7 @@ export function ImageFormatConverter({
         />
       )}
 
-      {/* Dosya Bilgisi + DÃ¶nÃ¼ÅŸtÃ¼r Butonu */}
+      {/* Dosya Bilgisi + Dönüştür Butonu */}
       {state === "ready" && files.length > 0 && (
         <div className="space-y-6">
           <div className="flex items-center justify-between">
@@ -220,8 +220,8 @@ export function ImageFormatConverter({
               <Layers className="h-4 w-4 text-primary-600 dark:text-primary-400" />
               <span className="text-sm font-semibold text-gray-900 dark:text-white">
                 {files.length === 1
-                  ? "1 dosya seÃ§ildi"
-                  : `${files.length} dosya seÃ§ildi (Toplu)`}
+                  ? "1 dosya seçildi"
+                  : `${files.length} dosya seçildi (Toplu)`}
               </span>
             </div>
 
@@ -257,19 +257,19 @@ export function ImageFormatConverter({
           <div className="flex justify-center pt-2">
             <button onClick={handleConvert} className="btn-primary">
               {files.length > 1
-                ? `TÃ¼mÃ¼nÃ¼ ${sourceLabel} â†’ ${targetLabel} DÃ¶nÃ¼ÅŸtÃ¼r (${files.length} Dosya)`
-                : `${sourceLabel} â†’ ${targetLabel} DÃ¶nÃ¼ÅŸtÃ¼r`}
+                ? `Tümünü ${sourceLabel} → ${targetLabel} Dönüştür (${files.length} Dosya)`
+                : `${sourceLabel} → ${targetLabel} Dönüştür`}
             </button>
           </div>
         </div>
       )}
 
-      {/* DÃ¶nÃ¼ÅŸtÃ¼rme SÃ¼reci */}
+      {/* Dönüştürme Süreci */}
       {state === "converting" && (
         <ConversionProgress message={progressText} />
       )}
 
-      {/* SonuÃ§ - Tek Dosya */}
+      {/* Sonuç - Tek Dosya */}
       {state === "done" && convertedItems.length === 1 && (
         <ConversionResult
           fileName={convertedItems[0].newName}
@@ -278,7 +278,7 @@ export function ImageFormatConverter({
         />
       )}
 
-      {/* SonuÃ§ - Toplu Dosya */}
+      {/* Sonuç - Toplu Dosya */}
       {state === "done" && convertedItems.length > 1 && (
         <div className="space-y-6 py-4">
           <div className="flex flex-col items-center gap-3 text-center">
@@ -287,10 +287,10 @@ export function ImageFormatConverter({
             </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                {convertedItems.length} dosya baÅŸarÄ±yla dÃ¶nÃ¼ÅŸtÃ¼rÃ¼ldÃ¼!
+                {convertedItems.length} dosya başarıyla dönüştürüldü!
               </h3>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                TÃ¼m dosyalarÄ± tek tÄ±kla ZIP olarak indirebilir veya tek tek kaydedebilirsiniz.
+                Tüm dosyaları tek tıkla ZIP olarak indirebilir veya tek tek kaydedebilirsiniz.
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-3 pt-2">
@@ -301,12 +301,12 @@ export function ImageFormatConverter({
               >
                 <Archive className="h-4 w-4" />
                 {isZipping
-                  ? "ZIP HazÄ±rlanÄ±yor..."
-                  : `TÃ¼mÃ¼nÃ¼ ZIP Olarak Ä°ndir (${convertedItems.length} Dosya)`}
+                  ? "ZIP Hazırlanıyor..."
+                  : `Tümünü ZIP Olarak İndir (${convertedItems.length} Dosya)`}
               </button>
               <button onClick={handleReset} className="btn-secondary gap-2">
                 <RefreshCw className="h-4 w-4" />
-                Yeni Dosyalar DÃ¶nÃ¼ÅŸtÃ¼r
+                Yeni Dosyalar Dönüştür
               </button>
             </div>
           </div>
@@ -331,7 +331,7 @@ export function ImageFormatConverter({
                   className="btn-secondary !px-3 !py-1.5 text-xs gap-1.5"
                 >
                   <Download className="h-3.5 w-3.5" />
-                  Ä°ndir
+                  İndir
                 </button>
               </div>
             ))}

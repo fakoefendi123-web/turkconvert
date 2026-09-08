@@ -39,7 +39,7 @@ export default function ImageResizerTool() {
     img.onerror = () => {
       URL.revokeObjectURL(url);
       setErrorMsg(
-        "GÃ¶rsel yÃ¼klenirken bir sorun oluÅŸtu. LÃ¼tfen geÃ§erli bir gÃ¶rsel seÃ§in."
+        "Görsel yüklenirken bir sorun oluştu. Lütfen geçerli bir görsel seçin."
       );
       setState("error");
     };
@@ -114,7 +114,7 @@ export default function ImageResizerTool() {
       setState("done");
     } catch {
       setErrorMsg(
-        "GÃ¶rsel boyutlandÄ±rÄ±lÄ±rken bir sorun oluÅŸtu. LÃ¼tfen tekrar deneyin."
+        "Görsel boyutlandırılırken bir sorun oluştu. Lütfen tekrar deneyin."
       );
       setState("error");
     }
@@ -140,7 +140,7 @@ export default function ImageResizerTool() {
 
   return (
     <div>
-      {/* Dosya YÃ¼kleme */}
+      {/* Dosya Yükleme */}
       {(state === "idle" || (state === "error" && !file)) && (
         <FileUploader
           accept="image/*"
@@ -149,18 +149,18 @@ export default function ImageResizerTool() {
         />
       )}
 
-      {/* BoyutlandÄ±rma AyarlarÄ± ve Buton */}
+      {/* Boyutlandırma Ayarları ve Buton */}
       {state === "ready" && file && (
         <div className="space-y-6">
           <FileInfo file={file} onRemove={handleReset} />
 
-          {/* Orijinal Boyut GÃ¶stergesi */}
+          {/* Orijinal Boyut Göstergesi */}
           <div className="rounded-lg bg-gray-50 p-4 text-sm dark:bg-gray-800/50">
             <span className="text-gray-500 dark:text-gray-400">
               Orijinal Boyut:{" "}
             </span>
             <span className="font-semibold text-gray-800 dark:text-gray-200">
-              {originalWidth} Ã— {originalHeight} px
+              {originalWidth} × {originalHeight} px
             </span>
           </div>
 
@@ -171,7 +171,7 @@ export default function ImageResizerTool() {
                 htmlFor="width-input"
                 className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
-                GeniÅŸlik (piksel)
+                Genişlik (piksel)
               </label>
               <input
                 id="width-input"
@@ -180,7 +180,7 @@ export default function ImageResizerTool() {
                 max="10000"
                 value={width}
                 onChange={(e) => handleWidthChange(e.target.value)}
-                placeholder="GeniÅŸlik"
+                placeholder="Genişlik"
                 className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 shadow-sm transition-colors focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
               />
             </div>
@@ -190,7 +190,7 @@ export default function ImageResizerTool() {
                 htmlFor="height-input"
                 className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
-                YÃ¼kseklik (piksel)
+                Yükseklik (piksel)
               </label>
               <input
                 id="height-input"
@@ -199,13 +199,13 @@ export default function ImageResizerTool() {
                 max="10000"
                 value={height}
                 onChange={(e) => handleHeightChange(e.target.value)}
-                placeholder="YÃ¼kseklik"
+                placeholder="Yükseklik"
                 className="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 shadow-sm transition-colors focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
               />
             </div>
           </div>
 
-          {/* OranÄ± Koru Onay Kutusu ve HÄ±zlÄ± Butonlar */}
+          {/* Oranı Koru Onay Kutusu ve Hızlı Butonlar */}
           <div className="flex flex-wrap items-center justify-between gap-4 border-t border-gray-200 pt-4 dark:border-gray-800">
             <label className="flex cursor-pointer items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300">
               <input
@@ -220,14 +220,14 @@ export default function ImageResizerTool() {
                 ) : (
                   <Unlock className="h-3.5 w-3.5 text-gray-400" />
                 )}
-                OranÄ± koru
+                Oranı koru
               </span>
             </label>
 
-            {/* HÄ±zlÄ± YÃ¼zde ButonlarÄ± */}
+            {/* Hızlı Yüzde Butonları */}
             <div className="flex items-center gap-2">
               <span className="text-xs text-gray-500 dark:text-gray-400">
-                HÄ±zlÄ±:
+                Hızlı:
               </span>
               {[25, 50, 75, 100].map((pct) => (
                 <button
@@ -242,25 +242,25 @@ export default function ImageResizerTool() {
             </div>
           </div>
 
-          {/* BoyutlandÄ±r Butonu */}
+          {/* Boyutlandır Butonu */}
           <div className="flex justify-center pt-2">
             <button
               onClick={handleResize}
               disabled={!isValidDimensions}
               className="btn-primary"
             >
-              BoyutlandÄ±r
+              Boyutlandır
             </button>
           </div>
         </div>
       )}
 
-      {/* BoyutlandÄ±rma SÃ¼reci */}
+      {/* Boyutlandırma Süreci */}
       {state === "converting" && (
-        <ConversionProgress message="GÃ¶rseliniz boyutlandÄ±rÄ±lÄ±yor..." />
+        <ConversionProgress message="Görseliniz boyutlandırılıyor..." />
       )}
 
-      {/* SonuÃ§ */}
+      {/* Sonuç */}
       {state === "done" && result && file && (
         <ConversionResult
           fileName={file.name}

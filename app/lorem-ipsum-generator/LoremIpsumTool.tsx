@@ -16,14 +16,14 @@ const LATIN_WORDS = [
 ];
 
 const TURKISH_WORDS = [
-  "bir", "zamanlar", "yÃ¼ksek", "daÄŸlarÄ±n", "ardÄ±nda", "yeÅŸil", "vadilerde",
-  "yaÅŸayan", "insanlar", "iÃ§in", "bilgi", "en", "deÄŸerli", "hazine", "idi",
-  "gÃ¼neÅŸ", "her", "sabah", "mavi", "gÃ¶kyÃ¼zÃ¼nde", "yÃ¼kselirken", "yeni", "bir",
-  "umut", "Ä±ÅŸÄ±ÄŸÄ±", "yayardÄ±", "kitaplar", "ve", "yazÄ±lar", "geÃ§miÅŸin", "izlerini",
-  "geleceÄŸe", "taÅŸÄ±yan", "kÃ¶prÃ¼ler", "olarak", "kabul", "edilirdi", "teknoloji",
-  "ve", "tasarÄ±m", "hayatÄ±n", "her", "alanÄ±nda", "kolaylÄ±k", "saÄŸlayarak",
-  "insanlarÄ±n", "Ã¼retkenliÄŸini", "artÄ±rmÄ±ÅŸtÄ±r", "bugÃ¼n", "ise", "dijital", "Ã§aÄŸda",
-  "hÄ±zlÄ±", "gÃ¼venli", "ve", "Ã¶zgÃ¼r", "Ã§Ã¶zÃ¼mler", "bÃ¼yÃ¼k", "fark", "yaratmaktadÄ±r"
+  "bir", "zamanlar", "yüksek", "dağların", "ardında", "yeşil", "vadilerde",
+  "yaşayan", "insanlar", "için", "bilgi", "en", "değerli", "hazine", "idi",
+  "güneş", "her", "sabah", "mavi", "gökyüzünde", "yükselirken", "yeni", "bir",
+  "umut", "ışığı", "yayardı", "kitaplar", "ve", "yazılar", "geçmişin", "izlerini",
+  "geleceğe", "taşıyan", "köprüler", "olarak", "kabul", "edilirdi", "teknoloji",
+  "ve", "tasarım", "hayatın", "her", "alanında", "kolaylık", "sağlayarak",
+  "insanların", "üretkenliğini", "artırmıştır", "bugün", "ise", "dijital", "çağda",
+  "hızlı", "güvenli", "ve", "özgür", "çözümler", "büyük", "fark", "yaratmaktadır"
 ];
 
 export default function LoremIpsumTool() {
@@ -128,7 +128,7 @@ export default function LoremIpsumTool() {
 
   return (
     <div className="space-y-6">
-      {/* SeÃ§enekler */}
+      {/* Seçenekler */}
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900 space-y-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {/* Miktar */}
@@ -146,10 +146,10 @@ export default function LoremIpsumTool() {
             />
           </div>
 
-          {/* TÃ¼r */}
+          {/* Tür */}
           <div>
             <label className="mb-1.5 block text-xs font-semibold text-gray-700 dark:text-gray-300">
-              Birim TÃ¼rÃ¼
+              Birim Türü
             </label>
             <select
               value={type}
@@ -157,7 +157,7 @@ export default function LoremIpsumTool() {
               className="w-full rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
             >
               <option value="paragraphs">Paragraf</option>
-              <option value="sentences">CÃ¼mle</option>
+              <option value="sentences">Cümle</option>
               <option value="words">Kelime</option>
             </select>
           </div>
@@ -173,7 +173,7 @@ export default function LoremIpsumTool() {
               className="w-full rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-sm text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
             >
               <option value="latin">Klasik Latin (Lorem Ipsum)</option>
-              <option value="turkish">TÃ¼rkÃ§e Yer Tutucu</option>
+              <option value="turkish">Türkçe Yer Tutucu</option>
             </select>
           </div>
         </div>
@@ -186,7 +186,7 @@ export default function LoremIpsumTool() {
               onChange={(e) => setStartWithLorem(e.target.checked)}
               className="h-3.5 w-3.5 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
             />
-            <span>&quot;Lorem ipsum dolor sit amet...&quot; ile baÅŸla</span>
+            <span>&quot;Lorem ipsum dolor sit amet...&quot; ile başla</span>
           </label>
         )}
 
@@ -197,12 +197,12 @@ export default function LoremIpsumTool() {
             className="btn-primary !px-4 !py-2 text-xs gap-1.5"
           >
             <RefreshCw className="h-3.5 w-3.5" />
-            Yeniden Ãœret
+            Yeniden Üret
           </button>
         </div>
       </div>
 
-      {/* Ã‡Ä±ktÄ± */}
+      {/* Çıktı */}
       <div className="space-y-3">
         <textarea
           value={result}
@@ -218,7 +218,7 @@ export default function LoremIpsumTool() {
             className="btn-primary !px-3 !py-2 text-xs gap-1.5"
           >
             {copiedText ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-            {copiedText ? "KopyalandÄ±!" : "Metni Kopyala"}
+            {copiedText ? "Kopyalandı!" : "Metni Kopyala"}
           </button>
 
           {type === "paragraphs" && (
@@ -228,7 +228,7 @@ export default function LoremIpsumTool() {
               className="btn-secondary !px-3 !py-2 text-xs gap-1.5"
             >
               {copiedHtml ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
-              {copiedHtml ? "HTML KopyalandÄ±!" : "<p> Etiketleriyle Kopyala"}
+              {copiedHtml ? "HTML Kopyalandı!" : "<p> Etiketleriyle Kopyala"}
             </button>
           )}
 
@@ -238,7 +238,7 @@ export default function LoremIpsumTool() {
             className="btn-secondary !px-3 !py-2 text-xs gap-1.5"
           >
             <Download className="h-3.5 w-3.5" />
-            .txt Ä°ndir
+            .txt İndir
           </button>
         </div>
       </div>

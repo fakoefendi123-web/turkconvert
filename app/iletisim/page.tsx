@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { Clock, Info } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Ä°letiÅŸim",
-  description: "turkconvert iletiÅŸim bilgileri.",
+  title: "İletişim",
+  description: "turkconvert iletişim bilgileri.",
   openGraph: {
-    title: "Ä°letiÅŸim | turkconvert",
-    description: "turkconvert iletiÅŸim bilgileri.",
+    title: "İletişim | turkconvert",
+    description: "turkconvert iletişim bilgileri.",
     type: "website",
     locale: "tr_TR",
     siteName: "turkconvert",
@@ -17,7 +17,7 @@ export default function IletisimPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-16">
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
-        Ä°letiÅŸim
+        İletişim
       </h1>
 
       <div className="mt-8 space-y-6">
@@ -28,15 +28,15 @@ export default function IletisimPage() {
             </div>
             <div>
               <h2 className="text-base font-semibold text-gray-900 dark:text-white">
-                Ä°letiÅŸim GeÃ§ici Olarak KapalÄ±dÄ±r
+                İletişim Geçici Olarak Kapalıdır
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
-                Åu anda iletiÅŸim kanallarÄ±mÄ±z geÃ§ici bir sÃ¼re iÃ§in kapalÄ±dÄ±r.
-                Kurumsal iletiÅŸim altyapÄ±mÄ±z tamamlandÄ±ÄŸÄ±nda buradan yeni
-                iletiÅŸim kanallarÄ±mÄ±z paylaÅŸÄ±lacaktÄ±r.
+                Şu anda iletişim kanallarımız geçici bir süre için kapalıdır.
+                Kurumsal iletişim altyapımız tamamlandığında buradan yeni
+                iletişim kanallarımız paylaşılacaktır.
               </p>
               <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                AnlayÄ±ÅŸÄ±nÄ±z ve sabrÄ±nÄ±z iÃ§in teÅŸekkÃ¼r ederiz.
+                Anlayışınız ve sabrınız için teşekkür ederiz.
               </p>
             </div>
           </div>
@@ -44,9 +44,9 @@ export default function IletisimPage() {
 
         <section className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
           <p>
-            turkconvert Ã¼zerinde dosya dÃ¶nÃ¼ÅŸtÃ¼rme ve araÃ§ kullanÄ±mlarÄ±nÄ±zÄ±
-            herhangi bir Ã¼yelik veya e-posta doÄŸrulamasÄ± olmadan 7/24 kesintisiz
-            olarak sÃ¼rdÃ¼rebilirsiniz.
+            turkconvert üzerinde dosya dönüştürme ve araç kullanımlarınızı
+            herhangi bir üyelik veya e-posta doğrulaması olmadan 7/24 kesintisiz
+            olarak sürdürebilirsiniz.
           </p>
         </section>
       </div>

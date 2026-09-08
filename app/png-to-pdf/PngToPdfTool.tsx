@@ -35,7 +35,7 @@ export default function PngToPdfTool() {
       setState("done");
     } catch {
       setErrorMsg(
-        "PDF oluÅŸturulurken bir sorun oluÅŸtu. LÃ¼tfen tekrar deneyin."
+        "PDF oluşturulurken bir sorun oluştu. Lütfen tekrar deneyin."
       );
       setState("error");
     }
@@ -51,7 +51,7 @@ export default function PngToPdfTool() {
 
   return (
     <div>
-      {/* Dosya YÃ¼kleme */}
+      {/* Dosya Yükleme */}
       {(state === "idle" || (state === "error" && !file)) && (
         <FileUploader
           accept="image/png"
@@ -60,7 +60,7 @@ export default function PngToPdfTool() {
         />
       )}
 
-      {/* Dosya Bilgisi + PDF OluÅŸtur Butonu */}
+      {/* Dosya Bilgisi + PDF Oluştur Butonu */}
       {state === "ready" && file && (
         <div className="space-y-6">
           <FileInfo file={file} onRemove={handleReset} />
@@ -68,18 +68,18 @@ export default function PngToPdfTool() {
           <div className="flex justify-center pt-2">
             <button onClick={handleConvert} className="btn-primary gap-2">
               <FileText className="h-4 w-4" />
-              PDF OluÅŸtur
+              PDF Oluştur
             </button>
           </div>
         </div>
       )}
 
-      {/* DÃ¶nÃ¼ÅŸtÃ¼rme SÃ¼reci */}
+      {/* Dönüştürme Süreci */}
       {state === "converting" && (
-        <ConversionProgress message="PDF belgeniz oluÅŸturuluyor..." />
+        <ConversionProgress message="PDF belgeniz oluşturuluyor..." />
       )}
 
-      {/* SonuÃ§ */}
+      {/* Sonuç */}
       {state === "done" && result && (
         <ConversionResult
           fileName={resultName}

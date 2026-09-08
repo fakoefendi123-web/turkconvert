@@ -1,5 +1,5 @@
 /**
- * Client-side metin araÃ§larÄ±.
+ * Client-side metin araçları.
  */
 
 export interface TextStats {
@@ -44,21 +44,21 @@ export function analyzeText(text: string): TextStats {
 }
 
 /**
- * Metni bÃ¼yÃ¼k harfe dÃ¶nÃ¼ÅŸtÃ¼rÃ¼r.
+ * Metni büyük harfe dönüştürür.
  */
 export function toUpperCase(text: string): string {
   return text.toLocaleUpperCase("tr-TR");
 }
 
 /**
- * Metni kÃ¼Ã§Ã¼k harfe dÃ¶nÃ¼ÅŸtÃ¼rÃ¼r.
+ * Metni küçük harfe dönüştürür.
  */
 export function toLowerCase(text: string): string {
   return text.toLocaleLowerCase("tr-TR");
 }
 
 /**
- * Her kelimenin ilk harfini bÃ¼yÃ¼tÃ¼r.
+ * Her kelimenin ilk harfini büyütür.
  */
 export function toTitleCase(text: string): string {
   return text
@@ -67,7 +67,7 @@ export function toTitleCase(text: string): string {
 }
 
 /**
- * CÃ¼mlelerin ilk harfini bÃ¼yÃ¼tÃ¼r.
+ * Cümlelerin ilk harfini büyütür.
  */
 export function toSentenceCase(text: string): string {
   return text
@@ -78,7 +78,7 @@ export function toSentenceCase(text: string): string {
 }
 
 /**
- * Metni temizler: fazla boÅŸluklarÄ± kaldÄ±rÄ±r, satÄ±r baÅŸÄ±/sonu temizler.
+ * Metni temizler: fazla boşlukları kaldırır, satır başı/sonu temizler.
  */
 export function cleanText(
   text: string,

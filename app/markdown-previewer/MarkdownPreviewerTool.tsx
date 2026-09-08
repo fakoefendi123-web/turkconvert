@@ -4,29 +4,29 @@ import { useState, useMemo } from "react";
 import { marked } from "marked";
 import { Copy, Check, Download, Sparkles, Trash2, FileCode } from "lucide-react";
 
-const SAMPLE_MARKDOWN = `# turkconvert'e HoÅŸ Geldiniz! ğŸš€
+const SAMPLE_MARKDOWN = `# turkconvert'e Hoş Geldiniz! 🚀
 
-Bu araÃ§ ile **Markdown** metinlerinizi anlÄ±k olarak yazabilir ve saÄŸ tarafta canlÄ± HTML Ã§Ä±ktÄ±sÄ±nÄ± gÃ¶rebilirsiniz.
+Bu araç ile **Markdown** metinlerinizi anlık olarak yazabilir ve sağ tarafta canlı HTML çıktısını görebilirsiniz.
 
-## Ã–zellikler
-- **KalÄ±n Metin** ve *Ä°talik Metin*
+## Özellikler
+- **Kalın Metin** ve *İtalik Metin*
 - [turkconvert Ana Sayfa](https://turkconvert.online)
-- \`inline code\` ve kod bloklarÄ±
+- \`inline code\` ve kod blokları
 
-### Ã–rnek Kod BloÄŸu:
+### Örnek Kod Bloğu:
 \`\`\`javascript
 function merhaba(isim) {
   console.log("Merhaba " + isim + "!");
 }
-merhaba("DÃ¼nya");
+merhaba("Dünya");
 \`\`\`
 
-> "Sadelik en yÃ¼ksek geliÅŸmiÅŸlik dÃ¼zeyidir." â€” Leonardo da Vinci
+> "Sadelik en yüksek gelişmişlik düzeyidir." — Leonardo da Vinci
 
-### GÃ¶rev Listesi:
-- [x] Ãœcretsiz dosya dÃ¶nÃ¼ÅŸtÃ¼rme
-- [x] ReklamsÄ±z arayÃ¼z
-- [x] Client-side gÃ¼venlik
+### Görev Listesi:
+- [x] Ücretsiz dosya dönüştürme
+- [x] Reklamsız arayüz
+- [x] Client-side güvenlik
 `;
 
 export default function MarkdownPreviewerTool() {
@@ -37,7 +37,7 @@ export default function MarkdownPreviewerTool() {
     try {
       return marked.parse(markdown) as string;
     } catch {
-      return "<p>Markdown ayrÄ±ÅŸtÄ±rÄ±lÄ±rken hata oluÅŸtu.</p>";
+      return "<p>Markdown ayrıştırılırken hata oluştu.</p>";
     }
   }, [markdown]);
 
@@ -52,7 +52,7 @@ export default function MarkdownPreviewerTool() {
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Markdown Ã‡Ä±ktÄ±sÄ± | turkconvert</title>
+  <title>Markdown Çıktısı | turkconvert</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 0 20px; color: #333; }
     pre { background: #f4f4f5; padding: 15px; border-radius: 8px; overflow-x: auto; }
@@ -81,7 +81,7 @@ ${htmlOutput}
 
   return (
     <div className="space-y-4">
-      {/* Ãœst Eylem AraÃ§ Ã‡ubuÄŸu */}
+      {/* Üst Eylem Araç Çubuğu */}
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-200 pb-3 dark:border-gray-800">
         <div className="flex items-center gap-2">
           <button
@@ -90,7 +90,7 @@ ${htmlOutput}
             className="btn-secondary !px-2.5 !py-1.5 text-xs gap-1"
           >
             <Sparkles className="h-3.5 w-3.5 text-primary-500" />
-            Ã–rnek YÃ¼kle
+            Örnek Yükle
           </button>
           <button
             type="button"
@@ -109,7 +109,7 @@ ${htmlOutput}
             className="btn-secondary !px-3 !py-1.5 text-xs gap-1.5"
           >
             {copiedHtml ? <Check className="h-3.5 w-3.5 text-green-500" /> : <Copy className="h-3.5 w-3.5" />}
-            {copiedHtml ? "HTML KopyalandÄ±!" : "HTML Kopyala"}
+            {copiedHtml ? "HTML Kopyalandı!" : "HTML Kopyala"}
           </button>
           <button
             type="button"
@@ -117,14 +117,14 @@ ${htmlOutput}
             className="btn-primary !px-3 !py-1.5 text-xs gap-1.5"
           >
             <Download className="h-3.5 w-3.5" />
-            HTML Ä°ndir
+            HTML İndir
           </button>
         </div>
       </div>
 
-      {/* EditÃ¶r ve Ã–nizleyici (Split View) */}
+      {/* Editör ve Önizleyici (Split View) */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        {/* Markdown GiriÅŸ */}
+        {/* Markdown Giriş */}
         <div className="flex flex-col">
           <label className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
             Markdown Metni
@@ -132,15 +132,15 @@ ${htmlOutput}
           <textarea
             value={markdown}
             onChange={(e) => setMarkdown(e.target.value)}
-            placeholder="# BaÅŸlÄ±k yazÄ±n..."
+            placeholder="# Başlık yazın..."
             className="min-h-[420px] w-full rounded-xl border border-gray-300 bg-white p-4 font-mono text-xs text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
           />
         </div>
 
-        {/* CanlÄ± HTML Ã–nizleme */}
+        {/* Canlı HTML Önizleme */}
         <div className="flex flex-col">
           <label className="mb-2 text-xs font-semibold text-gray-700 dark:text-gray-300">
-            CanlÄ± Ã–nizleme
+            Canlı Önizleme
           </label>
           <div
             dangerouslySetInnerHTML={{ __html: htmlOutput }}

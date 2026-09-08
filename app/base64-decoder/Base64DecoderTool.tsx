@@ -12,7 +12,7 @@ export default function Base64DecoderTool() {
 
   const handleProcess = () => {
     if (!input.trim()) {
-      setError("LÃ¼tfen Ã§Ã¶zmek iÃ§in bir Base64 verisi girin.");
+      setError("Lütfen çözmek için bir Base64 verisi girin.");
       setOutput("");
       return;
     }
@@ -22,7 +22,7 @@ export default function Base64DecoderTool() {
       const result = decodeBase64(input);
       setOutput(result);
     } catch {
-      setError("GeÃ§ersiz Base64 verisi.");
+      setError("Geçersiz Base64 verisi.");
       setOutput("");
     }
   };
@@ -43,7 +43,7 @@ export default function Base64DecoderTool() {
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ã‡Ã¶zmek istediÄŸiniz Base64 kodunu buraya yapÄ±ÅŸtÄ±rÄ±n..."
+          placeholder="Çözmek istediğiniz Base64 kodunu buraya yapıştırın..."
           className="w-full break-all rounded-lg border border-gray-300 bg-white p-4 font-mono text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500"
           rows={6}
         />
@@ -68,7 +68,7 @@ export default function Base64DecoderTool() {
       {output && (
         <div className="space-y-1">
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-            Ã‡Ã¶zÃ¼lmÃ¼ÅŸ Metin
+            Çözülmüş Metin
           </label>
           <div className="relative">
             <textarea
@@ -87,7 +87,7 @@ export default function Base64DecoderTool() {
                 <>
                   <Check className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
                   <span className="text-green-600 dark:text-green-400">
-                    KopyalandÄ±!
+                    Kopyalandı!
                   </span>
                 </>
               ) : (

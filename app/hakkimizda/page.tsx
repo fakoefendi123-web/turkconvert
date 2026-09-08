@@ -2,13 +2,17 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hakkımızda",
-  description: "turkconvert hakkında bilgi edinin.",
+  description: "TurkConvert hakkında bilgi edinin. Misyonumuz, vizyonumuz ve gizlilik ilkelerimiz.",
+  alternates: {
+    canonical: "https://turkconvert.online/hakkimizda",
+  },
   openGraph: {
-    title: "Hakkımızda | turkconvert",
-    description: "turkconvert hakkında bilgi edinin.",
+    title: "Hakkımızda | TurkConvert",
+    description: "TurkConvert hakkında bilgi edinin. Misyonumuz, vizyonumuz ve gizlilik ilkelerimiz.",
+    url: "https://turkconvert.online/hakkimizda",
     type: "website",
     locale: "tr_TR",
-    siteName: "turkconvert",
+    siteName: "TurkConvert",
   },
 };
 

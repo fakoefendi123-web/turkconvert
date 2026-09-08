@@ -7,8 +7,8 @@ import { ThemeToggle } from "./ThemeToggle";
 import { SearchCommandPalette } from "@/components/ui/SearchCommandPalette";
 
 const navLinks = [
-  { href: "/#araclar", label: "AraÃ§lar" },
-  { href: "/hakkimizda", label: "HakkÄ±mÄ±zda" },
+  { href: "/#araclar", label: "Araçlar" },
+  { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/gizlilik", label: "Gizlilik" },
 ];
 
@@ -41,7 +41,7 @@ export function Navbar() {
               className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50/80 px-3 py-1.5 text-xs text-gray-500 transition-colors hover:border-gray-300 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:border-gray-700"
             >
               <Search className="h-3.5 w-3.5" />
-              <span>AraÃ§ ara...</span>
+              <span>Araç ara...</span>
               <kbd className="rounded border border-gray-200 bg-white px-1.5 py-0.5 text-[10px] font-semibold text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
                 Ctrl K
               </kbd>
@@ -75,7 +75,7 @@ export function Navbar() {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
-              aria-label="MenÃ¼yÃ¼ aÃ§"
+              aria-label="Menüyü aç"
             >
               {isMenuOpen ? (
                 <X className="h-5 w-5" />

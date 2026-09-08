@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const footerLinks = [
-  { href: "/#araclar", label: "AraÃ§lar" },
+  { href: "/#araclar", label: "Araçlar" },
   { href: "/gizlilik", label: "Gizlilik" },
-  { href: "/kullanim-kosullari", label: "KullanÄ±m KoÅŸullarÄ±" },
-  { href: "/iletisim", label: "Ä°letiÅŸim" },
+  { href: "/kullanim-kosullari", label: "Kullanım Koşulları" },
+  { href: "/iletisim", label: "İletişim" },
 ];
 
 export function Footer() {
@@ -37,7 +37,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="mt-8 border-t border-gray-200 pt-6 text-center dark:border-gray-800">
           <p className="text-sm text-gray-400 dark:text-gray-500">
-            Â© 2026 turkconvert. TÃ¼m haklarÄ± saklÄ±dÄ±r.
+            © 2026 turkconvert. Tüm hakları saklıdır.
           </p>
         </div>
       </div>

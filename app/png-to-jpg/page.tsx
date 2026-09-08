@@ -1,24 +1,13 @@
 import type { Metadata } from "next";
 import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
+import { getToolMetadata } from "@/lib/constants/tool-seo";
 import { ImageFormatConverter } from "@/components/ui/ImageFormatConverter";
 
-export const metadata: Metadata = {
-  title: "PNG JPG DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online",
-  description:
-    "PNG dosyalarÄ±nÄ±zÄ± Ã¼cretsiz ve kolayca JPG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n. Ãœyelik ve reklam gerekmez.",
-  openGraph: {
-    title: "PNG JPG DÃ¶nÃ¼ÅŸtÃ¼rÃ¼cÃ¼ - Ãœcretsiz Online",
-    description:
-      "PNG dosyalarÄ±nÄ±zÄ± Ã¼cretsiz ve kolayca JPG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n. Ãœyelik ve reklam gerekmez.",
-  },
-};
+export const metadata: Metadata = getToolMetadata("png-to-jpg");
 
 export default function PngToJpgPage() {
   return (
-    <ToolPageLayout
-      title="PNG â†’ JPG"
-      description="PNG gÃ¶rsellerinizi Ã¼cretsiz olarak JPG formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n."
-    >
+    <ToolPageLayout toolId="png-to-jpg">
       <ImageFormatConverter
         acceptTypes="image/png,.png"
         sourceLabel="PNG"

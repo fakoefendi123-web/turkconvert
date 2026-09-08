@@ -1,24 +1,13 @@
 import type { Metadata } from "next";
 import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
+import { getToolMetadata } from "@/lib/constants/tool-seo";
 import UrlEncoderTool from "./UrlEncoderTool";
 
-export const metadata: Metadata = {
-  title: "URL Encoder - URL KodlayÄ±cÄ±",
-  description:
-    "Metinlerinizi veya parametrelerinizi gÃ¼venli URL formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
-  openGraph: {
-    title: "URL Encoder - URL KodlayÄ±cÄ±",
-    description:
-      "Metinlerinizi veya parametrelerinizi gÃ¼venli URL formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n.",
-  },
-};
+export const metadata: Metadata = getToolMetadata("url-encoder");
 
 export default function UrlEncoderPage() {
   return (
-    <ToolPageLayout
-      title="URL Encoder"
-      description="Metinlerinizi veya parametrelerinizi gÃ¼venli URL formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼n."
-    >
+    <ToolPageLayout toolId="url-encoder">
       <UrlEncoderTool />
     </ToolPageLayout>
   );

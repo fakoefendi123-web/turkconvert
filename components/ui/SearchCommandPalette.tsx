@@ -51,7 +51,7 @@ export function SearchCommandPalette({
 
   const filteredTools = useMemo(() => {
     if (!query.trim()) {
-      return tools.slice(0, 8); // varsayÄ±lan popÃ¼ler araÃ§lar
+      return tools.slice(0, 8); // varsayılan popüler araçlar
     }
     const q = query.toLowerCase().trim();
     return tools.filter(
@@ -63,7 +63,7 @@ export function SearchCommandPalette({
   }, [query]);
 
   const handleSelect = (href: string) => {
-    // Son kullanÄ±lanlara kaydet
+    // Son kullanılanlara kaydet
     try {
       const recents: string[] = JSON.parse(
         localStorage.getItem("tc_recent_tools") || "[]"
@@ -113,7 +113,7 @@ export function SearchCommandPalette({
               setSelectedIndex(0);
             }}
             onKeyDown={handleKeyDown}
-            placeholder="AraÃ§ ara... (Ã–rn: JPG, PNG, PDF, JSON, QR)"
+            placeholder="Araç ara... (Örn: JPG, PNG, PDF, JSON, QR)"
             className="flex-1 bg-transparent px-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none dark:text-white"
           />
           {query ? (
@@ -130,18 +130,18 @@ export function SearchCommandPalette({
           )}
         </div>
 
-        {/* SonuÃ§ Listesi */}
+        {/* Sonuç Listesi */}
         <div className="max-h-96 overflow-y-auto p-2">
           {!query.trim() && (
             <div className="flex items-center gap-1 px-3 py-2 text-xs font-semibold text-gray-400 dark:text-gray-500">
               <Sparkles className="h-3 w-3" />
-              <span>Ã–NERÄ°LEN ARAÃ‡LAR</span>
+              <span>ÖNERİLEN ARAÇLAR</span>
             </div>
           )}
 
           {filteredTools.length === 0 ? (
             <div className="py-12 text-center text-sm text-gray-500 dark:text-gray-400">
-              &quot;{query}&quot; ile eÅŸleÅŸen bir araÃ§ bulunamadÄ±.
+              &quot;{query}&quot; ile eşleşen bir araç bulunamadı.
             </div>
           ) : (
             <div className="space-y-1">
@@ -203,11 +203,11 @@ export function SearchCommandPalette({
           )}
         </div>
 
-        {/* Alt KÄ±sayol Bilgisi */}
+        {/* Alt Kısayol Bilgisi */}
         <div className="flex items-center justify-between border-t border-gray-200 bg-gray-50 px-4 py-2 text-[11px] text-gray-500 dark:border-gray-800 dark:bg-gray-900/60 dark:text-gray-400">
           <span>
-            Gezinmek iÃ§in <kbd className="font-semibold">â†‘</kbd>{" "}
-            <kbd className="font-semibold">â†“</kbd>, seÃ§mek iÃ§in{" "}
+            Gezinmek için <kbd className="font-semibold">â†‘</kbd>{" "}
+            <kbd className="font-semibold">â†“</kbd>, seçmek için{" "}
             <kbd className="font-semibold">Enter</kbd>
           </span>
           <span>turkconvert</span>

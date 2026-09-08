@@ -1,12 +1,12 @@
 /**
- * Client-side PDF oluÅŸturma.
- * jsPDF kullanarak gÃ¶rselleri PDF'e dÃ¶nÃ¼ÅŸtÃ¼rÃ¼r.
+ * Client-side PDF oluşturma.
+ * jsPDF kullanarak görselleri PDF'e dönüştürür.
  */
 
 import { jsPDF } from "jspdf";
 
 /**
- * GÃ¶rselleri PDF'e dÃ¶nÃ¼ÅŸtÃ¼rÃ¼r.
+ * Görselleri PDF'e dönüştürür.
  */
 export async function imagesToPdf(files: File[]): Promise<Blob> {
   const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
@@ -22,17 +22,17 @@ export async function imagesToPdf(files: File[]): Promise<Blob> {
     const dataUrl = await fileToDataUrl(files[i]);
     const dimensions = await getImageDimensions(dataUrl);
 
-    // GÃ¶rseli sayfaya sÄ±ÄŸdÄ±r (en-boy oranÄ±nÄ± koru)
+    // Görseli sayfaya sığdır (en-boy oranını koru)
     const ratio = Math.min(
       maxWidth / dimensions.width,
       maxHeight / dimensions.height,
-      1 // Orijinalden bÃ¼yÃ¼tme
+      1 // Orijinalden büyütme
     );
 
     const imgWidth = dimensions.width * ratio;
     const imgHeight = dimensions.height * ratio;
 
-    // GÃ¶rseli sayfanÄ±n ortasÄ±na yerleÅŸtir
+    // Görseli sayfanın ortasına yerleştir
     const x = (pageWidth - imgWidth) / 2;
     const y = (pageHeight - imgHeight) / 2;
 
@@ -44,19 +44,19 @@ export async function imagesToPdf(files: File[]): Promise<Blob> {
 }
 
 /**
- * DosyayÄ± data URL'e dÃ¶nÃ¼ÅŸtÃ¼rÃ¼r.
+ * Dosyayı data URL'e dönüştürür.
  */
 function fileToDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result as string);
-    reader.onerror = () => reject(new Error("Dosya okunamadÄ±."));
+    reader.onerror = () => reject(new Error("Dosya okunamadı."));
     reader.readAsDataURL(file);
   });
 }
 
 /**
- * Data URL'den gÃ¶rsel boyutlarÄ±nÄ± alÄ±r.
+ * Data URL'den görsel boyutlarını alır.
  */
 function getImageDimensions(
   dataUrl: string
@@ -65,13 +65,13 @@ function getImageDimensions(
     const img = new window.Image();
     img.onload = () =>
       resolve({ width: img.naturalWidth, height: img.naturalHeight });
-    img.onerror = () => reject(new Error("GÃ¶rsel yÃ¼klenemedi."));
+    img.onerror = () => reject(new Error("Görsel yüklenemedi."));
     img.src = dataUrl;
   });
 }
 
 /**
- * MIME tipinden jsPDF format stringi dÃ¶ndÃ¼rÃ¼r.
+ * MIME tipinden jsPDF format stringi döndürür.
  */
 function getImageFormatForPdf(mimeType: string): string {
   switch (mimeType) {

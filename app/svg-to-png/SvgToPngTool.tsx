@@ -40,7 +40,7 @@ export default function SvgToPngTool() {
         if (!ctx) {
           URL.revokeObjectURL(url);
           setIsConverting(false);
-          setErrorMsg("Canvas oluÅŸturulamadÄ±.");
+          setErrorMsg("Canvas oluşturulamadı.");
           return;
         }
 
@@ -57,7 +57,7 @@ export default function SvgToPngTool() {
         canvas.toBlob((pngBlob) => {
           setIsConverting(false);
           if (!pngBlob) {
-            setErrorMsg("PNG dÃ¶nÃ¼ÅŸtÃ¼rme baÅŸarÄ±sÄ±z oldu.");
+            setErrorMsg("PNG dönüştürme başarısız oldu.");
             return;
           }
           const pngUrl = URL.createObjectURL(pngBlob);
@@ -74,13 +74,13 @@ export default function SvgToPngTool() {
       img.onerror = () => {
         URL.revokeObjectURL(url);
         setIsConverting(false);
-        setErrorMsg("SVG dosyasÄ± iÅŸlenirken hata oluÅŸtu. LÃ¼tfen geÃ§erli bir SVG yÃ¼kleyin.");
+        setErrorMsg("SVG dosyası işlenirken hata oluştu. Lütfen geçerli bir SVG yükleyin.");
       };
 
       img.src = url;
     } catch {
       setIsConverting(false);
-      setErrorMsg("Dosya okunurken bir sorun oluÅŸtu.");
+      setErrorMsg("Dosya okunurken bir sorun oluştu.");
     }
   };
 
@@ -103,10 +103,10 @@ export default function SvgToPngTool() {
 
           {/* Ayarlar */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {/* Ã‡Ã¶zÃ¼nÃ¼rlÃ¼k Ã‡arpanÄ± */}
+            {/* Çözünürlük Çarpanı */}
             <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
               <label className="mb-2 block text-xs font-semibold text-gray-700 dark:text-gray-300">
-                Ã‡Ã¶zÃ¼nÃ¼rlÃ¼k Kalitesi
+                Çözünürlük Kalitesi
               </label>
               <div className="grid grid-cols-4 gap-2">
                 {[1, 2, 4, 8].map((s) => (
@@ -128,10 +128,10 @@ export default function SvgToPngTool() {
                 {scale === 1
                   ? "Orijinal boyut"
                   : scale === 2
-                  ? "2 kat netlik (Ã–nerilen)"
+                  ? "2 kat netlik (Önerilen)"
                   : scale === 4
                   ? "4 kat ultra HD kalite"
-                  : "8 kat maksimum baskÄ± kalitesi"}
+                  : "8 kat maksimum baskı kalitesi"}
               </p>
             </div>
 
@@ -150,7 +150,7 @@ export default function SvgToPngTool() {
                       : "border border-gray-200 bg-gray-50 text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                   }`}
                 >
-                  Åeffaf (Saydam)
+                  Şeffaf (Saydam)
                 </button>
                 <button
                   type="button"
@@ -166,8 +166,8 @@ export default function SvgToPngTool() {
               </div>
               <p className="mt-2 text-[11px] text-gray-400">
                 {background === "transparent"
-                  ? "Saydam arka plan (logo ve ikonlar iÃ§in idealdir)"
-                  : "Beyaz dolgu ile dÃ¼z zemin"}
+                  ? "Saydam arka plan (logo ve ikonlar için idealdir)"
+                  : "Beyaz dolgu ile düz zemin"}
               </p>
             </div>
           </div>
@@ -178,7 +178,7 @@ export default function SvgToPngTool() {
             </div>
           )}
 
-          {/* DÃ¶nÃ¼ÅŸtÃ¼r Butonu */}
+          {/* Dönüştür Butonu */}
           <div className="flex flex-wrap justify-center gap-3">
             <button
               onClick={handleConvertAndDownload}
@@ -186,7 +186,7 @@ export default function SvgToPngTool() {
               className="btn-primary gap-2"
             >
               <Download className="h-4 w-4" />
-              {isConverting ? "DÃ¶nÃ¼ÅŸtÃ¼rÃ¼lÃ¼yor..." : "PNG Olarak Ä°ndir"}
+              {isConverting ? "Dönüştürülüyor..." : "PNG Olarak İndir"}
             </button>
             <button onClick={handleReset} className="btn-secondary gap-2">
               <RefreshCw className="h-4 w-4" />

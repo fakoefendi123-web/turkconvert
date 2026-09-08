@@ -1,9 +1,9 @@
 /**
- * Client-side geliÅŸtirici araÃ§larÄ±.
+ * Client-side geliştirici araçları.
  */
 
 /**
- * JSON'u gÃ¼zel formatlÄ± hale getirir.
+ * JSON'u güzel formatlı hale getirir.
  */
 export function formatJSON(input: string, indent: number = 2): string {
   const parsed = JSON.parse(input);
@@ -11,7 +11,7 @@ export function formatJSON(input: string, indent: number = 2): string {
 }
 
 /**
- * JSON'u sÄ±kÄ±ÅŸtÄ±rÄ±lmÄ±ÅŸ (minified) formata dÃ¶nÃ¼ÅŸtÃ¼rÃ¼r.
+ * JSON'u sıkıştırılmış (minified) formata dönüştürür.
  */
 export function minifyJSON(input: string): string {
   const parsed = JSON.parse(input);
@@ -19,10 +19,10 @@ export function minifyJSON(input: string): string {
 }
 
 /**
- * Metni Base64 formatÄ±na dÃ¶nÃ¼ÅŸtÃ¼rÃ¼r.
+ * Metni Base64 formatına dönüştürür.
  */
 export function encodeBase64(input: string): string {
-  // UTF-8 desteÄŸi iÃ§in TextEncoder kullan
+  // UTF-8 desteği için TextEncoder kullan
   const encoder = new TextEncoder();
   const data = encoder.encode(input);
   let binary = "";
@@ -33,7 +33,7 @@ export function encodeBase64(input: string): string {
 }
 
 /**
- * Base64 verisini orijinal metne dÃ¶nÃ¼ÅŸtÃ¼rÃ¼r.
+ * Base64 verisini orijinal metne dönüştürür.
  */
 export function decodeBase64(input: string): string {
   const binary = atob(input.trim());
@@ -60,7 +60,7 @@ export function decodeURL(input: string): string {
 }
 
 /**
- * UUID v4 Ã¼retir.
+ * UUID v4 üretir.
  */
 export function generateUUID(): string {
   if (typeof crypto !== "undefined" && crypto.randomUUID) {

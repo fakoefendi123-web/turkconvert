@@ -1,24 +1,13 @@
 import type { Metadata } from "next";
 import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
+import { getToolMetadata } from "@/lib/constants/tool-seo";
 import TextCleanerTool from "./TextCleanerTool";
 
-export const metadata: Metadata = {
-  title: "Metin Temizleyici",
-  description:
-    "Metinlerinizdeki fazla boÅŸluklarÄ±, boÅŸ satÄ±rlarÄ± ve gereksiz karakterleri temizleyin.",
-  openGraph: {
-    title: "Metin Temizleyici",
-    description:
-      "Metinlerinizdeki fazla boÅŸluklarÄ±, boÅŸ satÄ±rlarÄ± ve gereksiz karakterleri temizleyin.",
-  },
-};
+export const metadata: Metadata = getToolMetadata("text-cleaner");
 
 export default function TextCleanerPage() {
   return (
-    <ToolPageLayout
-      title="Metin Temizleyici"
-      description="Metinlerinizdeki fazla boÅŸluklarÄ±, boÅŸ satÄ±rlarÄ± ve gereksiz karakterleri temizleyin."
-    >
+    <ToolPageLayout toolId="text-cleaner">
       <TextCleanerTool />
     </ToolPageLayout>
   );
