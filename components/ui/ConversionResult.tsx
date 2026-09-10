@@ -77,6 +77,13 @@ export function ConversionResult({
             </span>
           </div>
         )}
+        {savingsPercent !== null && savingsPercent === 0 && originalSize !== undefined && (
+          <div className="rounded-lg bg-blue-100 px-3 py-1.5 dark:bg-blue-900/30">
+            <span className="font-medium text-blue-700 dark:text-blue-400">
+              Maksimum Optimizasyon
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Butonlar */}

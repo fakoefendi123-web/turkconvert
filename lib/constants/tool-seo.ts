@@ -985,33 +985,161 @@ export const toolsSeo: Record<string, ToolSeoInfo> = {
   },
   "qr-code-generator": {
     id: "qr-code-generator",
-    title: "QR Kod Oluşturucu - Ücretsiz ve Süresiz QR Kod Yapma",
-    description: "Web sitesi linki, Wi-Fi, metin veya iletişim bilgileriniz için anında yüksek çözünürlüklü QR kod oluşturun ve PNG olarak indirin.",
-    h1: "QR Kod Oluşturucu",
-    intro: "Linkleriniz, metinleriniz ve iletişim bilgileriniz için süresiz, reklamsız ve yüksek kaliteli QR kodlar üretin.",
-    aboutTitle: "QR Kod Nedir ve Nasıl Çalışır?",
-    aboutContent: "QR Kod (Quick Response), iki boyutlu optik okuma sağlayan matris barkod türüdür. Akıllı telefon kameraları tarafından saniyeler içinde taranarak kullanıcıyı bir web sitesine yönlendirir, Wi-Fi ağına bağlar veya metin içeriğini aktarır. TurkConvert ile oluşturulan QR kodlar statiktir, süre sınırı bulunmaz ve hiçbir zaman kapanmaz.",
+    title: "Gelişmiş QR Kod Stüdyosu - Wi-Fi, WhatsApp ve Logolu QR Kod Yapma",
+    description: "Web sitesi, Wi-Fi ağı, WhatsApp mesajı, vCard veya metin için renkli, gradyanlı ve logolu QR kodlar oluşturun. Ücretsiz PNG ve SVG indirme.",
+    h1: "Gelişmiş QR Kod Stüdyosu",
+    intro: "Linkleriniz, Wi-Fi ağlarınız ve kurumsal iletişiminiz için süresiz, logolu ve yüksek çözünürlüklü QR kodlar tasarlayın.",
+    aboutTitle: "QR Kod Stüdyosu ile Neler Yapabilirsiniz?",
+    aboutContent: "Geleneksel siyah-beyaz kare kodların ötesine geçin! TurkConvert QR Kod Stüdyosu ile Wi-Fi şifrenizi karekoda gömüp misafirlerinizin tek tıkla bağlanmasını sağlayabilir, doğrudan WhatsApp sohbeti başlatan linkler üretebilir, ortasına özel logonuzu ekleyebilir ve iki renkli modern gradyan efektleri uygulayabilirsiniz.",
     steps: [
-      { title: "İçeriğinizi Girin", description: "QR koda dönüştürmek istediğiniz web adresi veya metni yazın." },
-      { title: "QR Kodunuzu Özelleştirin", description: "Kod anlık olarak oluşturulur ve önizlemesi görüntülenir." },
-      { title: "PNG Olarak İndirin", description: "Yüksek çözünürlüklü QR kod görselinizi kaydedin." }
+      { title: "İçerik Türünü Seçin", description: "URL, Wi-Fi, WhatsApp, Dijital Kartvizit (vCard) veya metin türünü belirleyin." },
+      { title: "Tasarımı Özelleştirin", description: "Renkleri seçin, isterseniz gradyan ekleyin ve ortasına logonuzu yerleştirin." },
+      { title: "PNG veya SVG Olarak İndirin", description: "Baskı ve dijital kullanım için süresiz geçerli QR kodunuzu kaydedin." }
     ],
     faqs: [
       {
-        question: "Oluşturulan QR kodların son kullanma tarihi var mı?",
-        answer: "Hayır, statik QR kodlar doğrudan veriyi kodladığı için ömür boyu geçerlidir ve asla süresi dolmaz."
+        question: "Ortasına logo koyunca QR kodun okunması zorlaşır mı?",
+        answer: "Hayır. Sistemimiz logo eklendiğinde otomatik olarak Seviye H (%30 hata toleransı) algoritmasına geçer. Bu sayede kodun üçte biri kapatılsa dahi telefon kameraları tarafından sorunsuz okunur."
       },
       {
-        question: "QR kod tarama sınırı var mı?",
-        answer: "Hayır, sınırsız kez taranabilir."
+        question: "Wi-Fi QR kodu nasıl çalışır?",
+        answer: "Akıllı telefon kamerası veya barkod okuyucuyla taranan Wi-Fi QR kodu, şifre girmeye gerek kalmadan cihazın ağa otomatik bağlanmasını sağlar."
       },
       {
-        question: "Baskı veya afişler için çözünürlük yeterli mi?",
-        answer: "Evet, oluşturulan PNG net ve yüksek çözünürlüklüdür; kartvizit ve afişlerde güvenle kullanılabilir."
+        question: "Oluşturulan kodların süresi dolar mı?",
+        answer: "Hayır. Üretilen tüm QR kodlar doğrudan içeriği temsil eden statik kodlardır ve ömür boyu sınırsız olarak taranabilir."
       },
       {
-        question: "Ücretli mi?",
-        answer: "Hayır, hiçbir gizli ücret veya abonelik gerektirmez, tamamen ücretsizdir."
+        question: "Baskı ve tabela için vektörel SVG indirebilir miyim?",
+        answer: "Evet, tek tıkla kayıpsız vektörel SVG veya ultra yüksek çözünürlüklü PNG formatında indirebilirsiniz."
+      }
+    ]
+  },
+  "seffaf-imza": {
+    id: "seffaf-imza",
+    title: "Şeffaf İmza Oluşturucu - Saydam Arka Planlı E-İmza Çizme",
+    description: "Belgeleriniz, PDF sözleşmeleriniz ve dilekçeleriniz için arka planı saydam el yazısı imza oluşturun. Otomatik kırpma, şeffaf PNG ve SVG indirme.",
+    h1: "Şeffaf İmza Oluşturucu",
+    intro: "Sözleşmeleriniz ve resmi evraklarınız için fare veya dokunmatik ekran ile kolayca şeffaf arka planlı ıslak imza çizin.",
+    aboutTitle: "Şeffaf Arka Planlı İmza Neden Tercih Edilir?",
+    aboutContent: "Kağıda atılıp fotoğraflanan imzaların arkasındaki gri veya gölgeli zeminler, dijital belgelere yapıştırıldığında profesyonel olmayan bir görüntüye sebep olur. TurkConvert Şeffaf İmza Oluşturucu, pürüzsüz Bézier eğrileriyle gerçek mürekkep hissi verir ve otomatik kenar kırpma (auto-trim) ile imzanın çevresindeki gereksiz boşlukları silerek doğrudan şeffaf PNG veya vektörel SVG olarak kaydetmenizi sağlar.",
+    steps: [
+      { title: "İmzanızı Çizin", description: "Fare, parmak veya stylus kalem yardımıyla tuval üzerine imzanızı atın." },
+      { title: "Mürekkep ve Kalınlığı Ayarlayın", description: "Siyah, kurumsal lacivert veya özel renk ve kalınlık seçin." },
+      { title: "Şeffaf PNG Olarak İndirin", description: "Otomatik kenarları kırpılmış saydam imzanızı belgelerinizde kullanmak üzere indirin." }
+    ],
+    faqs: [
+      {
+        question: "İmzam internete veya bir sunucuya kaydediliyor mu?",
+        answer: "Kesinlikle hayır. Çizim işlemi %100 yerel HTML5 Canvas üzerinde yapılır. Hiçbir çizim veya veri cihazınızdan dışarı aktarılmaz."
+      },
+      {
+        question: "PDF ve Word belgelerine eklenebilir mi?",
+        answer: "Evet, indirdiğiniz PNG dosyası şeffaf alfa kanalına sahip olduğundan belgedeki yazıların üzerine tam oturur ve beyaz çerçeve bırakmaz."
+      },
+      {
+        question: "Otomatik kırpma (Auto-trim) nedir?",
+        answer: "İmzanızın kapladığı alanı piksel piksel algılayarak etrafındaki geniş boşlukları otomatik siler. Böylece imza belgelere eklendiğinde devasa bir boş kutu oluşturmaz."
+      },
+      {
+        question: "Telefondan veya tabletten çizebilir miyim?",
+        answer: "Evet, tüm modern dokunmatik ekranlar, tabletler ve akıllı kalemler (Apple Pencil, S-Pen vb.) ile tam uyumludur."
+      }
+    ]
+  },
+  "belge-sansurleyici": {
+    id: "belge-sansurleyici",
+    title: "Gizli Belge Sansürleyici - T.C., IBAN ve Özel Bilgileri Gizleme",
+    description: "Sözleşme, dekont ve belgelerinizdeki T.C. Kimlik No, IBAN ve hassas bilgileri siyah bant veya mozaik ile sansürleyin. %100 güvenli istemci taraflı araç.",
+    h1: "Gizli Belge Sansürleyici",
+    intro: "Kimlik kartı, dekont veya faturalarınızdaki gizli kişisel verileri siyah bant, bulanıklaştırma veya mozaik ile anında gizleyin.",
+    aboutTitle: "KVKK Uyumlu Belge Sansürleme Neden Önemlidir?",
+    aboutContent: "Sosyal medyada ödeme dekontu paylaşırken veya resmi kurumlara evrak iletirken T.C. Kimlik Numarası, banka hesap detayları ve açık adres gibi kişisel verilerin gizlenmesi KVKK ve siber güvenlik açısından kritiktir. TurkConvert Belge Sansürleyici, dosyalarınızı hiçbir uzak sunucuya göndermeden doğrudan tarayıcınızda işler.",
+    steps: [
+      { title: "Belgenizi Yükleyin", description: "Sansürlemek istediğiniz JPG, PNG veya WebP belgesini seçin." },
+      { title: "Sansür Yöntemini Seçin", description: "Siyah bant, bulanıklaştırma (blur) veya piksel mozaik aracını seçip ilgili alanın üzerine kutu çizin." },
+      { title: "Güvenli Belgeyi İndirin", description: "Hassas bilgileri geri döndürülemez şekilde gizlenmiş belgenizi kaydedin." }
+    ],
+    faqs: [
+      {
+        question: "Sansürlenen bilgiler sonradan geri açılabilir mi?",
+        answer: "Hayır. Belge dışa aktarılırken sansür uygulanan alanlardaki pikseller tamamen yeni renklerle yeniden yazılır, katman bilgisi kalmaz ve geri döndürülemez."
+      },
+      {
+        question: "Belgem sunucuya aktarılır mı?",
+        answer: "Hayır. Tüm işlem cihazınızın tarayıcısında gerçekleşir. Gizli sözleşmeleriniz ve kişisel evraklarınız tamamen sizde kalır."
+      },
+      {
+        question: "Hangi sansür yöntemleri var?",
+        answer: "Klasik örtücü siyah bant, yumuşak bulanıklaştırma (blur), piksel mozaik efekti ve serbest fırça ile boyama modları mevcuttur."
+      },
+      {
+        question: "İşlem ücretsiz mi?",
+        answer: "Evet, TurkConvert üzerindeki tüm araçlar gibi tamamen ücretsiz ve sınırsızdır."
+      }
+    ]
+  },
+  "image-compare": {
+    id: "image-compare",
+    title: "Görsel Karşılaştırıcı - İki Resmi Yan Yana ve Kaydırıcı ile Kıyasla",
+    description: "İki resim arasındaki kalite ve piksel farklarını interaktif Before/After (Önce/Sonra) kaydırıcısı ile canlı karşılaştırın. Ücretsiz online görsel kıyaslama.",
+    h1: "Görsel Karşılaştırıcı (Before / After Slider)",
+    intro: "Sıkıştırılmış, filtrelenmiş veya düzenlenmiş iki görseli etkileşimli kaydırıcı ve fark maskesiyle piksel piksel kıyaslayın.",
+    aboutTitle: "Görsel Karşılaştırma Neden Kullanılır?",
+    aboutContent: "Fotoğraf düzenleme, yapay zeka büyütme veya görsel sıkıştırma sonrasında orijinal kalite ile yeni kaliteyi yan yana görmek insan gözü için zordur. Etkileşimli Before/After slider sayesinde fareyi sağa sola kaydırarak en küçük detayları, renk değişimlerini ve piksel keskinliğini anında fark edebilirsiniz.",
+    steps: [
+      { title: "İki Görseli Yükleyin", description: "Önceki ve sonraki durumdaki iki fotoğrafınızı ekleyin." },
+      { title: "Kaydırıcıyı Hareket Ettirin", description: "Çizgiyi sağa ve sola çekerek iki görsel arasındaki farkı canlı izleyin." },
+      { title: "Görünüm Modunu Değiştirin", description: "Kaydırıcı, Yan Yana veya Piksel Fark Maskesi seçenekleriyle inceleme yapın." }
+    ],
+    faqs: [
+      {
+        question: "Fark maskesi modu ne işe yarar?",
+        answer: "İki görsel arasındaki mutlak piksel farkını gösterir. Birebir aynı olan bölgeler siyah kalırken, değişen yerler renkli parlar."
+      },
+      {
+        question: "Mobil cihazlarda kaydırıcı çalışır mı?",
+        answer: "Evet, dokunmatik ekranlarda parmağınızla kaydırarak akıcı şekilde karşılaştırma yapabilirsiniz."
+      },
+      {
+        question: "Farklı boyutlardaki resimler kıyaslanabilir mi?",
+        answer: "En iyi sonuç aynı ebatlardaki görsellerde alınmakla birlikte farklı boyutlardaki görseller de orantılı olarak hizalanır."
+      },
+      {
+        question: "Dosyalarım güvende mi?",
+        answer: "Tüm analiz tarayıcınızın belleğinde çalışır; hiçbir görsel sunucuya yüklenmez."
+      }
+    ]
+  },
+  "fatura-olusturucu": {
+    id: "fatura-olusturucu",
+    title: "Ücretsiz PDF Fatura Oluşturucu - Kolay Fatura, Fiş ve Teklif Hazırlama",
+    description: "Küçük işletmeler ve serbest çalışanlar için ücretsiz A4 PDF fatura, fiş ve teklif oluşturucu. Otomatik KDV hesabı, canlı önizleme ve anında indirme.",
+    h1: "Ücretsiz PDF Fatura ve Teklif Oluşturucu",
+    intro: "Müşterileriniz için dakikalar içinde şık, kurumsal ve hesaplamalı A4 PDF fatura veya fiyat teklifi hazırlayın.",
+    aboutTitle: "Online Fatura Oluşturucu ile Neler Yapabilirsiniz?",
+    aboutContent: "Karmaşık muhasebe programlarına ihtiyaç duymadan satıcı bilgilerinizi, müşteri detaylarını ve ürün kalemlerini girerek anında kurumsal A4 PDF çıktısı alabilirsiniz. Kalemlerin ara toplamı ve KDV oranları otomatik hesaplanır; 'Firma Bilgilerimi Hatırla' özelliği ile bir sonraki faturanızda bilgilerinizi tekrar yazmanız gerekmez.",
+    steps: [
+      { title: "Firma ve Müşteri Bilgilerini Girin", description: "Unvan, adres, vergi bilgileri ve dilerseniz şirket logonuzu ekleyin." },
+      { title: "Kalemleri ve Fiyatları Belirleyin", description: "Hizmet açıklaması, miktar, birim fiyat ve KDV oranlarını girin; toplamlar anında hesaplansın." },
+      { title: "A4 PDF Olarak İndirin", description: "Canlı önizlemede kusursuz görünen faturanızı tek tıkla PDF olarak kaydedin." }
+    ],
+    faqs: [
+      {
+        question: "Firma bilgilerimi her seferinde tekrar yazmam gerekir mi?",
+        answer: "Hayır. 'Firma Bilgilerimi Hatırla' butonuna bastığınızda bilgileriniz tarayıcınızın yerel hafızasında (localStorage) saklanır ve sonraki ziyaretlerinizde hazır gelir."
+      },
+      {
+        question: "KDV oranları nasıl hesaplanıyor?",
+        answer: "Her ürün kalemi için %0, %1, %10 veya %20 KDV oranı seçebilirsiniz. Sistem ara toplamı, toplam KDV'yi ve genel toplamı otomatik hesaplar."
+      },
+      {
+        question: "Hangi para birimleri destekleniyor?",
+        answer: "Türk Lirası (₺), Amerikan Doları ($), Euro (€) ve İngiliz Sterlini (£) desteklenmektedir."
+      },
+      {
+        question: "Oluşturulan PDF çıktıları yazdırmaya uygun mu?",
+        answer: "Evet, vektörel A4 standartlarında yüksek çözünürlükle üretilir; hem dijital gönderim hem de yazıcıdan çıktı almak için kusursuzdur."
       }
     ]
   }

@@ -1,22 +1,33 @@
 import type { Metadata } from "next";
-import { categories, getToolsByCategory } from "@/lib/constants/tools";
+import { categories, getToolsByCategory, tools } from "@/lib/constants/tools";
 import { CategoryCard } from "@/components/ui/CategoryCard";
 import { ToolCard } from "@/components/ui/ToolCard";
 import { HeroSearchTrigger } from "@/components/ui/HeroSearchTrigger";
 import { RecentToolsBar } from "@/components/ui/RecentToolsBar";
-import { Zap, ShieldCheck, Sparkles } from "lucide-react";
+import {
+  Zap,
+  ShieldCheck,
+  Sparkles,
+  Flame,
+  PenTool,
+  Minimize2,
+  QrCode,
+  Receipt,
+  ShieldAlert,
+  SplitSquareVertical,
+} from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme Araçları",
+  title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme, Sıkıştırma ve Düzenleme Araçları",
   description:
-    "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
+    "Görsel sıkıştırma, şeffaf imza oluşturucu, gelişmiş QR kod stüdyosu, PDF fatura ve belge sansürleme araçları dahil %100 güvenli, ücretsiz ve reklamsız online araçlar.",
   alternates: {
     canonical: "https://turkconvert.online/",
   },
   openGraph: {
-    title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme Araçları",
+    title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme ve Düzenleme Araçları",
     description:
-      "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
+      "Görsel sıkıştırma, şeffaf imza oluşturucu, gelişmiş QR kod stüdyosu, PDF fatura ve belge sansürleme araçları dahil %100 güvenli, ücretsiz ve reklamsız online araçlar.",
     url: "https://turkconvert.online/",
     siteName: "TurkConvert",
     type: "website",
@@ -24,11 +35,69 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme Araçları",
+    title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme ve Düzenleme Araçları",
     description:
-      "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
+      "Görsel sıkıştırma, şeffaf imza, QR stüdyosu, PDF fatura ve sansürleme araçları dahil %100 güvenli, ücretsiz ve reklamsız online araçlar.",
   },
 };
+
+const FEATURED_TOOLS = [
+  {
+    id: "image-compressor",
+    title: "Görsel Sıkıştırıcı",
+    description: "Kalite kaybı olmadan dosya boyutunu küçültün (Önce/Sonra karşılaştırmalı).",
+    href: "/image-compressor",
+    icon: Minimize2,
+    badge: "Yenilendi",
+  },
+  {
+    id: "seffaf-imza",
+    title: "Şeffaf İmza Oluşturucu",
+    description: "Belgeleriniz için arka planı saydam ıslak imza çizin ve indirin.",
+    href: "/seffaf-imza",
+    icon: PenTool,
+    badge: "Yeni",
+  },
+  {
+    id: "qr-code-generator",
+    title: "Gelişmiş QR Kod Stüdyosu",
+    description: "Wi-Fi, WhatsApp, vCard, renkli gradyan ve logolu QR kodlar oluşturun.",
+    href: "/qr-code-generator",
+    icon: QrCode,
+    badge: "Popüler",
+  },
+  {
+    id: "fatura-olusturucu",
+    title: "PDF Fatura Oluşturucu",
+    description: "Hesaplamalı, şık ve kurumsal A4 PDF fatura veya teklif hazırlayın.",
+    href: "/fatura-olusturucu",
+    icon: Receipt,
+    badge: "Yeni",
+  },
+  {
+    id: "belge-sansurleyici",
+    title: "Gizli Belge Sansürleyici",
+    description: "T.C., IBAN ve hassas bilgileri siyah bant veya mozaik ile gizleyin.",
+    href: "/belge-sansurleyici",
+    icon: ShieldAlert,
+    badge: "Güvenlik",
+  },
+  {
+    id: "image-compare",
+    title: "Görsel Karşılaştırıcı",
+    description: "İki resim arasındaki farkı interaktif Before/After sürgüsüyle inceleyin.",
+    href: "/image-compare",
+    icon: SplitSquareVertical,
+    badge: "Yeni",
+  },
+];
+
+const NEW_TOOL_IDS = new Set([
+  "seffaf-imza",
+  "belge-sansurleyici",
+  "fatura-olusturucu",
+  "image-compare",
+]);
 
 export default function HomePage() {
   return (
@@ -37,13 +106,13 @@ export default function HomePage() {
       <section className="text-center">
         <div className="inline-flex items-center gap-2 rounded-full bg-primary-50 px-4 py-1.5 text-xs font-semibold text-primary-700 dark:bg-primary-950/50 dark:text-primary-300">
           <Sparkles className="h-3.5 w-3.5" />
-          <span>Hızlı, Güvenli ve Tamamen Ücretsiz</span>
+          <span>%100 Tarayıcı Tabanlı, Reklamsız ve Ücretsiz</span>
         </div>
         <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
-          Dosyalarınızı kolayca dönüştürün
+          Dosyalarınızı güvenle dönüştürün ve düzenleyin
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg">
-          Ücretsiz, hızlı ve reklamsız dosya dönüştürme araçları.
+          Görsel dönüştürme, sıkıştırma, şeffaf imza, QR stüdyosu ve PDF araçları. Dosyalarınız sunucuya yüklenmez, gizliliğiniz tamamen korunur.
         </p>
 
         {/* Hızlı Arama Kutusu */}
@@ -56,22 +125,52 @@ export default function HomePage() {
         <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-gray-500 dark:text-gray-400">
           <div className="flex items-center gap-1.5">
             <Zap className="h-4 w-4 text-primary-500" />
-            <span>Anında İşlem</span>
+            <span>Sıfır Bekleme, Anında İşlem</span>
           </div>
           <div className="flex items-center gap-1.5">
             <ShieldCheck className="h-4 w-4 text-primary-500" />
-            <span>Tarayıcıda Güvenli Dönüştürme</span>
+            <span>%100 İstemci Taraflı Gizlilik</span>
           </div>
           <div className="flex items-center gap-1.5">
             <Sparkles className="h-4 w-4 text-primary-500" />
-            <span>Üyelik Gerekmez</span>
+            <span>Üyelik ve Reklam Yok</span>
           </div>
         </div>
       </section>
 
+      {/* Öne Çıkan & Yeni Araçlar Vitrini */}
+      <section className="mt-14">
+        <div className="mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Flame className="h-5 w-5 text-amber-500" />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
+              Öne Çıkan ve Yeni Araçlar
+            </h2>
+          </div>
+          <span className="text-xs text-gray-400">En popüler araçlar</span>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURED_TOOLS.map((tool) => (
+            <ToolCard
+              key={tool.id}
+              title={tool.title}
+              description={tool.description}
+              href={tool.href}
+              icon={tool.icon}
+              badge={tool.badge}
+            />
+          ))}
+        </div>
+      </section>
+
       {/* Kategori Kartları Grid */}
-      <section id="araclar" className="mt-12 scroll-mt-20">
-        <h2 className="sr-only">Araç Kategorileri</h2>
+      <section id="araclar" className="mt-16 scroll-mt-20">
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
+            Tüm Araç Kategorileri ({tools.length} Araç)
+          </h2>
+        </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {categories.map((category) => (
             <CategoryCard
@@ -98,7 +197,7 @@ export default function HomePage() {
               className="scroll-mt-24"
             >
               <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-100 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-100 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400">
                   <Icon className="h-5 w-5" />
                 </div>
                 <div>
@@ -119,6 +218,7 @@ export default function HomePage() {
                     description={tool.description}
                     href={tool.href}
                     icon={tool.icon}
+                    badge={NEW_TOOL_IDS.has(tool.id) ? "Yeni" : undefined}
                   />
                 ))}
               </div>
@@ -140,7 +240,7 @@ export default function HomePage() {
                 url: "https://turkconvert.online",
                 name: "TurkConvert",
                 description:
-                  "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
+                  "Görsel sıkıştırma, şeffaf imza, QR stüdyosu, PDF fatura ve dönüştürme araçları dahil ücretsiz ve güvenli online platform.",
                 inLanguage: "tr-TR",
               },
               {
@@ -157,4 +257,3 @@ export default function HomePage() {
     </div>
   );
 }
-

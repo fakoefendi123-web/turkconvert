@@ -24,6 +24,10 @@ import {
   GitCompare,
   FileCode2,
   AlignLeft,
+  PenTool,
+  ShieldAlert,
+  SplitSquareVertical,
+  Receipt,
 } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
@@ -188,6 +192,30 @@ export const tools: ToolInfo[] = [
     category: "image",
     icon: FileImage,
   },
+  {
+    id: "seffaf-imza",
+    name: "Şeffaf İmza Oluşturucu",
+    description: "Belgeleriniz için arka planı şeffaf el yazısı imza çizin ve indirin.",
+    href: "/seffaf-imza",
+    category: "image",
+    icon: PenTool,
+  },
+  {
+    id: "belge-sansurleyici",
+    name: "Gizli Belge Sansürleyici",
+    description: "T.C., IBAN ve hassas bilgileri siyah bant veya mozaik ile gizleyin.",
+    href: "/belge-sansurleyici",
+    category: "image",
+    icon: ShieldAlert,
+  },
+  {
+    id: "image-compare",
+    name: "Görsel Karşılaştırıcı",
+    description: "İki görsel arasındaki farkı ve kaliteyi interaktif kaydırıcı ile inceleyin.",
+    href: "/image-compare",
+    category: "image",
+    icon: SplitSquareVertical,
+  },
 
   // PDF Araçları
   {
@@ -213,6 +241,14 @@ export const tools: ToolInfo[] = [
     href: "/image-to-pdf",
     category: "pdf",
     icon: Images,
+  },
+  {
+    id: "fatura-olusturucu",
+    name: "PDF Fatura Oluşturucu",
+    description: "Hızlı, kurumsal ve hesaplamalı A4 PDF fatura veya teklif belgesi hazırlayın.",
+    href: "/fatura-olusturucu",
+    category: "pdf",
+    icon: Receipt,
   },
 
   // Metin Araçları
@@ -332,8 +368,8 @@ export const tools: ToolInfo[] = [
   },
   {
     id: "diff-checker",
-    name: "Metin Karşılaştırıcı",
-    description: "İki metin arasındaki farkları satır satır karşılaştırın.",
+    name: "Metin Farkı Bulucu (Diff)",
+    description: "İki metin arasındaki farkları satır içi ve kelime düzeyinde karşılaştırın.",
     href: "/diff-checker",
     category: "developer",
     icon: GitCompare,
@@ -342,8 +378,8 @@ export const tools: ToolInfo[] = [
   // Diğer
   {
     id: "qr-code-generator",
-    name: "QR Kod Oluşturucu",
-    description: "Metin veya URL'den QR kod oluşturun.",
+    name: "Gelişmiş QR Kod Stüdyosu",
+    description: "Wi-Fi, WhatsApp, vCard, renkli gradyan ve logolu QR kodlar oluşturun.",
     href: "/qr-code-generator",
     category: "other",
     icon: QrCode,

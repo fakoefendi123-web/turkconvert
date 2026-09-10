@@ -29,13 +29,22 @@ merhaba("Dünya");
 - [x] Client-side güvenlik
 `;
 
+function sanitizeHtml(html: string): string {
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+    .replace(/on\w+\s*=\s*"[^"]*"/gi, "")
+    .replace(/on\w+\s*=\s*'[^']*'/gi, "")
+    .replace(/href\s*=\s*"javascript:[^"]*"/gi, 'href="#"');
+}
+
 export default function MarkdownPreviewerTool() {
   const [markdown, setMarkdown] = useState(SAMPLE_MARKDOWN);
   const [copiedHtml, setCopiedHtml] = useState(false);
 
   const htmlOutput = useMemo(() => {
     try {
-      return marked.parse(markdown) as string;
+      const raw = marked.parse(markdown) as string;
+      return sanitizeHtml(raw);
     } catch {
       return "<p>Markdown ayrıştırılırken hata oluştu.</p>";
     }

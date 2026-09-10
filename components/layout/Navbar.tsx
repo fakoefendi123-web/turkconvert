@@ -7,9 +7,10 @@ import { ThemeToggle } from "./ThemeToggle";
 import { SearchCommandPalette } from "@/components/ui/SearchCommandPalette";
 
 const navLinks = [
-  { href: "/#araclar", label: "Araçlar" },
+  { href: "/#araclar", label: "Tüm Araçlar" },
+  { href: "/seffaf-imza", label: "Şeffaf İmza", isNew: true },
+  { href: "/fatura-olusturucu", label: "Fatura Hazırla", isNew: true },
   { href: "/hakkimizda", label: "Hakkımızda" },
-  { href: "/gizlilik", label: "Gizlilik" },
 ];
 
 export function Navbar() {
@@ -51,9 +52,14 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
               >
-                {link.label}
+                <span>{link.label}</span>
+                {link.isNew && (
+                  <span className="rounded-full bg-primary-100 px-1.5 py-0.5 text-[9px] font-bold text-primary-700 dark:bg-primary-900/50 dark:text-primary-300">
+                    Yeni
+                  </span>
+                )}
               </Link>
             ))}
 
@@ -94,9 +100,14 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsMenuOpen(false)}
-                className="block rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                className="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
               >
-                {link.label}
+                <span>{link.label}</span>
+                {link.isNew && (
+                  <span className="rounded-full bg-primary-100 px-1.5 py-0.5 text-[10px] font-bold text-primary-700 dark:bg-primary-900/50 dark:text-primary-300">
+                    Yeni
+                  </span>
+                )}
               </Link>
             ))}
           </div>

@@ -55,6 +55,18 @@ export default function ColorPickerTool() {
     return `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
   };
 
+  const hexToInfo = (hex: string): ColorInfo => {
+    const cleanHex = hex.replace("#", "");
+    const r = parseInt(cleanHex.substring(0, 2), 16) || 0;
+    const g = parseInt(cleanHex.substring(2, 4), 16) || 0;
+    const b = parseInt(cleanHex.substring(4, 6), 16) || 0;
+    return {
+      hex,
+      rgb: `rgb(${r}, ${g}, ${b})`,
+      hsl: rgbToHsl(r, g, b),
+    };
+  };
+
   const extractPalette = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
     try {
       const imgData = ctx.getImageData(0, 0, width, height).data;
@@ -221,11 +233,7 @@ export default function ColorPickerTool() {
                     key={idx}
                     type="button"
                     onClick={() => {
-                      setSelectedColor({
-                        hex,
-                        rgb: hex,
-                        hsl: hex,
-                      });
+                      setSelectedColor(hexToInfo(hex));
                       copyToClipboard(hex, `pal-${idx}`);
                     }}
                     className="group flex flex-col items-center gap-1.5 rounded-lg border border-gray-200 bg-white p-2 shadow-xs transition hover:scale-105 dark:border-gray-700 dark:bg-gray-800"
@@ -246,7 +254,7 @@ export default function ColorPickerTool() {
           {/* Görsel Canvas Seçici */}
           <div className="space-y-2">
             <p className="text-center text-xs text-gray-500 dark:text-gray-400">
-              ğŸ’¡ Görselin üzerindeki herhangi bir piksele tıklayarak anında rengini alın.
+              💡 Görselin üzerindeki herhangi bir piksele tıklayarak anında rengini alın.
             </p>
             <div className="flex max-h-[500px] cursor-crosshair items-center justify-center overflow-auto rounded-xl border border-gray-200 bg-gray-50 p-2 dark:border-gray-800 dark:bg-gray-900/50">
               <canvas
