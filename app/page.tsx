@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { categories, getToolsByCategory, tools } from "@/lib/constants/tools";
-import { CategoryCard } from "@/components/ui/CategoryCard";
+import Link from "next/link";
 import { ToolCard } from "@/components/ui/ToolCard";
 import { HeroSearchTrigger } from "@/components/ui/HeroSearchTrigger";
 import { RecentToolsBar } from "@/components/ui/RecentToolsBar";
+import { ToolsExplorer } from "@/components/ui/ToolsExplorer";
 import {
   Zap,
   ShieldCheck,
@@ -15,6 +15,7 @@ import {
   Receipt,
   ShieldAlert,
   SplitSquareVertical,
+  Compass,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -92,12 +93,15 @@ const FEATURED_TOOLS = [
   },
 ];
 
-const NEW_TOOL_IDS = new Set([
-  "seffaf-imza",
-  "belge-sansurleyici",
-  "fatura-olusturucu",
-  "image-compare",
-]);
+const QUICK_ACTIONS = [
+  { label: "📸 Boyut Küçült", href: "/image-compressor" },
+  { label: "✍️ Şeffaf İmza", href: "/seffaf-imza" },
+  { label: "🧾 PDF Fatura", href: "/fatura-olusturucu" },
+  { label: "📶 Wi-Fi QR", href: "/qr-code-generator" },
+  { label: "🔍 Metin Farkı", href: "/diff-checker" },
+  { label: "🔒 Belge Sansürle", href: "/belge-sansurleyici" },
+  { label: "🔀 Görsel Karşılaştır", href: "/image-compare" },
+];
 
 export default function HomePage() {
   return (
@@ -117,6 +121,23 @@ export default function HomePage() {
 
         {/* Hızlı Arama Kutusu */}
         <HeroSearchTrigger />
+
+        {/* Hızlı İhtiyaç Hapları (Quick Actions) */}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+          <span className="flex items-center gap-1 text-xs font-medium text-gray-400 dark:text-gray-500">
+            <Compass className="h-3 w-3" />
+            <span>Hızlı Çözümler:</span>
+          </span>
+          {QUICK_ACTIONS.map((action) => (
+            <Link
+              key={action.href}
+              href={action.href}
+              className="inline-flex items-center rounded-full border border-gray-200 bg-white/90 px-3 py-1 text-xs font-medium text-gray-700 shadow-xs transition-all hover:border-primary-300 hover:bg-primary-50/50 hover:text-primary-600 dark:border-gray-800 dark:bg-gray-900/80 dark:text-gray-300 dark:hover:border-primary-700 dark:hover:text-primary-400"
+            >
+              {action.label}
+            </Link>
+          ))}
+        </div>
 
         {/* Son Kullanılanlar */}
         <RecentToolsBar />
@@ -164,68 +185,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Kategori Kartları Grid */}
-      <section id="araclar" className="mt-16 scroll-mt-20">
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
-            Tüm Araç Kategorileri ({tools.length} Araç)
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {categories.map((category) => (
-            <CategoryCard
-              key={category.id}
-              title={category.name}
-              description={category.description}
-              icon={category.icon}
-              href={`#${category.anchor}`}
-            />
-          ))}
-        </div>
-      </section>
-
-      {/* Kategori Bazlı Araç Listeleri */}
-      <div className="mt-16 space-y-16">
-        {categories.map((category) => {
-          const categoryTools = getToolsByCategory(category.id);
-          const Icon = category.icon;
-
-          return (
-            <section
-              key={category.id}
-              id={category.anchor}
-              className="scroll-mt-24"
-            >
-              <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-100 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl">
-                    {category.name}
-                  </h2>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {category.description}
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {categoryTools.map((tool) => (
-                  <ToolCard
-                    key={tool.id}
-                    title={tool.name}
-                    description={tool.description}
-                    href={tool.href}
-                    icon={tool.icon}
-                    badge={NEW_TOOL_IDS.has(tool.id) ? "Yeni" : undefined}
-                  />
-                ))}
-              </div>
-            </section>
-          );
-        })}
-      </div>
+      {/* Modern, Ferah Araçlar Gezgini (Kategori Sekmeleri & Kompakt/Kart Görünümü) */}
+      <ToolsExplorer />
 
       {/* Structured Data for Google (WebSite & Organization) */}
       <script
