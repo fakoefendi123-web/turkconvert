@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import {
   Crown,
@@ -15,7 +15,6 @@ import {
   Heart,
   Volume2,
   RefreshCw,
-  Send,
   Check,
   Copy,
   Calendar,
@@ -27,6 +26,10 @@ import {
   QrCode,
   GitCompare,
   FileImage,
+  Download,
+  Shuffle,
+  Palette,
+  Share2,
 } from "lucide-react";
 
 // Saray Rütbeleri Havuzu
@@ -40,34 +43,23 @@ const ROYAL_TITLES = [
   "🌟 Lütuf Meclisi Âyanı",
 ];
 
-// Başlangıç Arz-ı Hâlleri (Halktan Gelen Dilekçeler)
-const INITIAL_PETITIONS = [
+// Hazır Ferman Şablonları (Görsel İçin)
+const FERMAN_PRESETS = [
   {
-    id: "p-1",
-    author: "Kâtip Necati Efendi",
-    role: "Vilayet Kâtibi",
-    type: "Lütuf Teşekkürü",
-    message:
-      "Hünkarım, bahşettiğiniz Şeffaf İmza vasıtasıyla devlet dairesindeki evrakları tek tıkla mühürler olduk. Allah saltanatınıza zeval vermesin!",
-    date: "Bugün",
+    label: "Biat ve Sadakat Yemini",
+    text: "Yüce Prens Hazretleri'nin sarsılmaz adaletine ve şanlı dijital saltanatına biat eder; TurkConvert diyarındaki lütufları için şükranlarımı sunarım. Varlığım saltanatına armağan olsun!",
   },
   {
-    id: "p-2",
-    author: "Serdar Selim",
-    role: "Cihan Muhafızı",
-    type: "Yayın Tebriki",
-    message:
-      "Yüce Prens'im, Kick yayınındaki fetihleriniz ve chat meclisindeki adaletiniz tebaanız olarak göğsümüzü kabartıyor.",
-    date: "Dün",
+    label: "0 Akçe Lütuf Teşekkürü",
+    text: "Tüm dosya dönüştürme ve evrak işlerimizi hiçbir akçe ve vergi talep etmeden şimşek hızında çözen Prens Hazretleri'ne minnettarız. Lütfunuz ve saltanatınız daim olsun!",
   },
   {
-    id: "p-3",
-    author: "Tüccar Bahaddin",
-    role: "Hazine Esnafı",
-    type: "Lütuf Teşekkürü",
-    message:
-      "0 akçe vergiyle çalışan PDF Fatura aracı sayesinde esnafın cebi nefes aldı. Lütfunuz daim olsun!",
-    date: "3 gün önce",
+    label: "Kick Otağı Cihan Meydanı",
+    text: "Kick canlı yayın otağında fetihler yapan, düşmanlara göz açtırmayan Yüce Prens'in arkasında dağ gibi duran sadık tebaasıyız! Chat meclisi emrinizdedir.",
+  },
+  {
+    label: "Devlet-i Bilişim Fermanı",
+    text: "Bu ferman ile ilan olunur ki; TurkConvert'te yabancı sunucu zulmü yoktur. Tüm pikseller hür, tüm evraklar mahremdir. Halka hizmet Hakka hizmettir!",
   },
 ];
 
@@ -162,12 +154,14 @@ export default function PrensHazretleriClient() {
   const [playerKey, setPlayerKey] = useState(0);
   const [activeView, setActiveView] = useState<"streamAndChat" | "streamOnly" | "chatOnly">("streamAndChat");
 
-  // Dilekçe Sandığı Durumları
-  const [petitions, setPetitions] = useState(INITIAL_PETITIONS);
-  const [newAuthor, setNewAuthor] = useState("");
-  const [newType, setNewType] = useState("Lütuf Teşekkürü");
-  const [newMessage, setNewMessage] = useState("");
-  const [petitionSubmitted, setPetitionSubmitted] = useState(false);
+  // Otomatik Ferman Görseli Durumları
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [authorName, setAuthorName] = useState("Kâtip Ahmed Efendi");
+  const [selectedPreset, setSelectedPreset] = useState("Biat ve Sadakat Yemini");
+  const [fermanMessage, setFermanMessage] = useState(FERMAN_PRESETS[0].text);
+  const [parchmentTheme, setParchmentTheme] = useState<"royalGold" | "imperialPurple" | "antiqueScroll">("royalGold");
+  const [copiedFermanText, setCopiedFermanText] = useState(false);
+  const [downloading, setDownloading] = useState(false);
 
   // Ses Sentezleyici (Web Audio API ile Asil Borazan / Fanfar Çalımı)
   const playFanfare = () => {
@@ -205,22 +199,14 @@ export default function PrensHazretleriClient() {
       const savedCount = localStorage.getItem("tc_prens_biat_count");
       const savedBiat = localStorage.getItem("tc_user_has_biat");
       const savedTitle = localStorage.getItem("tc_user_royal_title");
-      const savedPetitions = localStorage.getItem("tc_prens_petitions");
 
       if (savedCount) setBiatCount(parseInt(savedCount, 10));
       if (savedBiat === "true") setHasBiat(true);
-      if (savedTitle) setUserTitle(savedTitle);
-      if (savedPetitions) {
-        try {
-          const parsed = JSON.parse(savedPetitions);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            setPetitions(parsed);
-          }
-        } catch {}
+      if (savedTitle) {
+        setUserTitle(savedTitle);
+        setAuthorName(savedTitle);
       }
-    } catch {
-      // LocalStorage desteği yoksa varsayılan kalır
-    }
+    } catch {}
   }, []);
 
   // Biat Etme & Berat Alma İşlemi
@@ -230,12 +216,12 @@ export default function PrensHazretleriClient() {
     setBiatCount(newCount);
     setHasBiat(true);
 
-    // Yeni rastgele rütbe belirle veya eskisini koru
     let assignedTitle = userTitle;
     if (!assignedTitle) {
       const randomIdx = Math.floor(Math.random() * ROYAL_TITLES.length);
       assignedTitle = ROYAL_TITLES[randomIdx];
       setUserTitle(assignedTitle);
+      setAuthorName(assignedTitle);
     }
     setShowCertificate(true);
 
@@ -274,32 +260,283 @@ export default function PrensHazretleriClient() {
     setPlayerKey((prev) => prev + 1);
   };
 
-  // Dilekçe Gönderme
-  const handlePetitionSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newMessage.trim()) return;
+  // ======================= CANVAS FERMAN ÇİZİMİ =======================
+  const drawCanvas = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-    const authorName = newAuthor.trim() || userTitle || "Sadık Bir Tebaa";
-    const newEntry = {
-      id: "p-" + Date.now(),
-      author: authorName,
-      role: userTitle || "Mesut Kul",
-      type: newType,
-      message: newMessage.trim(),
-      date: "Şimdi",
-    };
+    const W = 1080;
+    const H = 1080;
+    canvas.width = W;
+    canvas.height = H;
 
-    const updated = [newEntry, ...petitions];
-    setPetitions(updated);
-    setNewMessage("");
-    setPetitionSubmitted(true);
+    // 1. Arka Plan Gradyanı
+    let bgGrad = ctx.createLinearGradient(0, 0, W, H);
+    if (parchmentTheme === "royalGold") {
+      bgGrad.addColorStop(0, "#0c0a12");
+      bgGrad.addColorStop(0.35, "#171206");
+      bgGrad.addColorStop(0.7, "#1e1605");
+      bgGrad.addColorStop(1, "#0a0810");
+    } else if (parchmentTheme === "imperialPurple") {
+      bgGrad.addColorStop(0, "#0e0618");
+      bgGrad.addColorStop(0.4, "#220c36");
+      bgGrad.addColorStop(0.75, "#150722");
+      bgGrad.addColorStop(1, "#08040d");
+    } else {
+      bgGrad.addColorStop(0, "#191309");
+      bgGrad.addColorStop(0.45, "#271c0d");
+      bgGrad.addColorStop(0.8, "#1f1609");
+      bgGrad.addColorStop(1, "#110b04");
+    }
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    // 2. Vinyet ve Işık Aurası
+    const radial = ctx.createRadialGradient(W / 2, H / 2, 100, W / 2, H / 2, 650);
+    radial.addColorStop(0, "rgba(245, 158, 11, 0.18)");
+    radial.addColorStop(0.6, "rgba(0, 0, 0, 0.2)");
+    radial.addColorStop(1, "rgba(0, 0, 0, 0.75)");
+    ctx.fillStyle = radial;
+    ctx.fillRect(0, 0, W, H);
+
+    // 3. Altın Varaklı Kenarlıklar
+    // Dış Kalın Çerçeve
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = "#f59e0b";
+    ctx.strokeRect(36, 36, W - 72, H - 72);
+
+    // Orta İnce Çerçeve
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#d97706";
+    ctx.strokeRect(52, 52, W - 104, H - 104);
+
+    // İç Zarif Çerçeve
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "#fbbf24";
+    ctx.strokeRect(62, 62, W - 124, H - 124);
+
+    // Köşe Süslemeleri (Altın Baklavalar)
+    const corners = [
+      { x: 52, y: 52 },
+      { x: W - 52, y: 52 },
+      { x: 52, y: H - 52 },
+      { x: W - 52, y: H - 52 },
+    ];
+    ctx.fillStyle = "#f59e0b";
+    corners.forEach((c) => {
+      ctx.beginPath();
+      ctx.moveTo(c.x, c.y - 12);
+      ctx.lineTo(c.x + 12, c.y);
+      ctx.lineTo(c.x, c.y + 12);
+      ctx.lineTo(c.x - 12, c.y);
+      ctx.closePath();
+      ctx.fill();
+    });
+
+    // 4. Üst Taç & Başlık
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    // Taç İkonu (Büyük Altın Parıltı)
+    ctx.shadowColor = "#f59e0b";
+    ctx.shadowBlur = 24;
+    ctx.font = "72px 'Segoe UI Emoji', 'Apple Color Emoji', serif";
+    ctx.fillText("👑", W / 2, 140);
+    ctx.shadowBlur = 0;
+
+    // "PRENS HAZRETLERİ"
+    const textGrad = ctx.createLinearGradient(W / 2 - 250, 0, W / 2 + 250, 0);
+    textGrad.addColorStop(0, "#fef3c7");
+    textGrad.addColorStop(0.5, "#fcd34d");
+    textGrad.addColorStop(1, "#f59e0b");
+    ctx.fillStyle = textGrad;
+    ctx.font = "900 46px 'Times New Roman', Georgia, serif";
+    ctx.fillText("PRENS HAZRETLERİ", W / 2, 220);
+
+    // "F E R M A N - I   H Ü M A Y U N"
+    ctx.fillStyle = "#fde68a";
+    ctx.font = "bold 20px 'Times New Roman', Georgia, serif";
+    ctx.fillText("✦  F E R M A N - I   H Ü M A Y U N  ✦", W / 2, 265);
+
+    // Zarif Çizgi
+    ctx.beginPath();
+    ctx.moveTo(W / 2 - 240, 295);
+    ctx.lineTo(W / 2 + 240, 295);
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = "rgba(245, 158, 11, 0.6)";
+    ctx.stroke();
+
+    // 5. Tebaa ve Muhatap Şeridi
+    ctx.fillStyle = "rgba(0, 0, 0, 0.45)";
+    ctx.strokeStyle = "rgba(245, 158, 11, 0.35)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.roundRect(130, 330, W - 260, 95, 16);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#f59e0b";
+    ctx.font = "bold 15px sans-serif";
+    ctx.fillText("TEBAA-İ SADIK VE DİVAN RÜTBESİ", W / 2, 360);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 25px 'Times New Roman', Georgia, serif";
+    ctx.fillText(authorName || "👑 Sadık Bir Tebaa", W / 2, 395);
+
+    // 6. Ferman Metni (Ortada Şık Parşömen Yazısı)
+    ctx.fillStyle = "#fef3c7";
+    ctx.font = "italic 32px 'Times New Roman', Georgia, serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    const textToWrap = `“ ${fermanMessage.trim()} ”`;
+    const maxWidth = 800;
+    const lineHeight = 50;
+
+    // Metin Sarma Algoritması
+    const words = textToWrap.split(" ");
+    const lines: string[] = [];
+    let currentLine = "";
+
+    for (let i = 0; i < words.length; i++) {
+      const testLine = currentLine + words[i] + " ";
+      const metrics = ctx.measureText(testLine);
+      if (metrics.width > maxWidth && i > 0) {
+        lines.push(currentLine.trim());
+        currentLine = words[i] + " ";
+      } else {
+        currentLine = testLine;
+      }
+    }
+    if (currentLine.trim()) {
+      lines.push(currentLine.trim());
+    }
+
+    // Ortala ve Yazdır
+    const startY = 560 - ((lines.length - 1) * lineHeight) / 2;
+    lines.forEach((line, idx) => {
+      ctx.fillText(line, W / 2, startY + idx * lineHeight);
+    });
+
+    // 7. Sol Alt: Tarih ve TurConvert İmzası
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#fbbf24";
+    ctx.font = "bold 16px sans-serif";
+    ctx.fillText("MÜHÜR VE TANZİM TARİHİ", 140, 895);
+
+    const todayStr = new Date().toLocaleDateString("tr-TR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+    ctx.fillStyle = "#fde68a";
+    ctx.font = "17px 'Times New Roman', Georgia, serif";
+    ctx.fillText(todayStr + " • Cihan Meclisi", 140, 925);
+
+    ctx.fillStyle = "rgba(254, 243, 199, 0.6)";
+    ctx.font = "14px monospace";
+    ctx.fillText("turkconvert.online/prens-hazretleri", 140, 955);
+
+    // 8. Sağ Alt: Orijinal Kırmızı Saray Mührü (Tuğra Damgası)
+    const sealX = W - 230;
+    const sealY = 915;
+    const sealR = 75;
+
+    ctx.save();
+    ctx.translate(sealX, sealY);
+    ctx.rotate(-0.1); // Gerçek ıslak mühür gibi hafif eğik
+
+    // Dış kırmızı halka
+    ctx.beginPath();
+    ctx.arc(0, 0, sealR, 0, Math.PI * 2);
+    ctx.strokeStyle = "#ef4444";
+    ctx.lineWidth = 4;
+    ctx.shadowColor = "#dc2626";
+    ctx.shadowBlur = 14;
+    ctx.stroke();
+
+    // İç kesikli halka
+    ctx.beginPath();
+    ctx.arc(0, 0, sealR - 8, 0, Math.PI * 2);
+    ctx.setLineDash([6, 4]);
+    ctx.strokeStyle = "#f87171";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Mühür Yazıları
+    ctx.fillStyle = "#fca5a5";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.font = "bold 12px sans-serif";
+    ctx.fillText("PRENS HAZRETLERİ", 0, -sealR + 24);
+    ctx.fillText("TURKCONVERT", 0, sealR - 24);
+
+    // Mühür Ortası
+    ctx.font = "26px serif";
+    ctx.fillText("👑", 0, -4);
+    ctx.font = "bold 11px sans-serif";
+    ctx.fillText("BİAT KILINDI", 0, 24);
+
+    ctx.restore();
+
+    // 9. En Alt Saltanat Sloganı
+    ctx.textAlign = "center";
+    ctx.fillStyle = "rgba(245, 158, 11, 0.75)";
+    ctx.font = "bold 13px sans-serif";
+    ctx.fillText("✦ YÜCE PRENS HAZRETLERİ TARAFINDAN HALKINA BİLABEDEL BAHŞEDİLMİŞTİR ✦", W / 2, 1030);
+  }, [authorName, fermanMessage, parchmentTheme]);
+
+  // Her parametre değişiminde Canvas'ı yeniden çiz
+  useEffect(() => {
+    drawCanvas();
+  }, [drawCanvas]);
+
+  // Şablon Seçimi
+  const handleSelectPreset = (presetLabel: string) => {
+    setSelectedPreset(presetLabel);
+    const found = FERMAN_PRESETS.find((p) => p.label === presetLabel);
+    if (found) {
+      setFermanMessage(found.text);
+    }
+  };
+
+  // Rastgele Ferman Üret
+  const handleRandomizeFerman = () => {
+    const randomPreset = FERMAN_PRESETS[Math.floor(Math.random() * FERMAN_PRESETS.length)];
+    setSelectedPreset(randomPreset.label);
+    setFermanMessage(randomPreset.text);
+    const themes: ("royalGold" | "imperialPurple" | "antiqueScroll")[] = ["royalGold", "imperialPurple", "antiqueScroll"];
+    setParchmentTheme(themes[Math.floor(Math.random() * themes.length)]);
+    playFanfare();
+  };
+
+  // Fermanı Görsel Olarak İndir (PNG)
+  const handleDownloadFerman = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    setDownloading(true);
     playFanfare();
 
-    try {
-      localStorage.setItem("tc_prens_petitions", JSON.stringify(updated.slice(0, 20)));
-    } catch {}
+    setTimeout(() => {
+      const link = document.createElement("a");
+      const safeAuthor = (authorName || "Tebaa").replace(/[^a-zA-Z0-9]/g, "_");
+      link.download = `Prens-Hazretleri-Fermani-${safeAuthor}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+      setDownloading(false);
+    }, 200);
+  };
 
-    setTimeout(() => setPetitionSubmitted(false), 4000);
+  // Metni Panoya Kopyala
+  const handleCopyFermanText = () => {
+    const fullText = `📜 [PRENS HAZRETLERİ FERMANI] 👑\nTebaa: ${authorName}\n"${fermanMessage}"\n(turkconvert.online/prens-hazretleri • Kick.com/prenshazretleri)`;
+    navigator.clipboard?.writeText(fullText);
+    setCopiedFermanText(true);
+    setTimeout(() => setCopiedFermanText(false), 2500);
   };
 
   return (
@@ -686,124 +923,176 @@ export default function PrensHazretleriClient() {
           </div>
         </section>
 
-        {/* ======================= DİLEKÇE & ARZ-I HÂL SANDIĞI ======================= */}
-        <section className="my-16 rounded-3xl border-2 border-amber-500/30 bg-gradient-to-b from-[#110f1c] via-black to-[#09080e] p-6 sm:p-10 shadow-[0_0_50px_rgba(245,158,11,0.15)]">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
-            {/* Form Alanı */}
-            <div className="lg:col-span-5">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-amber-400">
-                <Send className="h-4 w-4" />
-                <span>SARAY POSTASI</span>
+        {/* ======================= SARAY FERMANI MATBAASI (OTOMATİK RESİM ÜRETİCİ) ======================= */}
+        <section className="my-16 rounded-3xl border-2 border-amber-500/40 bg-gradient-to-b from-[#120e1f] via-black to-[#0a0810] p-6 sm:p-10 shadow-[0_0_60px_rgba(245,158,11,0.25)]">
+          <div className="mb-8 text-center sm:text-left flex flex-wrap items-center justify-between gap-4 border-b border-amber-500/20 pb-6">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-amber-400">
+                <Scroll className="h-4 w-4 text-amber-400" />
+                <span>SARAY FERMAN MATBAASI</span>
               </div>
-              <h3 className="mt-2 text-2xl font-black text-white">
-                Halkın Arz-ı Hâl Sandığı
+              <h3 className="mt-2 text-2xl font-black text-white sm:text-3xl">
+                Kişiye Özel Fermanını Üret & İndir 🖼️
               </h3>
-              <p className="mt-2 text-xs leading-relaxed text-amber-200/70">
-                Prens Hazretleri&apos;ne şükranlarınızı bildirmek, yeni bir araç istirham etmek veya ferman talep etmek için divana yazınız:
+              <p className="mt-1 text-xs text-amber-200/70">
+                Yazdığınız ferman anında altın mühürlü, yüksek çözünürlüklü (1080x1080) bir saltanat görseline dönüşür:
               </p>
-
-              <form onSubmit={handlePetitionSubmit} className="mt-6 space-y-4">
-                <div>
-                  <label className="block text-xs font-semibold text-amber-300 mb-1">
-                    İsminiz / Lakabınız
-                  </label>
-                  <input
-                    type="text"
-                    value={newAuthor}
-                    onChange={(e) => setNewAuthor(e.target.value)}
-                    placeholder={userTitle || "Örn: Kâtip Ahmed, Mesut Tebaa..."}
-                    className="w-full rounded-xl border border-amber-500/30 bg-black/60 px-4 py-2.5 text-xs text-amber-100 placeholder-amber-200/30 focus:border-amber-400 focus:outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-amber-300 mb-1">
-                    Arzın Mahiyeti
-                  </label>
-                  <select
-                    value={newType}
-                    onChange={(e) => setNewType(e.target.value)}
-                    className="w-full rounded-xl border border-amber-500/30 bg-[#0d0f17] px-4 py-2.5 text-xs text-amber-100 focus:border-amber-400 focus:outline-none"
-                  >
-                    <option value="Lütuf Teşekkürü">Lütuf Teşekkürü</option>
-                    <option value="Yeni Araç İstirhamı">Yeni Araç İstirhamı</option>
-                    <option value="Kick Yayın Tebriki">Kick Yayın Tebriki</option>
-                    <option value="Saray Muhafızlığı Talebi">Saray Muhafızlığı Talebi</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-amber-300 mb-1">
-                    Arz-ı Hâliniz (Mesajınız)
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    placeholder="Yüce Prens Hazretleri'ne iletmek istediğiniz kelam..."
-                    className="w-full rounded-xl border border-amber-500/30 bg-black/60 px-4 py-2.5 text-xs text-amber-100 placeholder-amber-200/30 focus:border-amber-400 focus:outline-none resize-none"
-                    required
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full rounded-xl border border-amber-400 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 py-3 text-xs font-bold uppercase tracking-wider text-black shadow-[0_0_20px_rgba(245,158,11,0.4)] transition hover:scale-[1.02] active:scale-98 cursor-pointer"
-                >
-                  Huzur-u Şahaneye Arz Et 📜
-                </button>
-
-                {petitionSubmitted && (
-                  <div className="rounded-xl border border-emerald-500/40 bg-emerald-950/60 p-3 text-center text-xs font-bold text-emerald-300">
-                    ✓ Arz-ı hâliniz divan kâtibine ulaştırıldı ve deftere kaydedildi!
-                  </div>
-                )}
-              </form>
             </div>
 
-            {/* Listelenen Dilekçeler */}
-            <div className="lg:col-span-7 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between border-b border-amber-500/20 pb-3">
-                  <div className="flex items-center gap-2 text-xs font-bold text-amber-300 uppercase">
-                    <Scroll className="h-4 w-4 text-amber-400" />
-                    <span>Divan Defterine Kayıtlı Dilekçeler</span>
-                  </div>
-                  <span className="text-[11px] text-amber-200/50">
-                    Toplam {petitions.length} Kayıt
-                  </span>
-                </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                onClick={handleRandomizeFerman}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-amber-500/40 bg-amber-500/15 px-3.5 py-2 text-xs font-bold text-amber-300 transition hover:bg-amber-500/25 cursor-pointer"
+              >
+                <Shuffle className="h-3.5 w-3.5" />
+                <span>Rastgele Asil Ferman</span>
+              </button>
+            </div>
+          </div>
 
-                <div className="mt-4 space-y-3 max-h-[380px] overflow-y-auto pr-1">
-                  {petitions.map((p) => (
-                    <div
-                      key={p.id}
-                      className="rounded-2xl border border-amber-500/20 bg-amber-950/20 p-4 transition hover:border-amber-500/40"
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 items-start">
+            {/* Sol Sütun: Form Ayarları */}
+            <div className="lg:col-span-6 space-y-5">
+              <div>
+                <label className="block text-xs font-semibold text-amber-300 mb-1.5">
+                  Ferman Sahibi (İsminiz veya Unvanınız)
+                </label>
+                <input
+                  type="text"
+                  value={authorName}
+                  onChange={(e) => setAuthorName(e.target.value)}
+                  placeholder="Örn: Kâtip Ahmed, Cihan Muhafızı Selim..."
+                  className="w-full rounded-xl border border-amber-500/30 bg-black/70 px-4 py-2.5 text-xs text-amber-100 placeholder-amber-200/30 focus:border-amber-400 focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-amber-300 mb-1.5">
+                  Hazır Ferman Şablonu
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {FERMAN_PRESETS.map((p) => (
+                    <button
+                      key={p.label}
+                      type="button"
+                      onClick={() => handleSelectPreset(p.label)}
+                      className={`rounded-xl border p-2.5 text-left text-xs font-medium transition cursor-pointer ${
+                        selectedPreset === p.label
+                          ? "border-amber-400 bg-amber-500/20 text-amber-200 shadow-sm"
+                          : "border-amber-500/20 bg-black/40 text-amber-100/60 hover:bg-amber-950/40 hover:text-amber-200"
+                      }`}
                     >
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold text-amber-200 text-xs">{p.author}</span>
-                          <span className="rounded bg-amber-500/10 px-1.5 py-0.5 text-[10px] text-amber-300/80">
-                            {p.role}
-                          </span>
-                        </div>
-                        <span className="rounded border border-amber-500/30 bg-black/40 px-2 py-0.5 text-[10px] font-semibold text-amber-400">
-                          {p.type}
-                        </span>
-                      </div>
-                      <p className="mt-2 text-xs leading-relaxed text-amber-100/80">
-                        &ldquo;{p.message}&rdquo;
-                      </p>
-                      <div className="mt-2 text-right text-[10px] text-amber-200/40">
-                        {p.date}
-                      </div>
-                    </div>
+                      {p.label}
+                    </button>
                   ))}
                 </div>
               </div>
 
-              <div className="mt-4 text-center text-[11px] text-amber-200/40">
-                Prens Hazretleri gelen tüm arz-ı hâlleri bizzat mütalaa etmektedir.
+              <div>
+                <label className="block text-xs font-semibold text-amber-300 mb-1.5">
+                  Ferman Metni (Görselde Görünecek Kelam)
+                </label>
+                <textarea
+                  rows={4}
+                  value={fermanMessage}
+                  onChange={(e) => setFermanMessage(e.target.value)}
+                  placeholder="Prens Hazretleri için beyan etmek istediğiniz ferman..."
+                  className="w-full rounded-xl border border-amber-500/30 bg-black/70 p-4 text-xs text-amber-100 placeholder-amber-200/30 focus:border-amber-400 focus:outline-none resize-none leading-relaxed"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-amber-300 mb-1.5 flex items-center gap-1.5">
+                  <Palette className="h-3.5 w-3.5 text-amber-400" />
+                  <span>Parşömen Teması</span>
+                </label>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setParchmentTheme("royalGold")}
+                    className={`flex-1 rounded-xl border py-2 text-xs font-bold transition cursor-pointer ${
+                      parchmentTheme === "royalGold"
+                        ? "border-amber-400 bg-amber-500 text-black shadow-md"
+                        : "border-amber-500/30 bg-black/50 text-amber-200 hover:bg-amber-950/40"
+                    }`}
+                  >
+                    Altın Obsidyen
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setParchmentTheme("imperialPurple")}
+                    className={`flex-1 rounded-xl border py-2 text-xs font-bold transition cursor-pointer ${
+                      parchmentTheme === "imperialPurple"
+                        ? "border-purple-400 bg-purple-600 text-white shadow-md"
+                        : "border-purple-500/30 bg-black/50 text-purple-200 hover:bg-purple-950/40"
+                    }`}
+                  >
+                    Asil Mor
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setParchmentTheme("antiqueScroll")}
+                    className={`flex-1 rounded-xl border py-2 text-xs font-bold transition cursor-pointer ${
+                      parchmentTheme === "antiqueScroll"
+                        ? "border-amber-600 bg-amber-800 text-amber-100 shadow-md"
+                        : "border-amber-700/30 bg-black/50 text-amber-200 hover:bg-amber-950/40"
+                    }`}
+                  >
+                    Antik Parşömen
+                  </button>
+                </div>
+              </div>
+
+              {/* Aksiyon Butonları */}
+              <div className="pt-3 flex flex-wrap gap-3">
+                <button
+                  type="button"
+                  onClick={handleDownloadFerman}
+                  disabled={downloading}
+                  className="flex-1 min-w-[200px] inline-flex items-center justify-center gap-2 rounded-xl border border-amber-400 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 py-3.5 px-4 text-xs font-black uppercase tracking-wider text-black shadow-[0_0_25px_rgba(245,158,11,0.5)] transition hover:scale-102 active:scale-98 cursor-pointer disabled:opacity-50"
+                >
+                  <Download className="h-4 w-4" />
+                  <span>{downloading ? "Ferman Basılıyor..." : "Fermanı Resim Olarak İndir (PNG)"}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleCopyFermanText}
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-amber-500/40 bg-amber-950/60 px-4 py-3.5 text-xs font-bold text-amber-300 transition hover:bg-amber-900/60 cursor-pointer"
+                >
+                  {copiedFermanText ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+                  <span>{copiedFermanText ? "Metin Kopyalandı!" : "Metni Kopyala"}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={openPopoutChat}
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/40 bg-emerald-950/60 px-4 py-3.5 text-xs font-bold text-emerald-300 transition hover:bg-emerald-900/60 cursor-pointer"
+                >
+                  <Share2 className="h-4 w-4" />
+                  <span>Kick&apos;te Paylaş</span>
+                </button>
+              </div>
+
+              <p className="text-[11px] text-amber-200/50 leading-relaxed">
+                İndirdiğiniz fermanı Kick canlı yayın sohbetinde, Discord sunucularında veya sosyal medyada paylaşarak Prens Hazretleri&apos;ne sadakatinizi ilan edebilirsiniz.
+              </p>
+            </div>
+
+            {/* Sağ Sütun: Canlı Tuval Önizlemesi */}
+            <div className="lg:col-span-6 flex flex-col items-center justify-center">
+              <div className="relative w-full max-w-[460px] aspect-square rounded-2xl overflow-hidden border-2 border-amber-500/50 shadow-[0_0_50px_rgba(245,158,11,0.3)] bg-black">
+                <canvas
+                  ref={canvasRef}
+                  className="w-full h-full object-contain cursor-pointer transition hover:scale-[1.01]"
+                  title="Ferman Önizlemesi - Tıklayarak İndirebilirsiniz"
+                  onClick={handleDownloadFerman}
+                />
+              </div>
+
+              <div className="mt-3 flex items-center gap-2 text-xs text-amber-300 font-semibold">
+                <Sparkles className="h-3.5 w-3.5 text-amber-400 animate-spin" />
+                <span>1080x1080 Yüksek Kalite Tuval • İndirmeye Hazır</span>
               </div>
             </div>
           </div>
