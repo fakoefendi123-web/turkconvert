@@ -42,6 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.3,
     },
+    {
+      url: `${BASE_URL}/prens-hazretleri`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
     ...toolPages,
   ];
 }

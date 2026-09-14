@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X, Search, Crown } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { SearchCommandPalette } from "@/components/ui/SearchCommandPalette";
 
@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/#araclar", label: "Tüm Araçlar" },
   { href: "/seffaf-imza", label: "Şeffaf İmza", isNew: true },
   { href: "/fatura-olusturucu", label: "Fatura Hazırla", isNew: true },
+  { href: "/prens-hazretleri", label: "Prens Hazretleri", isRoyal: true },
   { href: "/hakkimizda", label: "Hakkımızda" },
 ];
 
@@ -52,8 +53,13 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-all ${
+                  link.isRoyal
+                    ? "bg-gradient-to-r from-amber-500/10 via-yellow-500/15 to-amber-500/10 text-amber-700 hover:text-amber-800 dark:text-amber-300 dark:hover:text-amber-200 border border-amber-500/30 hover:border-amber-400/60 shadow-[0_0_12px_rgba(245,158,11,0.15)]"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                }`}
               >
+                {link.isRoyal && <Crown className="h-3.5 w-3.5 text-amber-500 animate-pulse" />}
                 <span>{link.label}</span>
                 {link.isNew && (
                   <span className="rounded-full bg-primary-100 px-1.5 py-0.5 text-[9px] font-bold text-primary-700 dark:bg-primary-900/50 dark:text-primary-300">
@@ -100,9 +106,16 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                  link.isRoyal
+                    ? "bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20"
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                }`}
               >
-                <span>{link.label}</span>
+                <div className="flex items-center gap-2">
+                  {link.isRoyal && <Crown className="h-4 w-4 text-amber-500" />}
+                  <span>{link.label}</span>
+                </div>
                 {link.isNew && (
                   <span className="rounded-full bg-primary-100 px-1.5 py-0.5 text-[10px] font-bold text-primary-700 dark:bg-primary-900/50 dark:text-primary-300">
                     Yeni
