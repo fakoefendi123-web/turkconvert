@@ -96,7 +96,10 @@ export function SearchCommandPalette({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 p-4 pt-16 backdrop-blur-sm sm:pt-24">
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 p-4 pt-16 backdrop-blur-sm sm:pt-24"
+      onClick={onClose}
+    >
       <div
         className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-gray-800 dark:bg-gray-900"
         onClick={(e) => e.stopPropagation()}
@@ -206,8 +209,8 @@ export function SearchCommandPalette({
         {/* Alt Kısayol Bilgisi */}
         <div className="flex items-center justify-between border-t border-gray-200 bg-gray-50 px-4 py-2 text-[11px] text-gray-500 dark:border-gray-800 dark:bg-gray-900/60 dark:text-gray-400">
           <span>
-            Gezinmek için <kbd className="font-semibold">â†‘</kbd>{" "}
-            <kbd className="font-semibold">â†“</kbd>, seçmek için{" "}
+            Gezinmek için <kbd className="font-semibold">↑</kbd>{" "}
+            <kbd className="font-semibold">↓</kbd>, seçmek için{" "}
             <kbd className="font-semibold">Enter</kbd>
           </span>
           <span>turkconvert</span>

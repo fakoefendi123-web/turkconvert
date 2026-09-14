@@ -26,6 +26,25 @@ const TURKISH_WORDS = [
   "hızlı", "güvenli", "ve", "özgür", "çözümler", "büyük", "fark", "yaratmaktadır"
 ];
 
+const generateSentence = (words: string[]) => {
+  const len = Math.floor(Math.random() * 8) + 8;
+  const sentenceWords: string[] = [];
+  for (let i = 0; i < len; i++) {
+    sentenceWords.push(words[Math.floor(Math.random() * words.length)]);
+  }
+  const joined = sentenceWords.join(" ");
+  return joined.charAt(0).toUpperCase() + joined.slice(1) + ".";
+};
+
+const generateParagraph = (words: string[]) => {
+  const numSentences = Math.floor(Math.random() * 3) + 4;
+  const sentences: string[] = [];
+  for (let i = 0; i < numSentences; i++) {
+    sentences.push(generateSentence(words));
+  }
+  return sentences.join(" ");
+};
+
 export default function LoremIpsumTool() {
   const [count, setCount] = useState(3);
   const [type, setType] = useState<"paragraphs" | "sentences" | "words">("paragraphs");
@@ -34,25 +53,6 @@ export default function LoremIpsumTool() {
   const [result, setResult] = useState("");
   const [copiedText, setCopiedText] = useState(false);
   const [copiedHtml, setCopiedHtml] = useState(false);
-
-  const generateSentence = (words: string[]) => {
-    const len = Math.floor(Math.random() * 8) + 8;
-    const sentenceWords: string[] = [];
-    for (let i = 0; i < len; i++) {
-      sentenceWords.push(words[Math.floor(Math.random() * words.length)]);
-    }
-    const joined = sentenceWords.join(" ");
-    return joined.charAt(0).toUpperCase() + joined.slice(1) + ".";
-  };
-
-  const generateParagraph = (words: string[]) => {
-    const numSentences = Math.floor(Math.random() * 3) + 4;
-    const sentences: string[] = [];
-    for (let i = 0; i < numSentences; i++) {
-      sentences.push(generateSentence(words));
-    }
-    return sentences.join(" ");
-  };
 
   const handleGenerate = useCallback(() => {
     const words = language === "latin" ? LATIN_WORDS : TURKISH_WORDS;

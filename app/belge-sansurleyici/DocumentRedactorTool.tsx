@@ -55,6 +55,9 @@ export default function DocumentRedactorTool() {
       setImage(img);
       URL.revokeObjectURL(url);
     };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+    };
     img.src = url;
   }, []);
 
@@ -72,13 +75,14 @@ export default function DocumentRedactorTool() {
     setHistory([initialData]);
   }, [image]);
 
+  const MAX_HISTORY = 12;
   const saveHistoryState = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (!ctx) return;
     const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    setHistory((prev) => [...prev, data]);
+    setHistory((prev) => [...prev.slice(-(MAX_HISTORY - 1)), data]);
   };
 
   const handleUndo = () => {
@@ -110,7 +114,7 @@ export default function DocumentRedactorTool() {
     setHistory([]);
   };
 
-  // Canvas coordinates
+  // Canvas coordinates (Destekli: Mouse, Touch ve Touchend changedTouches)
   const getCanvasCoords = (e: React.MouseEvent | React.TouchEvent) => {
     const canvas = canvasRef.current;
     if (!canvas) return { x: 0, y: 0 };
@@ -118,18 +122,29 @@ export default function DocumentRedactorTool() {
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
 
+    let clientX = 0;
+    let clientY = 0;
+
     if ("touches" in e) {
-      if (e.touches.length === 0) return { x: 0, y: 0 };
-      return {
-        x: (e.touches[0].clientX - rect.left) * scaleX,
-        y: (e.touches[0].clientY - rect.top) * scaleY,
-      };
+      const touchEvent = e as React.TouchEvent;
+      const touch =
+        touchEvent.touches[0] ||
+        (touchEvent.changedTouches && touchEvent.changedTouches[0]);
+      if (touch) {
+        clientX = touch.clientX;
+        clientY = touch.clientY;
+      } else {
+        return { x: 0, y: 0 };
+      }
     } else {
-      return {
-        x: (e.clientX - rect.left) * scaleX,
-        y: (e.clientY - rect.top) * scaleY,
-      };
+      clientX = e.clientX;
+      clientY = e.clientY;
     }
+
+    return {
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY,
+    };
   };
 
   // Sansür Efektleri

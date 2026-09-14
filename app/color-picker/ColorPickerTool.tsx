@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { FileUploader, FileInfo } from "@/components/ui/FileUploader";
 import { Pipette, Copy, Check, Palette, RefreshCw } from "lucide-react";
 
@@ -12,6 +12,7 @@ interface ColorInfo {
 
 export default function ColorPickerTool() {
   const [file, setFile] = useState<File | null>(null);
+  const [loadedImage, setLoadedImage] = useState<HTMLImageElement | null>(null);
   const [selectedColor, setSelectedColor] = useState<ColorInfo>({
     hex: "#2563EB",
     rgb: "rgb(37, 99, 235)",
@@ -21,7 +22,6 @@ export default function ColorPickerTool() {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imageRef = useRef<HTMLImageElement | null>(null);
 
   const rgbToHex = (r: number, g: number, b: number) =>
     "#" + [r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("");
@@ -67,7 +67,7 @@ export default function ColorPickerTool() {
     };
   };
 
-  const extractPalette = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
+  const extractPalette = useCallback((ctx: CanvasRenderingContext2D, width: number, height: number) => {
     try {
       const imgData = ctx.getImageData(0, 0, width, height).data;
       const colorCounts: { [hex: string]: number } = {};
@@ -78,10 +78,11 @@ export default function ColorPickerTool() {
         const g = Math.round(imgData[i + 1] / 16) * 16;
         const b = Math.round(imgData[i + 2] / 16) * 16;
         const a = imgData[i + 3];
-        if (a < 128) continue; // şeffafları atla
 
-        const hex = rgbToHex(Math.min(255, r), Math.min(255, g), Math.min(255, b));
-        colorCounts[hex] = (colorCounts[hex] || 0) + 1;
+        if (a > 128) {
+          const hex = rgbToHex(Math.min(255, r), Math.min(255, g), Math.min(255, b));
+          colorCounts[hex] = (colorCounts[hex] || 0) + 1;
+        }
       }
 
       const sorted = Object.keys(colorCounts).sort(
@@ -91,7 +92,7 @@ export default function ColorPickerTool() {
     } catch {
       setPalette([]);
     }
-  };
+  }, []);
 
   const handleFileSelect = useCallback((selectedFile: File) => {
     setFile(selectedFile);
@@ -99,21 +100,27 @@ export default function ColorPickerTool() {
     const img = new Image();
     const url = URL.createObjectURL(selectedFile);
     img.onload = () => {
-      imageRef.current = img;
-      const canvas = canvasRef.current;
-      if (canvas) {
-        canvas.width = img.naturalWidth;
-        canvas.height = img.naturalHeight;
-        const ctx = canvas.getContext("2d");
-        if (ctx) {
-          ctx.drawImage(img, 0, 0);
-          extractPalette(ctx, canvas.width, canvas.height);
-        }
-      }
+      setLoadedImage(img);
+      URL.revokeObjectURL(url);
+    };
+    img.onerror = () => {
       URL.revokeObjectURL(url);
     };
     img.src = url;
   }, []);
+
+  // Canvas DOM'a basıldığında görseli çiz (Race condition koruması)
+  useEffect(() => {
+    if (!loadedImage || !canvasRef.current) return;
+    const canvas = canvasRef.current;
+    canvas.width = loadedImage.naturalWidth;
+    canvas.height = loadedImage.naturalHeight;
+    const ctx = canvas.getContext("2d");
+    if (ctx) {
+      ctx.drawImage(loadedImage, 0, 0);
+      extractPalette(ctx, canvas.width, canvas.height);
+    }
+  }, [loadedImage, extractPalette]);
 
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -148,6 +155,7 @@ export default function ColorPickerTool() {
 
   const handleReset = () => {
     setFile(null);
+    setLoadedImage(null);
     setPalette([]);
   };
 

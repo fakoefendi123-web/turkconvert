@@ -166,6 +166,8 @@ export async function compressImageAdvanced(
   ): Promise<Blob> => {
     canvas.width = w;
     canvas.height = h;
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
     ctx.clearRect(0, 0, w, h);
 
     if (fmt === "image/jpeg") {
@@ -262,6 +264,9 @@ export async function compressImage(
   quality: number
 ): Promise<Blob> {
   const res = await compressImageAdvanced(file, { quality });
+  if (res.previewUrl) {
+    URL.revokeObjectURL(res.previewUrl);
+  }
   return res.blob;
 }
 

@@ -98,7 +98,7 @@ export function ToolPageLayout({
           <>
             <ChevronRight className="mx-2 h-3.5 w-3.5 text-gray-400" />
             <Link
-              href={`/#${currentCategory.anchor}`}
+              href="/#araclar"
               className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
             >
               {currentCategory.name}
@@ -193,7 +193,7 @@ export function ToolPageLayout({
             </h2>
             {currentCategory && (
               <Link
-                href={`/#${currentCategory.anchor}`}
+                href="/#araclar"
                 className="text-xs font-semibold text-primary-600 hover:underline dark:text-primary-400 sm:text-sm"
               >
                 Tümünü Gör →
@@ -249,7 +249,7 @@ export function ToolPageLayout({
                         "@type": "ListItem",
                         position: 2,
                         name: currentCategory.name,
-                        item: `https://turkconvert.online/#${currentCategory.anchor}`,
+                        item: "https://turkconvert.online/#araclar",
                       },
                     ]
                   : []),

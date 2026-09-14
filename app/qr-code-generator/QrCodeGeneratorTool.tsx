@@ -63,6 +63,15 @@ export function QrCodeGeneratorTool() {
   const [qrSize, setQrSize] = useState(600); // 300 to 1200
   const [centerLogo, setCenterLogo] = useState<string | null>(null);
   const [centerLogoType, setCenterLogoType] = useState<"none" | "wifi" | "wa" | "custom">("none");
+  const customLogoUrlRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (customLogoUrlRef.current) {
+        URL.revokeObjectURL(customLogoUrlRef.current);
+      }
+    };
+  }, []);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [error, setError] = useState("");
@@ -240,7 +249,11 @@ export function QrCodeGeneratorTool() {
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    if (customLogoUrlRef.current) {
+      URL.revokeObjectURL(customLogoUrlRef.current);
+    }
     const url = URL.createObjectURL(file);
+    customLogoUrlRef.current = url;
     setCenterLogo(url);
     setCenterLogoType("custom");
   };
@@ -678,6 +691,10 @@ export function QrCodeGeneratorTool() {
                 <button
                   type="button"
                   onClick={() => {
+                    if (customLogoUrlRef.current) {
+                      URL.revokeObjectURL(customLogoUrlRef.current);
+                      customLogoUrlRef.current = null;
+                    }
                     setCenterLogo(null);
                     setCenterLogoType("none");
                   }}

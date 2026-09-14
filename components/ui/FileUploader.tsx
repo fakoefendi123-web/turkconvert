@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState, useRef, useEffect } from "react";
-import { Upload, File, AlertCircle } from "lucide-react";
+import { Upload, File, AlertCircle, X } from "lucide-react";
 import { formatFileSize } from "@/lib/utils";
 
 interface FileUploaderProps {
@@ -281,7 +281,7 @@ export function FileInfo({
           className="shrink-0 rounded p-1 text-sm text-gray-400 transition-colors hover:bg-gray-100 hover:text-red-500 dark:hover:bg-gray-800"
           aria-label="Dosyayı kaldır"
         >
-          âœ•
+          <X className="h-4 w-4" />
         </button>
       )}
     </div>

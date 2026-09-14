@@ -18,8 +18,16 @@ export default function ImageCompareTool() {
   const [beforeName, setBeforeName] = useState<string>("Görsel 1 (Önce)");
   const [afterName, setAfterName] = useState<string>("Görsel 2 (Sonra)");
   const [compareMode, setCompareMode] = useState<"slider" | "sideBySide" | "difference">("slider");
-
   const diffCanvasRef = useRef<HTMLCanvasElement>(null);
+  const beforeBlobUrlRef = useRef<string | null>(null);
+  const afterBlobUrlRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (beforeBlobUrlRef.current) URL.revokeObjectURL(beforeBlobUrlRef.current);
+      if (afterBlobUrlRef.current) URL.revokeObjectURL(afterBlobUrlRef.current);
+    };
+  }, []);
 
   // Örnek görseller yükle
   useEffect(() => {
@@ -100,7 +108,11 @@ export default function ImageCompareTool() {
     const file = e.target.files?.[0];
     if (!file) return;
     setBeforeName(file.name);
+    if (beforeBlobUrlRef.current) {
+      URL.revokeObjectURL(beforeBlobUrlRef.current);
+    }
     const url = URL.createObjectURL(file);
+    beforeBlobUrlRef.current = url;
     setBeforeImg(url);
   };
 
@@ -108,11 +120,23 @@ export default function ImageCompareTool() {
     const file = e.target.files?.[0];
     if (!file) return;
     setAfterName(file.name);
+    if (afterBlobUrlRef.current) {
+      URL.revokeObjectURL(afterBlobUrlRef.current);
+    }
     const url = URL.createObjectURL(file);
+    afterBlobUrlRef.current = url;
     setAfterImg(url);
   };
 
   const handleReset = () => {
+    if (beforeBlobUrlRef.current) {
+      URL.revokeObjectURL(beforeBlobUrlRef.current);
+      beforeBlobUrlRef.current = null;
+    }
+    if (afterBlobUrlRef.current) {
+      URL.revokeObjectURL(afterBlobUrlRef.current);
+      afterBlobUrlRef.current = null;
+    }
     setBeforeName("Görsel 1 (Önce)");
     setAfterName("Görsel 2 (Sonra)");
   };

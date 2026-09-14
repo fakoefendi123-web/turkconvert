@@ -103,6 +103,17 @@ export default function InvoiceGeneratorTool() {
     }
   }, []);
 
+function toPdfText(str: string): string {
+  if (!str) return "";
+  return str
+    .replace(/İ/g, "I")
+    .replace(/ı/g, "i")
+    .replace(/Ş/g, "S")
+    .replace(/ş/g, "s")
+    .replace(/Ğ/g, "G")
+    .replace(/ğ/g, "g");
+}
+
   // Firma bilgilerini hatırla
   const handleSaveProfile = () => {
     try {
@@ -115,9 +126,17 @@ export default function InvoiceGeneratorTool() {
         bankInfo,
         sellerLogo,
       };
-      localStorage.setItem("tc_seller_profile", JSON.stringify(profile));
-      setSavedSuccess(true);
-      setTimeout(() => setSavedSuccess(false), 2500);
+      try {
+        localStorage.setItem("tc_seller_profile", JSON.stringify(profile));
+        setSavedSuccess(true);
+        setTimeout(() => setSavedSuccess(false), 2500);
+      } catch {
+        // Logo localStorage kotasını (5MB) aştıysa logo hariç kaydet
+        const fallbackProfile = { ...profile, sellerLogo: null };
+        localStorage.setItem("tc_seller_profile", JSON.stringify(fallbackProfile));
+        setSavedSuccess(true);
+        setTimeout(() => setSavedSuccess(false), 2500);
+      }
     } catch {
       // ignore
     }
@@ -130,6 +149,9 @@ export default function InvoiceGeneratorTool() {
     const reader = new FileReader();
     reader.onload = () => {
       setSellerLogo(reader.result as string);
+    };
+    reader.onerror = () => {
+      alert("Logo dosyası okunamadı.");
     };
     reader.readAsDataURL(file);
   };
@@ -214,16 +236,18 @@ export default function InvoiceGeneratorTool() {
         }
       }
 
+      const pdfCurr = currency === "TRY" ? "TL" : currSymbol;
+
       // Belge Başlığı
       doc.setFont("helvetica", "bold");
       doc.setFontSize(22);
       doc.setTextColor(30, 41, 59);
-      doc.text(docType.toUpperCase(), pageWidth - margin, 25, { align: "right" });
+      doc.text(toPdfText(docType.toUpperCase()), pageWidth - margin, 25, { align: "right" });
 
       doc.setFontSize(10);
       doc.setFont("helvetica", "normal");
       doc.setTextColor(100, 116, 139);
-      doc.text(`No: ${invoiceNo}`, pageWidth - margin, 32, { align: "right" });
+      doc.text(`No: ${toPdfText(invoiceNo)}`, pageWidth - margin, 32, { align: "right" });
       doc.text(`Tarih: ${issueDate}`, pageWidth - margin, 37, { align: "right" });
       if (dueDate) {
         doc.text(`Vade: ${dueDate}`, pageWidth - margin, 42, { align: "right" });
@@ -233,15 +257,15 @@ export default function InvoiceGeneratorTool() {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
       doc.setTextColor(15, 23, 42);
-      doc.text(sellerName, margin, startY);
+      doc.text(toPdfText(sellerName), margin, startY);
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(9);
       doc.setTextColor(71, 85, 105);
-      const splitAddr = doc.splitTextToSize(sellerAddress, 80);
+      const splitAddr = doc.splitTextToSize(toPdfText(sellerAddress), 80);
       doc.text(splitAddr, margin, startY + 5);
       const addrHeight = splitAddr.length * 4;
-      doc.text(`Vergi: ${sellerTax}`, margin, startY + 6 + addrHeight);
+      doc.text(`Vergi: ${toPdfText(sellerTax)}`, margin, startY + 6 + addrHeight);
       doc.text(`Tel: ${sellerPhone} | ${sellerEmail}`, margin, startY + 11 + addrHeight);
 
       // Alıcı Bilgileri Kutusu
@@ -253,18 +277,18 @@ export default function InvoiceGeneratorTool() {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(9);
       doc.setTextColor(100, 116, 139);
-      doc.text("SAYIN / SAYIN YETKİLİ:", margin + 5, buyerY + 6);
+      doc.text("SAYIN / SAYIN YETKILI:", margin + 5, buyerY + 6);
 
       doc.setFont("helvetica", "bold");
       doc.setFontSize(10);
       doc.setTextColor(15, 23, 42);
-      doc.text(buyerName, margin + 5, buyerY + 12);
+      doc.text(toPdfText(buyerName), margin + 5, buyerY + 12);
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(8.5);
       doc.setTextColor(71, 85, 105);
-      doc.text(buyerAddress, margin + 5, buyerY + 17);
-      doc.text(`Vergi Bilgisi: ${buyerTax}`, margin + 5, buyerY + 22);
+      doc.text(toPdfText(buyerAddress), margin + 5, buyerY + 17);
+      doc.text(`Vergi Bilgisi: ${toPdfText(buyerTax)}`, margin + 5, buyerY + 22);
 
       // Kalem Tablosu Başlığı
       let tableY = buyerY + 34;
@@ -274,9 +298,9 @@ export default function InvoiceGeneratorTool() {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(8.5);
       doc.setTextColor(255, 255, 255);
-      doc.text("AÇIKLAMA", margin + 4, tableY + 5.5);
-      doc.text("MİKTAR", margin + 95, tableY + 5.5, { align: "right" });
-      doc.text("BİRİM FİYAT", margin + 128, tableY + 5.5, { align: "right" });
+      doc.text("ACIKLAMA", margin + 4, tableY + 5.5);
+      doc.text("MIKTAR", margin + 95, tableY + 5.5, { align: "right" });
+      doc.text("BIRIM FIYAT", margin + 128, tableY + 5.5, { align: "right" });
       doc.text("KDV", margin + 148, tableY + 5.5, { align: "right" });
       doc.text("TUTAR", pageWidth - margin - 4, tableY + 5.5, { align: "right" });
 
@@ -293,13 +317,13 @@ export default function InvoiceGeneratorTool() {
         }
 
         doc.setTextColor(15, 23, 42);
-        const desc = it.description || "Hizmet / Ürün";
+        const desc = toPdfText(it.description || "Hizmet / Urun");
         doc.text(desc.length > 50 ? desc.substring(0, 50) + "..." : desc, margin + 4, tableY + 5);
         doc.text(String(it.quantity), margin + 95, tableY + 5, { align: "right" });
-        doc.text(`${it.unitPrice.toLocaleString("tr-TR")} ${currSymbol}`, margin + 128, tableY + 5, { align: "right" });
+        doc.text(`${it.unitPrice.toLocaleString("tr-TR")} ${pdfCurr}`, margin + 128, tableY + 5, { align: "right" });
         doc.text(`%${it.vatRate}`, margin + 148, tableY + 5, { align: "right" });
         doc.setFont("helvetica", "bold");
-        doc.text(`${lineTotal.toLocaleString("tr-TR")} ${currSymbol}`, pageWidth - margin - 4, tableY + 5, { align: "right" });
+        doc.text(`${lineTotal.toLocaleString("tr-TR")} ${pdfCurr}`, pageWidth - margin - 4, tableY + 5, { align: "right" });
         doc.setFont("helvetica", "normal");
 
         tableY += 7.5;
@@ -313,13 +337,13 @@ export default function InvoiceGeneratorTool() {
       doc.setTextColor(100, 116, 139);
       doc.text("Ara Toplam:", totalBoxX, tableY);
       doc.setTextColor(15, 23, 42);
-      doc.text(`${totals.subtotal.toLocaleString("tr-TR")} ${currSymbol}`, pageWidth - margin - 4, tableY, { align: "right" });
+      doc.text(`${totals.subtotal.toLocaleString("tr-TR")} ${pdfCurr}`, pageWidth - margin - 4, tableY, { align: "right" });
 
       tableY += 5.5;
       doc.setTextColor(100, 116, 139);
       doc.text("Toplam KDV:", totalBoxX, tableY);
       doc.setTextColor(15, 23, 42);
-      doc.text(`${totals.totalVat.toLocaleString("tr-TR")} ${currSymbol}`, pageWidth - margin - 4, tableY, { align: "right" });
+      doc.text(`${totals.totalVat.toLocaleString("tr-TR")} ${pdfCurr}`, pageWidth - margin - 4, tableY, { align: "right" });
 
       tableY += 6.5;
       doc.setFillColor(37, 99, 235);
@@ -328,7 +352,7 @@ export default function InvoiceGeneratorTool() {
       doc.setFontSize(10.5);
       doc.setTextColor(255, 255, 255);
       doc.text("GENEL TOPLAM:", totalBoxX, tableY + 2.5);
-      doc.text(`${totals.grandTotal.toLocaleString("tr-TR")} ${currSymbol}`, pageWidth - margin - 4, tableY + 2.5, { align: "right" });
+      doc.text(`${totals.grandTotal.toLocaleString("tr-TR")} ${pdfCurr}`, pageWidth - margin - 4, tableY + 2.5, { align: "right" });
 
       // Banka & Alt Notlar
       const bottomY = 245;
@@ -338,18 +362,18 @@ export default function InvoiceGeneratorTool() {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(8.5);
       doc.setTextColor(30, 41, 59);
-      doc.text("Banka ve Ödeme Bilgileri:", margin, bottomY + 6);
+      doc.text("Banka ve Odeme Bilgileri:", margin, bottomY + 6);
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(8);
       doc.setTextColor(71, 85, 105);
-      doc.text(bankInfo, margin, bottomY + 11);
+      doc.text(toPdfText(bankInfo), margin, bottomY + 11);
 
       if (notes) {
         doc.setFont("helvetica", "bold");
-        doc.text("Notlar & Şartlar:", margin, bottomY + 18);
+        doc.text("Notlar & Sartlar:", margin, bottomY + 18);
         doc.setFont("helvetica", "normal");
-        const splitNotes = doc.splitTextToSize(notes, pageWidth - margin * 2);
+        const splitNotes = doc.splitTextToSize(toPdfText(notes), pageWidth - margin * 2);
         doc.text(splitNotes, margin, bottomY + 23);
       }
 
@@ -357,7 +381,7 @@ export default function InvoiceGeneratorTool() {
       doc.setFontSize(7.5);
       doc.setTextColor(148, 163, 184);
       doc.text(
-        "Bu belge TurkConvert Ücretsiz Belge Oluşturucu ile güvenle hazırlanmıştır.",
+        "Bu belge TurkConvert Ucretsiz Belge Olusturucu ile guvenle hazirlanmistir.",
         pageWidth / 2,
         287,
         { align: "center" }
@@ -713,35 +737,37 @@ export default function InvoiceGeneratorTool() {
               </div>
 
               {/* Kalemler */}
-              <table className="w-full my-4 text-left border-collapse text-[11px]">
-                <thead>
-                  <tr className="border-b border-gray-200 bg-gray-100/60 font-semibold text-gray-700">
-                    <th className="py-1.5 px-2">Açıklama</th>
-                    <th className="py-1.5 px-2 text-right">Miktar</th>
-                    <th className="py-1.5 px-2 text-right">Birim Fiyat</th>
-                    <th className="py-1.5 px-2 text-right">KDV</th>
-                    <th className="py-1.5 px-2 text-right">Tutar</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                  {items.map((it) => {
-                    const lineTotal = it.quantity * it.unitPrice;
-                    return (
-                      <tr key={it.id}>
-                        <td className="py-1.5 px-2 font-medium">{it.description || "Hizmet"}</td>
-                        <td className="py-1.5 px-2 text-right font-mono">{it.quantity}</td>
-                        <td className="py-1.5 px-2 text-right font-mono">
-                          {it.unitPrice.toLocaleString("tr-TR")} {currSymbol}
-                        </td>
-                        <td className="py-1.5 px-2 text-right text-gray-500">%{it.vatRate}</td>
-                        <td className="py-1.5 px-2 text-right font-bold font-mono">
-                          {lineTotal.toLocaleString("tr-TR")} {currSymbol}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+              <div className="my-4 overflow-x-auto">
+                <table className="w-full min-w-[420px] text-left border-collapse text-[11px]">
+                  <thead>
+                    <tr className="border-b border-gray-200 bg-gray-100/60 font-semibold text-gray-700">
+                      <th className="py-1.5 px-2">Açıklama</th>
+                      <th className="py-1.5 px-2 text-right">Miktar</th>
+                      <th className="py-1.5 px-2 text-right">Birim Fiyat</th>
+                      <th className="py-1.5 px-2 text-right">KDV</th>
+                      <th className="py-1.5 px-2 text-right">Tutar</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {items.map((it) => {
+                      const lineTotal = it.quantity * it.unitPrice;
+                      return (
+                        <tr key={it.id}>
+                          <td className="py-1.5 px-2 font-medium">{it.description || "Hizmet"}</td>
+                          <td className="py-1.5 px-2 text-right font-mono">{it.quantity}</td>
+                          <td className="py-1.5 px-2 text-right font-mono">
+                            {it.unitPrice.toLocaleString("tr-TR")} {currSymbol}
+                          </td>
+                          <td className="py-1.5 px-2 text-right text-gray-500">%{it.vatRate}</td>
+                          <td className="py-1.5 px-2 text-right font-bold font-mono">
+                            {lineTotal.toLocaleString("tr-TR")} {currSymbol}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
 
               {/* Toplamlar */}
               <div className="flex justify-end border-t border-gray-100 pt-3">
