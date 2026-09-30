@@ -170,11 +170,17 @@ serve(async (req: Request) => {
         }
       }
 
-      // UUID validation for user_id (if unauthenticated / direct Kick login, set null)
+      // UUID validation for user_id (only link if user actually exists in Supabase Auth, otherwise null)
       const isValidUuid = (str?: string | null) =>
         Boolean(str && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(str));
 
-      const finalUserId: string | null = isValidUuid(userId) ? userId : null;
+      let finalUserId: string | null = null;
+      if (userId && isValidUuid(userId)) {
+        const { data: authCheck } = await supabaseAdmin.auth.admin.getUserById(userId).catch(() => ({ data: null }));
+        if (authCheck?.user) {
+          finalUserId = userId;
+        }
+      }
 
       // Upsert into kick_accounts
       const { data: account, error: accountError } = await supabaseAdmin
@@ -203,15 +209,22 @@ serve(async (req: Request) => {
       }
 
       // Save tokens into oauth_tokens
-      await supabaseAdmin.from("oauth_tokens").upsert({
-        kick_account_id: account.id,
-        access_token: accessToken,
-        refresh_token: refreshToken,
-        token_type: "Bearer",
-        expires_at: expiresAt,
-        scopes: ["user:read", "channel:read", "chat:write", "events:subscribe"],
-        updated_at: new Date().toISOString(),
-      });
+      const { error: tokenSaveError } = await supabaseAdmin.from("oauth_tokens").upsert(
+        {
+          kick_account_id: account.id,
+          access_token: accessToken,
+          refresh_token: refreshToken,
+          token_type: "Bearer",
+          expires_at: expiresAt,
+          scopes: ["user:read", "channel:read", "chat:write", "events:subscribe"],
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: "kick_account_id" }
+      );
+
+      if (tokenSaveError) {
+        console.error("Token kaydetme uyarısı:", tokenSaveError);
+      }
 
       // Write Log
       await supabaseAdmin.from("logs").insert({
@@ -221,7 +234,7 @@ serve(async (req: Request) => {
         message: `@${kickUsername} hesabı başarıyla bağlandı ve yetkilendirildi.`,
       });
 
-      return new Response(JSON.stringify({ success: true, account }), {
+      return new Response(JSON.stringify({ success: true, account, username: kickUsername }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }

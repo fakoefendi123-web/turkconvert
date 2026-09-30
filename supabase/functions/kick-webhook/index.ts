@@ -52,6 +52,8 @@ serve(async (req: Request) => {
   const supabaseUrl = Deno.env.get("SUPABASE_URL") || "";
   const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
   const kickWebhookSecret = Deno.env.get("KICK_WEBHOOK_SECRET") || "";
+  const kickClientId = Deno.env.get("KICK_CLIENT_ID") || "";
+  const kickClientSecret = Deno.env.get("KICK_CLIENT_SECRET") || "";
 
   const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
@@ -65,13 +67,19 @@ serve(async (req: Request) => {
 
     // 1. Replay Attack & Timestamp Check
     if (timestampStr) {
-      const eventTime = new Date(timestampStr).getTime();
-      const now = Date.now();
-      if (Math.abs(now - eventTime) > 10 * 60 * 1000) {
-        return new Response(JSON.stringify({ error: "Zaman aşımı / Replay attack koruması tetiklendi." }), {
-          status: 403,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
+      let eventTime = new Date(timestampStr).getTime();
+      if (isNaN(eventTime) && /^\d+$/.test(timestampStr)) {
+        const num = Number(timestampStr);
+        eventTime = num > 1e11 ? num : num * 1000;
+      }
+      if (!isNaN(eventTime)) {
+        const now = Date.now();
+        if (Math.abs(now - eventTime) > 10 * 60 * 1000) {
+          return new Response(JSON.stringify({ error: "Zaman aşımı / Replay attack koruması tetiklendi." }), {
+            status: 403,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
       }
     }
 
@@ -173,30 +181,89 @@ serve(async (req: Request) => {
     const botSettings = botSettingsRes.data;
     const xpSettings = xpSettingsRes.data;
 
-    // Helper: Send Chat Message through Kick Chat API
+    // Helper: Send Chat Message through Kick Chat API with auto-token-refresh
     const sendChatMessage = async (content: string) => {
       if (!content.trim() || !botSettings?.is_online) return;
 
+      const effectiveBroadcasterId = broadcasterId || account.kick_user_id;
+
       const { data: tokenRecord } = await supabaseAdmin
         .from("oauth_tokens")
-        .select("access_token")
+        .select("access_token, refresh_token, expires_at")
         .eq("kick_account_id", accountId)
-        .single();
+        .maybeSingle();
 
       if (!tokenRecord?.access_token) return;
 
-      await fetch("https://api.kick.com/public/v1/chat", {
+      let currentAccessToken = tokenRecord.access_token;
+      const isExpired = tokenRecord.expires_at && new Date(tokenRecord.expires_at).getTime() < Date.now() + 60000;
+
+      // Token yenileme yardımcı fonksiyonu
+      const doRefreshToken = async (): Promise<string | null> => {
+        if (!tokenRecord.refresh_token || !kickClientId || !kickClientSecret) return null;
+        try {
+          const res = await fetch("https://id.kick.com/oauth/token", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({
+              grant_type: "refresh_token",
+              client_id: kickClientId,
+              client_secret: kickClientSecret,
+              refresh_token: tokenRecord.refresh_token,
+            }),
+          });
+          if (!res.ok) return null;
+          const refreshed = await res.json();
+          const newExpiresAt = new Date(Date.now() + (refreshed.expires_in || 3600) * 1000).toISOString();
+          await supabaseAdmin.from("oauth_tokens").update({
+            access_token: refreshed.access_token,
+            refresh_token: refreshed.refresh_token || tokenRecord.refresh_token,
+            expires_at: newExpiresAt,
+            updated_at: new Date().toISOString(),
+          }).eq("kick_account_id", accountId);
+          return refreshed.access_token;
+        } catch {
+          return null;
+        }
+      };
+
+      if (isExpired) {
+        const freshToken = await doRefreshToken();
+        if (freshToken) currentAccessToken = freshToken;
+      }
+
+      // Mesajı Kick Chat API'ye gönder
+      let chatRes = await fetch("https://api.kick.com/public/v1/chat", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${tokenRecord.access_token}`,
+          Authorization: `Bearer ${currentAccessToken}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          broadcaster_user_id: broadcasterId,
+          broadcaster_user_id: effectiveBroadcasterId ? Number(effectiveBroadcasterId) : undefined,
           content: content.trim(),
           type: "bot",
         }),
-      }).catch((e) => console.error("Kick chat gönderme hatası:", e));
+      }).catch(() => null);
+
+      // Eğer 401 Unauthorized dönerse tokenı yenileyip bir kez daha dene
+      if (chatRes && chatRes.status === 401) {
+        const freshToken = await doRefreshToken();
+        if (freshToken) {
+          await fetch("https://api.kick.com/public/v1/chat", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${freshToken}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              broadcaster_user_id: effectiveBroadcasterId ? Number(effectiveBroadcasterId) : undefined,
+              content: content.trim(),
+              type: "bot",
+            }),
+          }).catch((e) => console.error("Kick chat tekrar gönderme hatası:", e));
+        }
+      }
     };
 
     // -------------------------------------------------------------------------
