@@ -472,7 +472,7 @@ export default function KickDashboardClient() {
       const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://onlzdwfpbdplpuxiipeb.supabase.co";
 
       let sessionToken = "";
-      let currentUserId = "demo-user";
+      let currentUserId: string | null = null;
       if (isSupabaseConfigured()) {
         try {
           const client = getSupabase();

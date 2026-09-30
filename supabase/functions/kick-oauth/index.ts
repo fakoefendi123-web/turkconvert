@@ -66,11 +66,8 @@ serve(async (req: Request) => {
         userId = body.user_id;
       }
 
-      if (!userId) {
-        return new Response(JSON.stringify({ error: "Oturum açmış kullanıcı ID'si gereklidir." }), {
-          status: 401,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
+      if (!userId || userId === "demo-user") {
+        userId = crypto.randomUUID();
       }
 
       // Generate PKCE code verifier and challenge
@@ -173,12 +170,18 @@ serve(async (req: Request) => {
         }
       }
 
+      // UUID validation for user_id (if unauthenticated / direct Kick login, set null)
+      const isValidUuid = (str?: string | null) =>
+        Boolean(str && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(str));
+
+      const finalUserId: string | null = isValidUuid(userId) ? userId : null;
+
       // Upsert into kick_accounts
       const { data: account, error: accountError } = await supabaseAdmin
         .from("kick_accounts")
         .upsert(
           {
-            user_id: userId,
+            user_id: finalUserId,
             kick_user_id: kickUserId,
             kick_username: kickUsername,
             kick_channel_slug: kickUsername.toLowerCase(),
@@ -187,7 +190,7 @@ serve(async (req: Request) => {
             connected_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
           },
-          { onConflict: "user_id,kick_channel_slug" }
+          { onConflict: "kick_channel_slug" }
         )
         .select()
         .single();

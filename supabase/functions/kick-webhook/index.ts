@@ -142,7 +142,20 @@ serve(async (req: Request) => {
       accountQuery = accountQuery.eq("kick_channel_slug", broadcasterSlug);
     }
 
-    const { data: account } = await accountQuery.maybeSingle();
+    let { data: account } = await accountQuery.maybeSingle();
+    if (!account) {
+      // Tek yayıncı modu: Eğer event payload'ında ID eşleşmezse bağlı olan tek kanalı kullan
+      const { data: fallbackAccount } = await supabaseAdmin
+        .from("kick_accounts")
+        .select("id, kick_username, is_connected")
+        .eq("is_connected", true)
+        .limit(1)
+        .maybeSingle();
+      if (fallbackAccount) {
+        account = fallbackAccount;
+      }
+    }
+
     if (!account || !account.is_connected) {
       return new Response(JSON.stringify({ message: "Bağlı hesap bulunamadı veya pasif." }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
