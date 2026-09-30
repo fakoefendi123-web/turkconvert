@@ -232,36 +232,66 @@ serve(async (req: Request) => {
         if (freshToken) currentAccessToken = freshToken;
       }
 
-      // Mesajı Kick Chat API'ye gönder
+      // Mesajı Kick Chat API'ye gönder (type: 'user' yayıncı adına göndermek için gereklidir)
+      const payloadBody = JSON.stringify({
+        broadcaster_user_id: effectiveBroadcasterId ? Number(effectiveBroadcasterId) : undefined,
+        content: content.trim(),
+        type: "user",
+      });
+
       let chatRes = await fetch("https://api.kick.com/public/v1/chat", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${currentAccessToken}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          broadcaster_user_id: effectiveBroadcasterId ? Number(effectiveBroadcasterId) : undefined,
-          content: content.trim(),
-          type: "bot",
-        }),
-      }).catch(() => null);
+        body: payloadBody,
+      }).catch((e) => {
+        console.error("Kick chat fetch hatası:", e);
+        return null;
+      });
 
       // Eğer 401 Unauthorized dönerse tokenı yenileyip bir kez daha dene
       if (chatRes && chatRes.status === 401) {
         const freshToken = await doRefreshToken();
         if (freshToken) {
-          await fetch("https://api.kick.com/public/v1/chat", {
+          chatRes = await fetch("https://api.kick.com/public/v1/chat", {
             method: "POST",
             headers: {
               Authorization: `Bearer ${freshToken}`,
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-              broadcaster_user_id: effectiveBroadcasterId ? Number(effectiveBroadcasterId) : undefined,
-              content: content.trim(),
-              type: "bot",
-            }),
-          }).catch((e) => console.error("Kick chat tekrar gönderme hatası:", e));
+            body: payloadBody,
+          }).catch((e) => {
+            console.error("Kick chat tekrar gönderme hatası:", e);
+            return null;
+          });
+        }
+      }
+
+      if (chatRes && !chatRes.ok) {
+        const errText = await chatRes.text().catch(() => "");
+        console.error(`Kick chat API hatası (${chatRes.status}):`, errText);
+        try {
+          await supabaseAdmin.from("logs").insert({
+            kick_account_id: accountId,
+            level: "error",
+            category: "CHAT",
+            message: `Kick mesaj gönderme hatası (${chatRes.status}): ${errText}`,
+          });
+        } catch {
+          // ignore
+        }
+      } else if (chatRes && chatRes.ok) {
+        try {
+          await supabaseAdmin.from("logs").insert({
+            kick_account_id: accountId,
+            level: "info",
+            category: "COMMAND",
+            message: `Bot chate yazdı: "${content.trim()}"`,
+          });
+        } catch {
+          // ignore
         }
       }
     };

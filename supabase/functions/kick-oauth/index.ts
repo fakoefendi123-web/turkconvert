@@ -28,6 +28,42 @@ async function generateCodeChallenge(verifier: string): Promise<string> {
   return base64UrlEncode(new Uint8Array(hash));
 }
 
+async function subscribeKickEvents(accessToken: string, broadcasterUserId?: number) {
+  const events = [
+    "chat.message.sent",
+    "channel.followed",
+    "channel.subscription.new",
+    "channel.subscription.renewal",
+    "channel.subscription.gifts",
+  ];
+  const results = [];
+  for (const event of events) {
+    try {
+      const payload: Record<string, unknown> = {
+        method: "webhook",
+        event,
+        version: 1,
+      };
+      if (broadcasterUserId) {
+        payload.broadcaster_user_id = Number(broadcasterUserId);
+      }
+      const res = await fetch("https://api.kick.com/public/v1/events/subscriptions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      results.push({ event, status: res.status, ok: res.ok, data });
+    } catch (e) {
+      results.push({ event, error: String(e) });
+    }
+  }
+  return results;
+}
+
 serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -226,15 +262,22 @@ serve(async (req: Request) => {
         console.error("Token kaydetme uyarısı:", tokenSaveError);
       }
 
+      // Otomatik Kick Event Abonelikleri (Webhooks) Kaydı
+      const subResults = await subscribeKickEvents(accessToken, kickUserId);
+      console.log("Kick Event Subscription Sonuçları:", subResults);
+
+      const activeSubsCount = subResults.filter((r) => r.ok).length;
+
       // Write Log
       await supabaseAdmin.from("logs").insert({
         kick_account_id: account.id,
         level: "info",
         category: "AUTH",
-        message: `@${kickUsername} hesabı başarıyla bağlandı ve yetkilendirildi.`,
+        message: `@${kickUsername} hesabı başarıyla bağlandı. Kick Event Abonelikleri (${activeSubsCount}/${subResults.length}) aktif edildi.`,
+        metadata: { subscriptions: subResults },
       });
 
-      return new Response(JSON.stringify({ success: true, account, username: kickUsername }), {
+      return new Response(JSON.stringify({ success: true, account, username: kickUsername, subscriptions: subResults }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
@@ -308,6 +351,64 @@ serve(async (req: Request) => {
       }).eq("kick_account_id", kickAccountId);
 
       return new Response(JSON.stringify({ success: true, expires_at: expiresAt }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // -------------------------------------------------------------------------
+    // 4. /subscribe: Manually create/renew Kick event subscriptions
+    // -------------------------------------------------------------------------
+    if (pathname === "subscribe" || (req.method === "POST" && url.searchParams.get("action") === "subscribe")) {
+      const body = await req.json().catch(() => ({}));
+      const kickAccountId = body.kick_account_id;
+
+      let token = body.access_token;
+      let broadcasterId = body.broadcaster_user_id;
+
+      if (kickAccountId && !token) {
+        const { data: tok } = await supabaseAdmin
+          .from("oauth_tokens")
+          .select("access_token")
+          .eq("kick_account_id", kickAccountId)
+          .maybeSingle();
+        if (tok) token = tok.access_token;
+
+        const { data: acc } = await supabaseAdmin
+          .from("kick_accounts")
+          .select("kick_user_id")
+          .eq("id", kickAccountId)
+          .maybeSingle();
+        if (acc) broadcasterId = acc.kick_user_id;
+      }
+
+      if (!token) {
+        // Fallback: bağlı olan ilk hesabı al
+        const { data: acc } = await supabaseAdmin
+          .from("kick_accounts")
+          .select("id, kick_user_id")
+          .eq("is_connected", true)
+          .limit(1)
+          .maybeSingle();
+        if (acc) {
+          broadcasterId = acc.kick_user_id;
+          const { data: tok } = await supabaseAdmin
+            .from("oauth_tokens")
+            .select("access_token")
+            .eq("kick_account_id", acc.id)
+            .maybeSingle();
+          if (tok) token = tok.access_token;
+        }
+      }
+
+      if (!token) {
+        return new Response(JSON.stringify({ error: "Access token veya bağlı hesap bulunamadı." }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      const results = await subscribeKickEvents(token, broadcasterId);
+      return new Response(JSON.stringify({ success: true, subscriptions: results }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
