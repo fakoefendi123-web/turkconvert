@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
     "@types/jszip": "^3.4.0",
     "@types/marked": "^5.0.2",
     "jspdf": "^2.5.2",

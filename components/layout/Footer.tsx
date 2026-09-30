@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ShieldCheck, Sparkles, Crown } from "lucide-react";
+import { ShieldCheck, Sparkles } from "lucide-react";
 
 const popularTools = [
+  { href: "/kick", label: "Kick Yayıncı Botu" },
   { href: "/image-compressor", label: "Görsel Sıkıştırıcı" },
   { href: "/seffaf-imza", label: "Şeffaf İmza Oluşturucu" },
   { href: "/qr-code-generator", label: "QR Kod Stüdyosu" },
@@ -15,7 +16,6 @@ const popularTools = [
 ];
 
 const legalLinks = [
-  { href: "/prens-hazretleri", label: "👑 Prens Hazretleri Otağı" },
   { href: "/hakkimizda", label: "Hakkımızda" },
   { href: "/gizlilik", label: "Gizlilik Politikası" },
   { href: "/kullanim-kosullari", label: "Kullanım Koşulları" },
@@ -84,10 +84,7 @@ export function Footer() {
         </div>
 
         {/* Telif & Alt Bar */}
-        <div className="mt-10 border-t border-gray-200 pt-6 text-center dark:border-gray-800 space-y-2">
-          <p className="text-[11px] font-medium text-amber-600/90 dark:text-amber-400/80">
-            👑 Görkemli Prens Hazretleri Tarafından Aziz Milletine Bahşedilmiş Dijital Eserdir.
-          </p>
+        <div className="mt-10 border-t border-gray-200 pt-6 text-center dark:border-gray-800">
           <p className="text-[11px] text-gray-400 dark:text-gray-500">
             © 2026 TurkConvert (turkconvert.online). Tüm hakları saklıdır. Reklamsız, üyeliksiz ve ücretsiz.
           </p>
