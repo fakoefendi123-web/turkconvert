@@ -72,6 +72,13 @@ function KickOAuthCallbackContent() {
         setStatus("success");
         setDetails(result.username ? `@${result.username} kanalı bağlandı` : "Hesap başarıyla eşleştirildi");
 
+        if (typeof window !== "undefined") {
+          localStorage.setItem("kick_bot_authenticated", "true");
+          if (result.username) {
+            localStorage.setItem("kick_bot_username", result.username);
+          }
+        }
+
         // Redirect back to dashboard after 2 seconds
         setTimeout(() => {
           router.push("/kick?connected=true");

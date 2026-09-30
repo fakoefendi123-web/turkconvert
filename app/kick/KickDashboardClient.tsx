@@ -316,9 +316,7 @@ export default function KickDashboardClient() {
 
   // Auth & Session States
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [authEmail, setAuthEmail] = useState("");
-  const [authPassword, setAuthPassword] = useState("");
-  const [authMode, setAuthMode] = useState<"login" | "signup">("login");
+  const [quickChannel, setQuickChannel] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
 
@@ -393,58 +391,78 @@ export default function KickDashboardClient() {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  // Check Supabase Auth on Mount
+  // Check Saved Session & OAuth Callback on Mount
   useEffect(() => {
-    try {
-      const client = getSupabase();
-      client.auth.getSession().then(({ data: { session } }) => {
-        if (session) {
-          setIsAuthenticated(true);
-        }
-      });
-    } catch {
-      // Local demo mode
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("connected") === "true") {
+        setIsAuthenticated(true);
+        localStorage.setItem("kick_bot_authenticated", "true");
+        showToast("Kick hesabınız başarıyla bağlandı! Bot aktif.");
+      }
+
+      const savedAuth = localStorage.getItem("kick_bot_authenticated");
+      const savedUser = localStorage.getItem("kick_bot_username");
+      if (savedAuth === "true") {
+        setIsAuthenticated(true);
+      }
+      if (savedUser) {
+        setConnectedAccount((prev) =>
+          prev
+            ? { ...prev, kick_username: savedUser, kick_channel_slug: savedUser.toLowerCase() }
+            : {
+                id: "oauth-user",
+                user_id: "local",
+                kick_user_id: 1,
+                kick_username: savedUser,
+                kick_channel_slug: savedUser.toLowerCase(),
+                profile_pic_url: null,
+                is_connected: true,
+                connected_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+              }
+        );
+      }
     }
   }, []);
 
-  // Handle Login / Sign Up
-  const handleAuthSubmit = async (e: React.FormEvent) => {
+  // Quick Channel Entry Handler (No Password Required)
+  const handleQuickChannelLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    setAuthLoading(true);
-    setAuthError(null);
-
-    try {
-      if (!isSupabaseConfigured()) {
-        // Mock login if credentials not yet loaded into env
-        setIsAuthenticated(true);
-        showToast("Demo modunda giriş yapıldı.");
-        setAuthLoading(false);
-        return;
-      }
-
-      const client = getSupabase();
-      if (authMode === "signup") {
-        const { error } = await client.auth.signUp({
-          email: authEmail,
-          password: authPassword,
-        });
-        if (error) throw error;
-        showToast("Kayıt başarılı! Giriş yapıldı.");
-        setIsAuthenticated(true);
-      } else {
-        const { error } = await client.auth.signInWithPassword({
-          email: authEmail,
-          password: authPassword,
-        });
-        if (error) throw error;
-        showToast("Başarıyla giriş yapıldı.");
-        setIsAuthenticated(true);
-      }
-    } catch (err: any) {
-      setAuthError(err.message || "Giriş işlemi başarısız.");
-    } finally {
-      setAuthLoading(false);
+    const cleanChannel = quickChannel.trim().replace(/^@/, "");
+    if (!cleanChannel) {
+      showToast("Lütfen bir kanal adı girin.");
+      return;
     }
+
+    setConnectedAccount({
+      id: "quick-user",
+      user_id: "local",
+      kick_user_id: 9999,
+      kick_username: cleanChannel,
+      kick_channel_slug: cleanChannel.toLowerCase(),
+      profile_pic_url: null,
+      is_connected: true,
+      connected_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    });
+
+    setIsAuthenticated(true);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("kick_bot_authenticated", "true");
+      localStorage.setItem("kick_bot_username", cleanChannel);
+    }
+    showToast(`@${cleanChannel} kanalıyla giriş yapıldı!`);
+  };
+
+  // Logout Handler
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("kick_bot_authenticated");
+      localStorage.removeItem("kick_bot_username");
+    }
+    showToast("Oturum kapatıldı.");
   };
 
   // Kick OAuth 2.1 Connection Handlers
@@ -684,41 +702,15 @@ export default function KickDashboardClient() {
         <div className="mx-auto flex min-h-[75vh] max-w-md flex-col justify-center px-4 py-12">
           <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <div className="flex flex-col items-center text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400">
-                <Radio className="h-6 w-6 animate-pulse" />
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600 dark:bg-emerald-950/60 dark:text-emerald-400">
+                <Radio className="h-7 w-7 animate-pulse" />
               </div>
               <h1 className="mt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Kick Bot Control Center
+                Kick Bot Kontrol Merkezi
               </h1>
               <p className="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
-                Yayıncı paneline erişmek ve bot ayarlarını yönetmek için giriş yapın
+                Yayıncı botunuzu yönetmek, komutları ve eventleri düzenlemek için Kick ile bağlanın
               </p>
-            </div>
-
-            {/* Giriş / Kayıt Sekmesi */}
-            <div className="mt-6 flex rounded-xl border border-gray-200 bg-gray-50 p-1 dark:border-gray-800 dark:bg-gray-950">
-              <button
-                type="button"
-                onClick={() => setAuthMode("login")}
-                className={`flex-1 rounded-lg py-1.5 text-xs font-semibold transition ${
-                  authMode === "login"
-                    ? "bg-white text-gray-900 shadow-xs dark:bg-gray-800 dark:text-white"
-                    : "text-gray-500 hover:text-gray-900 dark:text-gray-400"
-                }`}
-              >
-                Giriş Yap
-              </button>
-              <button
-                type="button"
-                onClick={() => setAuthMode("signup")}
-                className={`flex-1 rounded-lg py-1.5 text-xs font-semibold transition ${
-                  authMode === "signup"
-                    ? "bg-white text-gray-900 shadow-xs dark:bg-gray-800 dark:text-white"
-                    : "text-gray-500 hover:text-gray-900 dark:text-gray-400"
-                }`}
-              >
-                Kayıt Ol
-              </button>
             </div>
 
             {authError && (
@@ -727,54 +719,74 @@ export default function KickDashboardClient() {
               </div>
             )}
 
-            <form onSubmit={handleAuthSubmit} className="mt-5 space-y-4">
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300">
-                  E-Posta Adresi
-                </label>
-                <input
-                  type="email"
-                  value={authEmail}
-                  onChange={(e) => setAuthEmail(e.target.value)}
-                  placeholder="yayinci@turkconvert.online"
-                  required
-                  className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-xs text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none dark:border-gray-800 dark:bg-gray-950 dark:text-white"
-                />
-              </div>
+            {/* 1. BİRİNCİL SEÇENEK: KICK İLE GİRİŞ YAP */}
+            <div className="mt-6 space-y-3">
+              <button
+                type="button"
+                onClick={handleConnectKick}
+                className="flex w-full items-center justify-center gap-3 rounded-xl bg-[#53FC18] py-3 px-4 text-sm font-extrabold text-black shadow-md transition-all hover:bg-[#45d914] active:scale-[0.99]"
+              >
+                <Radio className="h-5 w-5" />
+                <span>Kick ile Giriş Yap</span>
+              </button>
+              <p className="text-[11px] text-center text-gray-400 dark:text-gray-500">
+                Resmi Kick OAuth 2.1 ile güvenli kanal bağlantısı
+              </p>
+            </div>
 
+            {/* AYIRICI */}
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-200 dark:border-gray-800" />
+              </div>
+              <div className="relative flex justify-center text-[10px] uppercase font-semibold">
+                <span className="bg-white px-2.5 text-gray-400 dark:bg-gray-900">
+                  veya şifresiz kanal adıyla hızlı gir
+                </span>
+              </div>
+            </div>
+
+            {/* 2. İKİNCİL SEÇENEK: KANAL ADIYLA ŞİFRESİZ HIZLI GİRİŞ */}
+            <form onSubmit={handleQuickChannelLogin} className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300">
-                  Şifre
+                <label className="block text-[11px] font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                  Kick Kanal Adınız
                 </label>
-                <input
-                  type="password"
-                  value={authPassword}
-                  onChange={(e) => setAuthPassword(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                  className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-xs text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none dark:border-gray-800 dark:bg-gray-950 dark:text-white"
-                />
+                <div className="relative">
+                  <span className="absolute left-3.5 top-2.5 text-xs font-bold text-gray-400">@</span>
+                  <input
+                    type="text"
+                    value={quickChannel}
+                    onChange={(e) => setQuickChannel(e.target.value)}
+                    placeholder="ornek_yayinci"
+                    required
+                    className="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-8 pr-3 text-xs text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none dark:border-gray-800 dark:bg-gray-950 dark:text-white"
+                  />
+                </div>
               </div>
 
               <button
                 type="submit"
-                disabled={authLoading}
-                className="w-full rounded-xl bg-primary-600 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-primary-700 disabled:opacity-50"
+                className="w-full rounded-xl bg-gray-900 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
               >
-                {authLoading ? "İşleniyor..." : authMode === "login" ? "Giriş Yap" : "Hesap Oluştur"}
+                Panele Gir
               </button>
             </form>
 
+            {/* 3. ÜÇÜNCÜ SEÇENEK: DEMO MODU */}
             <div className="mt-6 border-t border-gray-100 pt-4 text-center dark:border-gray-800">
               <button
                 type="button"
                 onClick={() => {
                   setIsAuthenticated(true);
-                  showToast("Demo paneli açıldı.");
+                  if (typeof window !== "undefined") {
+                    localStorage.setItem("kick_bot_authenticated", "true");
+                  }
+                  showToast("Demo modunda panele giriş yapıldı.");
                 }}
-                className="text-xs font-semibold text-primary-600 hover:text-primary-500 dark:text-primary-400"
+                className="text-xs font-semibold text-primary-600 hover:text-primary-500 dark:text-primary-400 transition"
               >
-                Giriş Yapmadan Demo Panelini İncele →
+                Giriş Yapmadan Paneli İncele (Demo) →
               </button>
             </div>
           </div>
@@ -836,10 +848,7 @@ export default function KickDashboardClient() {
               </button>
 
               <button
-                onClick={() => {
-                  setIsAuthenticated(false);
-                  showToast("Oturum kapatıldı.");
-                }}
+                onClick={handleLogout}
                 className="inline-flex items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-xs font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
               >
                 <LogOut className="h-3.5 w-3.5" />
