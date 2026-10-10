@@ -4,7 +4,7 @@ import HeicConverterTool from "./HeicConverterTool";
 export const metadata: Metadata = {
   title: "HEIC to JPG Dönüştürücü - iPhone Fotoğraflarını JPG Yap | TurkConvert",
   description:
-    "iPhone HEIC ve HEIF fotoğraflarınızı anında JPG formatına dönüştürün. Ücretsiz, reklamsız, toplu dönüştürme ve %100 tarayıcı içi gizli işlem.",
+    "iPhone HEIC ve HEIF fotoğraflarınızı anında JPG formatına dönüştürün. Ücretsiz, hızlı, toplu dönüştürme ve %100 tarayıcı içi gizli işlem.",
   keywords: [
     "heic to jpg",
     "heic jpg dönüştürücü",

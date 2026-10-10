@@ -367,7 +367,7 @@ export const toolsSeo: Record<string, ToolSeoInfo> = {
       },
       {
         question: "Kullanımı ücretsiz mi?",
-        answer: "Evet, tamamen ücretsiz ve reklamsızdır."
+        answer: "Evet, tamamen ücretsiz ve sınırsızdır."
       },
       {
         question: "Verilerim gizli kalır mı?",
@@ -423,7 +423,7 @@ export const toolsSeo: Record<string, ToolSeoInfo> = {
     faqs: [
       {
         question: "PDF dosyasında filigran (watermark) eklenir mi?",
-        answer: "Hayır! TurkConvert belgelerinize kesinlikle filigran veya reklam logosu eklemez."
+        answer: "Hayır! TurkConvert belgelerinize kesinlikle filigran veya logo eklemez."
       },
       {
         question: "Resmi evraklarım güvende mi?",
@@ -442,7 +442,7 @@ export const toolsSeo: Record<string, ToolSeoInfo> = {
   "png-to-pdf": {
     id: "png-to-pdf",
     title: "PNG to PDF Dönüştürücü - PNG Resimlerini PDF Yapma",
-    description: "PNG formatındaki görsellerinizi yüksek kalitede PDF belgesine dönüştürün. Ücretsiz, reklamsız ve tarayıcı tabanlı çevirme.",
+    description: "PNG formatındaki görsellerinizi yüksek kalitede PDF belgesine dönüştürün. Ücretsiz, güvenli ve tarayıcı tabanlı çevirme.",
     h1: "PNG to PDF Dönüştürücü",
     intro: "Şeffaf veya yüksek çözünürlüklü PNG resimlerinizi kolayca taşınabilir ve yazdırılabilir PDF dokümanına çevirin.",
     aboutTitle: "PNG'den PDF'e Dönüştürme Özellikleri",
@@ -499,7 +499,7 @@ export const toolsSeo: Record<string, ToolSeoInfo> = {
       },
       {
         question: "Filigran ekleniyor mu?",
-        answer: "Hayır, sayfalar tamamen temiz ve reklamsızdır."
+        answer: "Hayır, sayfalar tamamen temiz ve filigransızdır."
       }
     ]
   },
@@ -979,7 +979,7 @@ export const toolsSeo: Record<string, ToolSeoInfo> = {
       },
       {
         question: "Ücretsiz mi?",
-        answer: "Evet, TurkConvert'in tüm araçları gibi ücretsiz ve reklamsızdır."
+        answer: "Evet, TurkConvert'in tüm araçları gibi tamamen ücretsizdir."
       }
     ]
   },

@@ -39,8 +39,8 @@ export default function GizlilikPage() {
     },
     {
       icon: <EyeOff className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />,
-      title: "Sıfır Takipçi & Sıfır Reklam Çerezi",
-      desc: "Sitemizde kullanıcıları izleyen reklam pikselleri, davranışsal analitik kodları veya pazarlama çerezleri yer almaz. Yalnızca karanlık/aydınlık tema tercihiniz tarayıcınızda (localStorage) saklanır.",
+      title: "Şeffaf ve Güvenilir Deneyim",
+      desc: "Dosyalarınız hiçbir üçüncü tarafla paylaşılmaz. Yalnızca karanlık/aydınlık tema tercihiniz ve site ayarlarınız yerel olarak tarayıcınızda (localStorage) saklanır.",
     },
     {
       icon: <Lock className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
@@ -177,16 +177,25 @@ export default function GizlilikPage() {
 
         <section className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900">
           <h2 className="text-lg font-bold text-gray-900 dark:text-white">
-            2. Çerezler (Cookies) ve Yerel Depolama (Local Storage)
+            2. Çerezler (Cookies), Reklamlar ve Yerel Depolama (Local Storage)
           </h2>
           <p className="mt-3 leading-relaxed text-sm">
-            Web sitemiz reklam hedeflemesi, üçüncü taraf analitik takibi veya kullanıcı kimliklendirme amaçlı çerez (cookie) kullanmamaktadır. Yalnızca aşağıdaki kullanıcı dostu tercihler tarayıcınızın kendi yerel hafızasında (localStorage) saklanır:
+            Web sitemiz, hizmet kalitesini sürdürmek ve kullanıcı tercihlerini hatırlamak amacıyla yerel depolama ve standart çerez teknolojilerini kullanır:
           </p>
           <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm">
-            <li><strong>Açık / Koyu Tema Tercihi:</strong> Sitenin renk modunu hatırlamak için.</li>
-            <li><strong>Fatura Şablon Bilgileri:</strong> Fatura oluşturucu aracında şirket adı veya IBAN gibi alanları her defasında baştan girmemeniz için (isteğe bağlı).</li>
-            <li><strong>Son Kullanılan Araçlar:</strong> Ana sayfada size hız kazandıran son araçlar çubuğu için.</li>
+            <li><strong>Açık / Koyu Tema Tercihi:</strong> Sitenin renk modunu hatırlamak için (localStorage).</li>
+            <li><strong>Fatura Şablon Bilgileri:</strong> Fatura oluşturucu aracında şirket adı veya IBAN gibi alanları her defasında baştan girmemeniz için (isteğe bağlı, localStorage).</li>
+            <li><strong>Son Kullanılan Araçlar:</strong> Ana sayfada size hız kazandıran son araçlar çubuğu için (localStorage).</li>
           </ul>
+          <h3 className="mt-4 text-sm font-bold text-gray-900 dark:text-white">
+            Google AdSense ve Üçüncü Taraf Reklam Çerezleri
+          </h3>
+          <p className="mt-2 leading-relaxed text-sm text-gray-600 dark:text-gray-300">
+            Sitemizde Google AdSense reklam ağı kullanılmaktadır. Google dahil üçüncü taraf sağlayıcılar, kullanıcının web sitemize veya diğer web sitelerine yaptığı önceki ziyaretlere dayalı olarak reklam yayınlamak için çerezlerden yararlanır. Google&apos;ın reklam çerezlerini kullanması, kendisinin ve iş ortaklarının sitemize ve/veya İnternet&apos;teki diğer sitelere yaptığınız ziyaretlere dayalı olarak reklam sunmasını sağlar.
+          </p>
+          <p className="mt-2 leading-relaxed text-sm text-gray-600 dark:text-gray-300">
+            Kullanıcılar, kişiselleştirilmiş reklamcılığı devre dışı bırakmak için <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-primary-600 underline dark:text-primary-400">Google Reklam Ayarları</a> sayfasını ziyaret edebilir veya <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer" className="text-primary-600 underline dark:text-primary-400">aboutads.info</a> adresinden üçüncü taraf sağlayıcıların çerez kullanımını yönetebilirler.
+          </p>
         </section>
 
         <section className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900">

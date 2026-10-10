@@ -4,7 +4,7 @@ import PdfMergeTool from "./PdfMergeTool";
 export const metadata: Metadata = {
   title: "PDF Birleştirici - Birden Fazla PDF'i Tek Dosya Yap | TurkConvert",
   description:
-    "Birden fazla PDF belgesini sırasını belirleyerek ücretsiz ve reklamsız tek dosyada birleştirin. %100 tarayıcı içi, limitsiz sayfa ve tam gizlilik.",
+    "Birden fazla PDF belgesini sırasını belirleyerek ücretsiz ve güvenli tek dosyada birleştirin. %100 tarayıcı içi, limitsiz sayfa ve tam gizlilik.",
   keywords: [
     "pdf birleştirme",
     "pdf merge",

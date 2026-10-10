@@ -62,7 +62,7 @@ export function ToolPageLayout({
     {
       question: "TurkConvert kullanımı ücretsiz mi ve üyelik gerekli mi?",
       answer:
-        "TurkConvert tamamen ücretsizdir. Herhangi bir üyelik, kayıt veya kart bilgisi gerektirmez ve reklamsız olarak hizmet verir.",
+        "TurkConvert tamamen ücretsizdir. Herhangi bir üyelik, kayıt veya kart bilgisi gerektirmez; tüm araçlara doğrudan ve sınırsız erişebilirsiniz.",
     },
     {
       question: "Dönüştürme sırasında kalite kaybı yaşanır mı?",

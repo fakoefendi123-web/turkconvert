@@ -33,7 +33,7 @@ const SAMPLE_OLD = `TurkConvert v1.0
 - Manuel dosya indirme`;
 
 const SAMPLE_NEW = `TurkConvert v2.0 - Yeni Nesil!
-- Ücretsiz ve reklamsız dosya dönüştürme platformu
+- Ücretsiz ve güvenli dosya dönüştürme platformu
 - JPG, PNG, WEBP ve SVG yüksek kaliteli formatlar
 - Gelişmiş akıllı istemci taraflı sıkıştırma
 - Gelişmiş Renkli & Logolu QR Kod Stüdyosu

@@ -85,7 +85,7 @@ export function Footer() {
         {/* Telif & Alt Bar */}
         <div className="mt-10 border-t border-gray-200 pt-6 text-center dark:border-gray-800">
           <p className="text-[11px] text-gray-400 dark:text-gray-500">
-            © 2026 TurkConvert (turkconvert.online). Tüm hakları saklıdır. Reklamsız, üyeliksiz ve ücretsiz.
+            © 2026 TurkConvert (turkconvert.online). Tüm hakları saklıdır. Üyeliksiz, güvenli ve ücretsiz.
           </p>
         </div>
       </div>

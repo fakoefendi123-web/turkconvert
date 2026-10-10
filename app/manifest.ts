@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "TurkConvert — Ücretsiz Online Dosya Dönüştürme",
     short_name: "TurkConvert",
     description:
-      "Ücretsiz, hızlı ve reklamsız dosya dönüştürme araçları. Üyelik gerekmez.",
+      "Ücretsiz, hızlı ve güvenli dosya dönüştürme araçları. Üyelik gerekmez.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

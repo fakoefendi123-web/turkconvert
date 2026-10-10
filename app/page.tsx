@@ -27,14 +27,14 @@ import {
 export const metadata: Metadata = {
   title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme, Sıkıştırma ve Düzenleme Araçları",
   description:
-    "Görsel sıkıştırma, HEIC to JPG, PDF birleştirme ve ayırma, şeffaf imza, KDV hesaplayıcı, IBAN doğrulayıcı dahil %100 güvenli, ücretsiz ve reklamsız online araçlar.",
+    "Görsel sıkıştırma, HEIC to JPG, PDF birleştirme ve ayırma, şeffaf imza, KDV hesaplayıcı, IBAN doğrulayıcı dahil %100 güvenli ve ücretsiz online araçlar.",
   alternates: {
     canonical: "https://turkconvert.online/",
   },
   openGraph: {
     title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme ve Düzenleme Araçları",
     description:
-      "Görsel sıkıştırma, HEIC to JPG, PDF birleştirme ve ayırma, şeffaf imza, KDV hesaplayıcı, IBAN doğrulayıcı dahil %100 güvenli, ücretsiz ve reklamsız online araçlar.",
+      "Görsel sıkıştırma, HEIC to JPG, PDF birleştirme ve ayırma, şeffaf imza, KDV hesaplayıcı, IBAN doğrulayıcı dahil %100 güvenli ve ücretsiz online araçlar.",
     url: "https://turkconvert.online/",
     siteName: "TurkConvert",
     type: "website",
@@ -141,7 +141,7 @@ export default function HomePage() {
       <section className="text-center">
         <div className="inline-flex items-center gap-2 rounded-full bg-primary-50 px-4 py-1.5 text-xs font-semibold text-primary-700 dark:bg-primary-950/50 dark:text-primary-300">
           <Sparkles className="h-3.5 w-3.5" />
-          <span>%100 Tarayıcı Tabanlı • Reklamsız & Ücretsiz • Sıfır Sunucu Yüklemesi</span>
+          <span>%100 Tarayıcı Tabanlı • Hızlı & Ücretsiz • Sıfır Sunucu Yüklemesi</span>
         </div>
         <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
           Dosyalarınızı Kolayca Dönüştürün ve Düzenleyin
@@ -188,7 +188,7 @@ export default function HomePage() {
           </div>
           <div className="flex items-center gap-1.5">
             <Sparkles className="h-4 w-4 text-primary-500" />
-            <span>Üyelik ve Reklam Yok</span>
+            <span>Üyelik ve Kayıt Zorunluluğu Yok</span>
           </div>
         </div>
       </section>

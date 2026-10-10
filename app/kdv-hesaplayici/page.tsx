@@ -4,7 +4,7 @@ import KdvCalculatorTool from "./KdvCalculatorTool";
 export const metadata: Metadata = {
   title: "KDV & Tevkifat Hesaplayıcı - KDV Dahil/Hariç Hesaplama | TurkConvert",
   description:
-    "2026 güncel %1, %10, %20 oranlarıyla KDV dahil ve hariç hesaplayın, tevkifat oranlarını anında öğrenin. Ücretsiz, reklamsız ve hızlı finans aracı.",
+    "2026 güncel %1, %10, %20 oranlarıyla KDV dahil ve hariç hesaplayın, tevkifat oranlarını anında öğrenin. Ücretsiz, pratik ve hızlı finans aracı.",
   keywords: [
     "kdv hesaplama",
     "kdv dahil hesapla",

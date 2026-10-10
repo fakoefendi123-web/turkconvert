@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     template: "%s | TurkConvert",
   },
   description:
-    "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
+    "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve güvenli online dosya araçları. Üyelik gerekmez.",
   keywords: [
     "dosya dönüştürme",
     "jpg png dönüştürme",
@@ -36,13 +36,13 @@ export const metadata: Metadata = {
     siteName: "TurkConvert",
     title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme Araçları",
     description:
-      "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
+      "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve güvenli online dosya araçları. Üyelik gerekmez.",
   },
   twitter: {
     card: "summary_large_image",
     title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme Araçları",
     description:
-      "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve reklamsız online dosya araçları. Üyelik gerekmez.",
+      "JPG, PNG, WEBP ve PDF dönüştürme araçları dahil ücretsiz, hızlı ve güvenli online dosya araçları. Üyelik gerekmez.",
   },
   robots: {
     index: true,
@@ -51,6 +51,7 @@ export const metadata: Metadata = {
 };
 
 import { PwaManager } from "@/components/ui/PwaManager";
+import { AdBanner } from "@/components/ui/AdBanner";
 
 export default function RootLayout({
   children,
@@ -59,11 +60,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr" suppressHydrationWarning>
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3795286161515157"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="flex min-h-screen flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>
+            <div className="w-full px-4 sm:px-6 lg:px-8">
+              <AdBanner />
+            </div>
             <Footer />
             <PwaManager />
           </div>

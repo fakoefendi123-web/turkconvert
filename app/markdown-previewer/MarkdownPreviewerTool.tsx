@@ -25,7 +25,7 @@ merhaba("Dünya");
 
 ### Görev Listesi:
 - [x] Ücretsiz dosya dönüştürme
-- [x] Reklamsız arayüz
+- [x] Hızlı ve kolay arayüz
 - [x] Client-side güvenlik
 `;
 
