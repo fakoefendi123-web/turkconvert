@@ -50,6 +50,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { PwaManager } from "@/components/ui/PwaManager";
+
 export default function RootLayout({
   children,
 }: {
@@ -63,6 +65,7 @@ export default function RootLayout({
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />
+            <PwaManager />
           </div>
         </ThemeProvider>
       </body>

@@ -4,6 +4,7 @@ import { ToolCard } from "@/components/ui/ToolCard";
 import { HeroSearchTrigger } from "@/components/ui/HeroSearchTrigger";
 import { RecentToolsBar } from "@/components/ui/RecentToolsBar";
 import { ToolsExplorer } from "@/components/ui/ToolsExplorer";
+import { UniversalDropzone } from "@/components/ui/UniversalDropzone";
 import {
   Zap,
   ShieldCheck,
@@ -16,19 +17,24 @@ import {
   ShieldAlert,
   SplitSquareVertical,
   Compass,
+  Layers,
+  Scissors,
+  FileImage,
+  Calculator,
+  Building2,
 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme, Sıkıştırma ve Düzenleme Araçları",
   description:
-    "Görsel sıkıştırma, şeffaf imza oluşturucu, gelişmiş QR kod stüdyosu, PDF fatura ve belge sansürleme araçları dahil %100 güvenli, ücretsiz ve reklamsız online araçlar.",
+    "Görsel sıkıştırma, HEIC to JPG, PDF birleştirme ve ayırma, şeffaf imza, KDV hesaplayıcı, IBAN doğrulayıcı dahil %100 güvenli, ücretsiz ve reklamsız online araçlar.",
   alternates: {
     canonical: "https://turkconvert.online/",
   },
   openGraph: {
     title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme ve Düzenleme Araçları",
     description:
-      "Görsel sıkıştırma, şeffaf imza oluşturucu, gelişmiş QR kod stüdyosu, PDF fatura ve belge sansürleme araçları dahil %100 güvenli, ücretsiz ve reklamsız online araçlar.",
+      "Görsel sıkıştırma, HEIC to JPG, PDF birleştirme ve ayırma, şeffaf imza, KDV hesaplayıcı, IBAN doğrulayıcı dahil %100 güvenli, ücretsiz ve reklamsız online araçlar.",
     url: "https://turkconvert.online/",
     siteName: "TurkConvert",
     type: "website",
@@ -38,18 +44,58 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme ve Düzenleme Araçları",
     description:
-      "Görsel sıkıştırma, şeffaf imza, QR stüdyosu, PDF fatura ve sansürleme araçları dahil %100 güvenli, ücretsiz ve reklamsız online araçlar.",
+      "Görsel sıkıştırma, HEIC to JPG, PDF birleştirme ve ayırma, şeffaf imza, KDV hesaplayıcı ve IBAN kontrolü dahil %100 güvenli, ücretsiz araçlar.",
   },
 };
 
 const FEATURED_TOOLS = [
   {
+    id: "heic-to-jpg",
+    title: "HEIC to JPG",
+    description: "iPhone (.heic) fotoğraflarınızı anında standart JPG formatına dönüştürün.",
+    href: "/heic-to-jpg",
+    icon: FileImage,
+    badge: "Yeni",
+  },
+  {
+    id: "pdf-merge",
+    title: "PDF Birleştirici",
+    description: "Birden fazla PDF belgesini dilediğiniz sırayla tek dosya haline getirin.",
+    href: "/pdf-merge",
+    icon: Layers,
+    badge: "Yeni",
+  },
+  {
+    id: "pdf-split",
+    title: "PDF Sayfa Ayırıcı",
+    description: "PDF belgelerinizden belirli sayfaları çıkarın veya her sayfayı ayrı bölün.",
+    href: "/pdf-split",
+    icon: Scissors,
+    badge: "Yeni",
+  },
+  {
     id: "image-compressor",
     title: "Görsel Sıkıştırıcı",
-    description: "Kalite kaybı olmadan dosya boyutunu küçültün (Önce/Sonra karşılaştırmalı).",
+    description: "Kalite kaybı olmadan dosya boyutunu %80 küçültün (Önce/Sonra karşılaştırmalı).",
     href: "/image-compressor",
     icon: Minimize2,
-    badge: "Yenilendi",
+    badge: "Popüler",
+  },
+  {
+    id: "kdv-hesaplayici",
+    title: "KDV & Tevkifat Hesaplayıcı",
+    description: "KDV dahil/hariç tutarları ve tevkifat kesintilerini saniyeler içinde hesaplayın.",
+    href: "/kdv-hesaplayici",
+    icon: Calculator,
+    badge: "Finans",
+  },
+  {
+    id: "iban-dogrulayici",
+    title: "IBAN Doğrulayıcı & Banka Bulucu",
+    description: "TR IBAN numarasını Mod-97 ile doğrulayın ve hangi bankaya ait olduğunu öğrenin.",
+    href: "/iban-dogrulayici",
+    icon: Building2,
+    badge: "Finans",
   },
   {
     id: "seffaf-imza",
@@ -57,7 +103,7 @@ const FEATURED_TOOLS = [
     description: "Belgeleriniz için arka planı saydam ıslak imza çizin ve indirin.",
     href: "/seffaf-imza",
     icon: PenTool,
-    badge: "Yeni",
+    badge: "Popüler",
   },
   {
     id: "qr-code-generator",
@@ -73,51 +119,39 @@ const FEATURED_TOOLS = [
     description: "Hesaplamalı, şık ve kurumsal A4 PDF fatura veya teklif hazırlayın.",
     href: "/fatura-olusturucu",
     icon: Receipt,
-    badge: "Yeni",
-  },
-  {
-    id: "belge-sansurleyici",
-    title: "Gizli Belge Sansürleyici",
-    description: "T.C., IBAN ve hassas bilgileri siyah bant veya mozaik ile gizleyin.",
-    href: "/belge-sansurleyici",
-    icon: ShieldAlert,
-    badge: "Güvenlik",
-  },
-  {
-    id: "image-compare",
-    title: "Görsel Karşılaştırıcı",
-    description: "İki resim arasındaki farkı interaktif Before/After sürgüsüyle inceleyin.",
-    href: "/image-compare",
-    icon: SplitSquareVertical,
-    badge: "Yeni",
+    badge: "Ofis",
   },
 ];
 
 const QUICK_ACTIONS = [
+  { label: "📱 HEIC to JPG", href: "/heic-to-jpg" },
+  { label: "📑 PDF Birleştir", href: "/pdf-merge" },
+  { label: "✂️ PDF Ayır", href: "/pdf-split" },
   { label: "📸 Boyut Küçült", href: "/image-compressor" },
+  { label: "💰 KDV Hesapla", href: "/kdv-hesaplayici" },
+  { label: "🏦 IBAN Kontrol", href: "/iban-dogrulayici" },
   { label: "✍️ Şeffaf İmza", href: "/seffaf-imza" },
   { label: "🧾 PDF Fatura", href: "/fatura-olusturucu" },
-  { label: "📶 Wi-Fi QR", href: "/qr-code-generator" },
-  { label: "🔍 Metin Farkı", href: "/diff-checker" },
-  { label: "🔒 Belge Sansürle", href: "/belge-sansurleyici" },
-  { label: "🔀 Görsel Karşılaştır", href: "/image-compare" },
 ];
 
 export default function HomePage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
       {/* Hero Bölümü */}
       <section className="text-center">
         <div className="inline-flex items-center gap-2 rounded-full bg-primary-50 px-4 py-1.5 text-xs font-semibold text-primary-700 dark:bg-primary-950/50 dark:text-primary-300">
           <Sparkles className="h-3.5 w-3.5" />
-          <span>%100 Tarayıcı Tabanlı, Reklamsız ve Ücretsiz</span>
+          <span>%100 Tarayıcı Tabanlı • Reklamsız & Ücretsiz • Sıfır Sunucu Yüklemesi</span>
         </div>
         <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
-          Dosyalarınızı güvenle dönüştürün ve düzenleyin
+          Dosyalarınızı Kolayca Dönüştürün ve Düzenleyin
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg">
-          Görsel dönüştürme, sıkıştırma, şeffaf imza, QR stüdyosu ve PDF araçları. Dosyalarınız sunucuya yüklenmez, gizliliğiniz tamamen korunur.
+        <p className="mx-auto mt-3 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:text-lg">
+          Görsel, PDF, metin ve finansal araçlar tek platformda. Hiçbir dosyanız sunucuya gitmez, tüm işlemler anında cihazınızda gerçekleşir.
         </p>
+
+        {/* Akıllı Evrensel Dosya Bırakma Alanı (Universal Dropzone) */}
+        <UniversalDropzone />
 
         {/* Hızlı Arama Kutusu */}
         <HeroSearchTrigger />

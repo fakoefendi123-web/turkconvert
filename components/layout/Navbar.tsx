@@ -8,9 +8,10 @@ import { SearchCommandPalette } from "@/components/ui/SearchCommandPalette";
 
 const navLinks = [
   { href: "/#araclar", label: "Tüm Araçlar" },
-  { href: "/kick", label: "Kick Bot", isNew: true },
-  { href: "/seffaf-imza", label: "Şeffaf İmza", isNew: true },
-  { href: "/fatura-olusturucu", label: "Fatura Hazırla", isNew: true },
+  { href: "/heic-to-jpg", label: "HEIC to JPG", isNew: true },
+  { href: "/pdf-merge", label: "PDF Birleştir", isNew: true },
+  { href: "/seffaf-imza", label: "Şeffaf İmza" },
+  { href: "/kdv-hesaplayici", label: "KDV Hesapla" },
   { href: "/hakkimizda", label: "Hakkımızda" },
 ];
 

@@ -2,17 +2,16 @@ import Link from "next/link";
 import { ShieldCheck, Sparkles } from "lucide-react";
 
 const popularTools = [
-  { href: "/kick", label: "Kick Yayıncı Botu" },
+  { href: "/heic-to-jpg", label: "HEIC to JPG (iPhone)" },
+  { href: "/pdf-merge", label: "PDF Birleştirici" },
+  { href: "/pdf-split", label: "PDF Sayfa Ayırıcı" },
   { href: "/image-compressor", label: "Görsel Sıkıştırıcı" },
+  { href: "/kdv-hesaplayici", label: "KDV & Tevkifat Hesapla" },
+  { href: "/iban-dogrulayici", label: "IBAN Doğrulayıcı" },
   { href: "/seffaf-imza", label: "Şeffaf İmza Oluşturucu" },
   { href: "/qr-code-generator", label: "QR Kod Stüdyosu" },
   { href: "/fatura-olusturucu", label: "PDF Fatura Oluşturucu" },
-  { href: "/belge-sansurleyici", label: "Gizli Belge Sansürleyici" },
-  { href: "/image-compare", label: "Görsel Karşılaştırıcı" },
-  { href: "/jpg-to-png", label: "JPG to PNG" },
-  { href: "/png-to-webp", label: "PNG to WEBP" },
-  { href: "/image-to-pdf", label: "Görselleri PDF Yap" },
-  { href: "/diff-checker", label: "Metin Farkı Bulucu" },
+  { href: "/sayiyi-yaziya-cevir", label: "Yazıyla Sayı & Para" },
 ];
 
 const legalLinks = [

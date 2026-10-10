@@ -28,6 +28,11 @@ import {
   ShieldAlert,
   SplitSquareVertical,
   Receipt,
+  Layers,
+  Scissors,
+  Lock,
+  Calculator,
+  Building2,
 } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
@@ -216,6 +221,30 @@ export const tools: ToolInfo[] = [
     category: "image",
     icon: SplitSquareVertical,
   },
+  {
+    id: "heic-to-jpg",
+    name: "HEIC → JPG",
+    description: "iPhone (.heic) fotoğraflarınızı anında JPG formatına dönüştürün.",
+    href: "/heic-to-jpg",
+    category: "image",
+    icon: FileImage,
+  },
+  {
+    id: "heic-to-png",
+    name: "HEIC → PNG",
+    description: "iPhone (.heic) fotoğraflarınızı kayıpsız PNG formatına dönüştürün.",
+    href: "/heic-to-png",
+    category: "image",
+    icon: FileImage,
+  },
+  {
+    id: "exif-cleaner",
+    name: "EXIF & Konum Temizleyici",
+    description: "Fotoğraflardaki GPS konumu, çekim saati ve cihaz bilgilerini silin.",
+    href: "/exif-cleaner",
+    category: "image",
+    icon: Lock,
+  },
 
   // PDF Araçları
   {
@@ -249,6 +278,22 @@ export const tools: ToolInfo[] = [
     href: "/fatura-olusturucu",
     category: "pdf",
     icon: Receipt,
+  },
+  {
+    id: "pdf-merge",
+    name: "PDF Birleştirici",
+    description: "Birden fazla PDF belgesini sırasını belirleyerek tek dosya yapın.",
+    href: "/pdf-merge",
+    category: "pdf",
+    icon: Layers,
+  },
+  {
+    id: "pdf-split",
+    name: "PDF Sayfa Ayırıcı",
+    description: "PDF belgelerinizden dilediğiniz sayfaları çıkarın veya bölün.",
+    href: "/pdf-split",
+    category: "pdf",
+    icon: Scissors,
   },
 
   // Metin Araçları
@@ -291,6 +336,14 @@ export const tools: ToolInfo[] = [
     href: "/lorem-ipsum-generator",
     category: "text",
     icon: AlignLeft,
+  },
+  {
+    id: "sayiyi-yaziya-cevir",
+    name: "Yazıyla Sayı & Para",
+    description: "Rakamları fatura, çek veya dilekçe için Türkçe yazıya çevirin.",
+    href: "/sayiyi-yaziya-cevir",
+    category: "text",
+    icon: Type,
   },
 
   // Geliştirici Araçları
@@ -383,6 +436,22 @@ export const tools: ToolInfo[] = [
     href: "/qr-code-generator",
     category: "other",
     icon: QrCode,
+  },
+  {
+    id: "kdv-hesaplayici",
+    name: "KDV & Tevkifat Hesaplayıcı",
+    description: "KDV dahil/hariç tutarları ve tevkifat oranlarını anında hesaplayın.",
+    href: "/kdv-hesaplayici",
+    category: "other",
+    icon: Calculator,
+  },
+  {
+    id: "iban-dogrulayici",
+    name: "IBAN Doğrulayıcı & Banka Bulucu",
+    description: "TR IBAN numarasını matematiksel Mod-97 ile doğrulayın ve bankayı öğrenin.",
+    href: "/iban-dogrulayici",
+    category: "other",
+    icon: Building2,
   },
 ];
 

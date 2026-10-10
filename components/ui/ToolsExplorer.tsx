@@ -20,6 +20,14 @@ import {
 } from "lucide-react";
 
 const NEW_TOOL_IDS = new Set([
+  "heic-to-jpg",
+  "heic-to-png",
+  "pdf-merge",
+  "pdf-split",
+  "exif-cleaner",
+  "kdv-hesaplayici",
+  "iban-dogrulayici",
+  "sayiyi-yaziya-cevir",
   "seffaf-imza",
   "belge-sansurleyici",
   "fatura-olusturucu",
@@ -29,7 +37,12 @@ const NEW_TOOL_IDS = new Set([
 ]);
 
 const POPULAR_TOOL_IDS = new Set([
+  "heic-to-jpg",
+  "pdf-merge",
+  "pdf-split",
   "image-compressor",
+  "kdv-hesaplayici",
+  "iban-dogrulayici",
   "qr-code-generator",
   "seffaf-imza",
   "fatura-olusturucu",
