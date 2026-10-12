@@ -245,6 +245,14 @@ export function QrCodeGeneratorTool() {
     generateQr();
   }, [generateQr]);
 
+  useEffect(() => {
+    return () => {
+      if (customLogoUrlRef.current) {
+        URL.revokeObjectURL(customLogoUrlRef.current);
+      }
+    };
+  }, []);
+
   // Logo yükleme
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

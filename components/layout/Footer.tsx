@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ShieldCheck, Sparkles } from "lucide-react";
+import { ShieldCheck, Sparkles, Terminal } from "lucide-react";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 
 const popularTools = [
   { href: "/heic-to-jpg", label: "HEIC to JPG (iPhone)" },
@@ -23,29 +24,31 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-gray-50/90 text-xs text-gray-500 dark:border-gray-800 dark:bg-gray-900/60 dark:text-gray-400">
-      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
+    <footer className="mt-20 border-t border-slate-200/80 bg-white/60 text-xs text-slate-500 backdrop-blur-xl dark:border-white/10 dark:bg-obsidian-950/80 dark:text-slate-400">
+      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4">
           {/* Marka & Misyon */}
-          <div className="space-y-3 sm:col-span-2">
-            <Link
-              href="/"
-              className="text-lg font-bold text-gray-900 dark:text-white"
-            >
-              turk<span className="text-primary-600 dark:text-primary-400">convert</span>
-            </Link>
-            <p className="max-w-sm text-xs leading-relaxed text-gray-500 dark:text-gray-400">
-              Türkiye&apos;nin en kapsamlı, güvenli ve ücretsiz online dosya dönüştürme ve düzenleme platformu. Dosyalarınız sunucuya gitmez, gizliliğiniz %100 korunur.
+          <div className="space-y-4 sm:col-span-2">
+            <BrandLogo size="md" />
+            <p className="max-w-sm text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+              Türkiye&apos;nin en kapsamlı, güvenli ve ücretsiz online dosya dönüştürme ve düzenleme stüdyosu. Dosyalarınız sunucuya gitmez, gizliliğiniz %100 yerel korunur.
             </p>
-            <div className="flex items-center gap-2 pt-1 text-[11px] text-green-600 dark:text-green-400">
-              <ShieldCheck className="h-4 w-4" />
-              <span>Sıfır Veritabanı • %100 İstemci Taraflı Gizlilik</span>
+
+            <div className="flex flex-wrap items-center gap-3 pt-1 text-[11px]">
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1 font-semibold text-emerald-600 dark:text-emerald-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Tüm Modüller Çevrimdışı Aktif</span>
+              </div>
+              <div className="inline-flex items-center gap-1 text-slate-400 dark:text-slate-500">
+                <ShieldCheck className="h-3.5 w-3.5" />
+                <span>Sıfır Veritabanı • %100 İstemci Taraflı</span>
+              </div>
             </div>
           </div>
 
           {/* Popüler Araçlar */}
           <div>
-            <h4 className="mb-3 font-semibold uppercase tracking-wider text-gray-900 dark:text-white text-[11px]">
+            <h4 className="mb-3 font-semibold uppercase tracking-wider text-slate-900 text-[11px] dark:text-white">
               Popüler Araçlar
             </h4>
             <ul className="space-y-2">
@@ -53,7 +56,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                    className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
                   >
                     {link.label}
                   </Link>
@@ -64,7 +67,7 @@ export function Footer() {
 
           {/* Hızlı Bağlantılar & Kurumsal */}
           <div>
-            <h4 className="mb-3 font-semibold uppercase tracking-wider text-gray-900 dark:text-white text-[11px]">
+            <h4 className="mb-3 font-semibold uppercase tracking-wider text-slate-900 text-[11px] dark:text-white">
               Kurumsal & Yasal
             </h4>
             <ul className="space-y-2">
@@ -72,7 +75,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                    className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
                   >
                     {link.label}
                   </Link>
@@ -83,8 +86,8 @@ export function Footer() {
         </div>
 
         {/* Telif & Alt Bar */}
-        <div className="mt-10 border-t border-gray-200 pt-6 text-center dark:border-gray-800">
-          <p className="text-[11px] text-gray-400 dark:text-gray-500">
+        <div className="mt-12 border-t border-slate-200/80 pt-6 text-center dark:border-white/10">
+          <p className="text-[11px] text-slate-400 dark:text-slate-500">
             © 2026 TurkConvert (turkconvert.online). Tüm hakları saklıdır. Üyeliksiz, güvenli ve ücretsiz.
           </p>
         </div>

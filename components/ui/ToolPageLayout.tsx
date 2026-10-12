@@ -1,14 +1,11 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ChevronRight, Home } from "lucide-react";
+import { ChevronRight, Home, ChevronDown } from "lucide-react";
 import { tools, categories } from "@/lib/constants/tools";
-import { ToolCard } from "@/components/ui/ToolCard";
 import { getToolSeo } from "@/lib/constants/tool-seo";
+import { ToolCard } from "@/components/ui/ToolCard";
 
 interface ToolPageLayoutProps {
-  toolId?: string;
+  toolId: string;
   title?: string;
   description?: string;
   children: React.ReactNode;
@@ -20,32 +17,24 @@ export function ToolPageLayout({
   description,
   children,
 }: ToolPageLayoutProps) {
-  const pathname = usePathname();
-
-  const pathSlug = pathname ? pathname.replace(/^\//, "").split("/")[0] : "";
-  const resolvedToolId = toolId || pathSlug;
-  const seo = getToolSeo(resolvedToolId);
-
-  const currentTool = tools.find(
-    (t) => t.id === resolvedToolId || t.href === pathname
+  const currentTool = tools.find((t) => t.id === toolId);
+  const currentCategory = categories.find(
+    (c) => c.id === currentTool?.category
   );
-  const currentCategory = currentTool
-    ? categories.find((c) => c.id === currentTool.category)
-    : null;
+  const seo = getToolSeo(toolId);
 
-  const displayTitle = seo?.h1 || title || currentTool?.name || "Araç";
+  const displayTitle = title || seo?.h1 || currentTool?.name || "Araç";
   const displayDescription =
-    seo?.intro || description || currentTool?.description || "";
-  const canonicalUrl = `https://turkconvert.online/${resolvedToolId || (currentTool?.id ?? "")}`;
+    description || seo?.intro || currentTool?.description || "";
 
   const steps = seo?.steps || [
     {
-      title: "Dosyanızı Yükleyin",
-      description: "Dosyanızı sürükleyin, seçin veya panodan yapıştırın.",
+      title: "Dosyanızı Seçin",
+      description: "İşlem yapmak istediğiniz dosyayı yükleyin veya sürükleyip bırakın.",
     },
     {
-      title: "Dönüştürün",
-      description: "İşlem saniyeler içinde doğrudan tarayıcınızda güvenle gerçekleşir.",
+      title: "Ayarları Belirleyin",
+      description: "İhtiyacınıza göre kalite, format veya seçenekleri ayarlayın.",
     },
     {
       title: "İndirin",
@@ -80,15 +69,15 @@ export function ToolPageLayout({
     : [];
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
-      {/* Breadcrumb */}
+    <div className="relative mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
+      {/* Breadcrumb Navigation */}
       <nav
         aria-label="Breadcrumb"
-        className="mb-6 flex items-center text-xs text-gray-500 dark:text-gray-400 sm:text-sm"
+        className="mb-8 flex flex-wrap items-center text-xs font-medium text-slate-500 dark:text-slate-400"
       >
         <Link
           href="/"
-          className="inline-flex items-center gap-1 transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+          className="inline-flex items-center gap-1 rounded-lg px-2 py-1 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-white/10 dark:hover:text-white"
         >
           <Home className="h-3.5 w-3.5" />
           <span>Ana Sayfa</span>
@@ -96,65 +85,67 @@ export function ToolPageLayout({
 
         {currentCategory && (
           <>
-            <ChevronRight className="mx-2 h-3.5 w-3.5 text-gray-400" />
+            <ChevronRight className="mx-1 h-3.5 w-3.5 text-slate-400" />
             <Link
               href="/#araclar"
-              className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+              className="rounded-lg px-2 py-1 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-white/10 dark:hover:text-white"
             >
               {currentCategory.name}
             </Link>
           </>
         )}
 
-        <ChevronRight className="mx-2 h-3.5 w-3.5 text-gray-400" />
-        <span className="font-medium text-gray-900 dark:text-white">
+        <ChevronRight className="mx-1 h-3.5 w-3.5 text-slate-400" />
+        <span className="rounded-lg bg-slate-100 px-2 py-1 font-semibold text-slate-900 dark:bg-obsidian-850 dark:text-white">
           {displayTitle}
         </span>
       </nav>
 
       {/* Başlık (H1) & Açıklama */}
-      <div className="mb-8 text-center">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-3xl">
+      <div className="mb-10 text-center">
+        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
           {displayTitle}
         </h1>
-        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 sm:text-base">
+        <p className="mx-auto mt-3 max-w-2xl text-xs leading-relaxed text-slate-500 dark:text-slate-400 sm:text-sm">
           {displayDescription}
         </p>
       </div>
 
-      {/* Araç içeriği */}
-      <div className="card p-6 sm:p-8">{children}</div>
+      {/* Ana Araç Stüdyo Çalışma Alanı (Studio Canvas) */}
+      <div className="relative overflow-hidden rounded-[28px] border border-slate-200/80 bg-white/85 p-6 shadow-xl shadow-slate-900/5 backdrop-blur-2xl dark:border-white/10 dark:bg-obsidian-900/75 dark:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.7)] sm:p-10">
+        {children}
+      </div>
 
       {/* Format Hakkında / Nedir? (SEO & Bilgi Bölümü) */}
       {seo && seo.aboutTitle && seo.aboutContent && (
-        <section className="mt-12 rounded-2xl border border-gray-200/80 bg-gradient-to-br from-gray-50/80 to-gray-50/30 p-6 dark:border-gray-800 dark:from-gray-900/40 dark:to-gray-900/10 sm:p-8">
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
+        <section className="mt-14 rounded-2xl border border-slate-200/80 bg-gradient-to-br from-white to-slate-50/50 p-6 dark:border-white/10 dark:from-obsidian-900/60 dark:to-obsidian-950/60 sm:p-8">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white sm:text-xl">
             {seo.aboutTitle}
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300 sm:text-base">
+          <p className="mt-3 text-xs leading-relaxed text-slate-600 dark:text-slate-300 sm:text-sm">
             {seo.aboutContent}
           </p>
         </section>
       )}
 
       {/* Nasıl Kullanılır? (Adım Adım Rehber) */}
-      <section className="mt-12 border-t border-gray-200 pt-10 dark:border-gray-800">
-        <h2 className="mb-6 text-center text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
+      <section className="mt-14 border-t border-slate-200/80 pt-10 dark:border-white/10">
+        <h2 className="mb-6 text-center text-lg font-bold text-slate-900 dark:text-white sm:text-xl">
           {displayTitle} Nasıl Kullanılır?
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {steps.map((step, index) => (
             <div
               key={index}
-              className="rounded-xl border border-gray-100 bg-gray-50/60 p-4 text-center dark:border-gray-800 dark:bg-gray-900/40"
+              className="rounded-2xl border border-slate-200/80 bg-white/70 p-5 text-center backdrop-blur-md dark:border-white/10 dark:bg-obsidian-900/50"
             >
-              <div className="mx-auto mb-3 flex h-8 w-8 items-center justify-center rounded-full bg-primary-100 text-sm font-bold text-primary-600 dark:bg-primary-950 dark:text-primary-400">
+              <div className="mx-auto mb-3 flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-primary-600 to-violet-500 text-xs font-bold text-white shadow-md shadow-primary-500/30">
                 {index + 1}
               </div>
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
                 {step.title}
               </h3>
-              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                 {step.description}
               </p>
             </div>
@@ -163,20 +154,21 @@ export function ToolPageLayout({
       </section>
 
       {/* Sıkça Sorulan Sorular (FAQ) */}
-      <section className="mt-12 border-t border-gray-200 pt-10 dark:border-gray-800">
-        <h2 className="mb-6 text-center text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
+      <section className="mt-14 border-t border-slate-200/80 pt-10 dark:border-white/10">
+        <h2 className="mb-6 text-center text-lg font-bold text-slate-900 dark:text-white sm:text-xl">
           Sıkça Sorulan Sorular
         </h2>
         <div className="space-y-3">
           {faqs.map((faq, index) => (
             <details
               key={index}
-              className="group rounded-xl border border-gray-200 bg-white p-4 open:shadow-sm dark:border-gray-800 dark:bg-gray-900"
+              className="group rounded-2xl border border-slate-200/80 bg-white/80 p-4 transition-all open:border-primary-500/40 open:shadow-xs dark:border-white/10 dark:bg-obsidian-900/60"
             >
-              <summary className="cursor-pointer font-medium text-sm text-gray-900 dark:text-gray-100">
-                {faq.question}
+              <summary className="cursor-pointer font-semibold text-xs sm:text-sm text-slate-900 dark:text-slate-100 flex items-center justify-between list-none">
+                <span>{faq.question}</span>
+                <ChevronDown className="h-4 w-4 text-slate-400 transition-transform group-open:rotate-180" />
               </summary>
-              <p className="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400 sm:text-sm">
+              <p className="mt-2.5 text-xs leading-relaxed text-slate-500 dark:text-slate-400 sm:text-sm">
                 {faq.answer}
               </p>
             </details>
@@ -186,15 +178,15 @@ export function ToolPageLayout({
 
       {/* İlgili Araçlar */}
       {relatedTools.length > 0 && (
-        <section className="mt-12 border-t border-gray-200 pt-10 dark:border-gray-800">
+        <section className="mt-14 border-t border-slate-200/80 pt-10 dark:border-white/10">
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white sm:text-xl">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white sm:text-xl">
               İlgili Araçlar
             </h2>
             {currentCategory && (
               <Link
                 href="/#araclar"
-                className="text-xs font-semibold text-primary-600 hover:underline dark:text-primary-400 sm:text-sm"
+                className="text-xs font-semibold text-primary-600 hover:underline dark:text-primary-400"
               >
                 Tümünü Gör →
               </Link>
@@ -214,57 +206,15 @@ export function ToolPageLayout({
         </section>
       )}
 
-      {/* Google Yapılandırılmış Veri (JSON-LD Schemas) */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
-            {
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              name: `${displayTitle} | TurkConvert`,
-              url: canonicalUrl,
-              description: seo?.description || displayDescription,
-              applicationCategory: "UtilityApplication",
-              operatingSystem: "All",
-              offers: {
-                "@type": "Offer",
-                price: "0",
-                priceCurrency: "TRY",
-              },
-            },
-            {
-              "@context": "https://schema.org",
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                {
-                  "@type": "ListItem",
-                  position: 1,
-                  name: "Ana Sayfa",
-                  item: "https://turkconvert.online",
-                },
-                ...(currentCategory
-                  ? [
-                      {
-                        "@type": "ListItem",
-                        position: 2,
-                        name: currentCategory.name,
-                        item: "https://turkconvert.online/#araclar",
-                      },
-                    ]
-                  : []),
-                {
-                  "@type": "ListItem",
-                  position: currentCategory ? 3 : 2,
-                  name: displayTitle,
-                  item: canonicalUrl,
-                },
-              ],
-            },
-            {
+      {/* Schema.org FAQ structured data */}
+      {seo && seo.faqs && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "FAQPage",
-              mainEntity: faqs.map((faq) => ({
+              mainEntity: seo.faqs.map((faq) => ({
                 "@type": "Question",
                 name: faq.question,
                 acceptedAnswer: {
@@ -272,10 +222,10 @@ export function ToolPageLayout({
                   text: faq.answer,
                 },
               })),
-            },
-          ]),
-        }}
-      />
+            }),
+          }}
+        />
+      )}
     </div>
   );
 }

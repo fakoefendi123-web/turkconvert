@@ -33,6 +33,8 @@ import {
   Lock,
   Calculator,
   Building2,
+  Wallet,
+  LayoutGrid,
 } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
@@ -295,6 +297,14 @@ export const tools: ToolInfo[] = [
     category: "pdf",
     icon: Scissors,
   },
+  {
+    id: "pdf-organize",
+    name: "Görsel PDF Sayfa Düzenleyici",
+    description: "PDF sayfalarını görsel kartlar olarak inceleyin, sıralayın, döndürün veya silin.",
+    href: "/pdf-organize",
+    category: "pdf",
+    icon: LayoutGrid,
+  },
 
   // Metin Araçları
   {
@@ -452,6 +462,14 @@ export const tools: ToolInfo[] = [
     href: "/iban-dogrulayici",
     category: "other",
     icon: Building2,
+  },
+  {
+    id: "maas-hesaplayici",
+    name: "2026 Maaş Hesaplayıcı",
+    description: "Brüt'ten Net'e ve Net'ten Brüt'e maaşınızı ve 12 aylık bordronuzu hesaplayın.",
+    href: "/maas-hesaplayici",
+    category: "other",
+    icon: Wallet,
   },
 ];
 

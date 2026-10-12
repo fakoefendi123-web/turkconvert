@@ -74,6 +74,11 @@ export default function ImageCompareTool() {
       ctx2.fillText("Sıkıştırılmış / Optimize Edilmiş Hali", 400, 280);
       setAfterImg(canvas2.toDataURL("image/jpeg", 0.7));
     }
+
+    return () => {
+      if (beforeBlobUrlRef.current) URL.revokeObjectURL(beforeBlobUrlRef.current);
+      if (afterBlobUrlRef.current) URL.revokeObjectURL(afterBlobUrlRef.current);
+    };
   }, []);
 
   // Fark Maskesi Çizimi

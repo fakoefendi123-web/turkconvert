@@ -1142,6 +1142,62 @@ export const toolsSeo: Record<string, ToolSeoInfo> = {
         answer: "Evet, vektörel A4 standartlarında yüksek çözünürlükle üretilir; hem dijital gönderim hem de yazıcıdan çıktı almak için kusursuzdur."
       }
     ]
+  },
+  "pdf-organize": {
+    id: "pdf-organize",
+    title: "Görsel PDF Sayfa Düzenleyici - Sayfa Sırala, Döndür, Sil",
+    description: "PDF sayfalarınızı görsel küçük kartlar olarak inceleyin, sürükleyerek sıralayın, ters sayfaları 90° döndürün veya silin. Ücretsiz ve %100 gizli.",
+    h1: "Görsel PDF Sayfa Düzenleyici",
+    intro: "PDF belgelerinizdeki sayfaları görsel olarak yeniden sıralayın, ters sayfaları tek tıkla döndürün ve istenmeyen sayfaları silin.",
+    aboutTitle: "PDF Sayfalarını Görsel Olarak Düzenleme",
+    aboutContent: "Taranmış evraklarda ters çıkan sayfalar, gereksiz boş sayfalar veya yanlış sırada taranmış dokümanlar için tam teşekküllü bir görsel PDF düzenleyici. Tüm sayfalarınız cihazınızın tarayıcısında açılır; hiçbir sunucuya yüklenmeden saniyeler içinde yeni PDF oluşturulur.",
+    steps: [
+      { title: "PDF Belgenizi Yükleyin", description: "Düzenlemek istediğiniz PDF dosyasını seçin veya sürükleyin." },
+      { title: "Sıralayın ve Döndürün", description: "Sayfaların yerini değiştirin, 90° döndürün veya gereksiz sayfaları silin." },
+      { title: "Yeni PDF'i İndirin", description: "Düzenlenmiş kusursuz PDF belgenizi tek tıkla kaydedin." }
+    ],
+    faqs: [
+      {
+        question: "Sayfalarım sunucuya yükleniyor mu?",
+        answer: "Kesinlikle hayır. Tüm PDF ayrıştırma ve düzenleme işlemleri WebAssembly ve pdf-lib teknolojisiyle tamamen tarayıcınızda yapılır."
+      },
+      {
+        question: "Ters taranmış sayfaları düzeltebilir miyim?",
+        answer: "Evet, her sayfanın altındaki döndürme butonuna basarak 90°, 180° veya 270° saat yönünde döndürebilirsiniz."
+      },
+      {
+        question: "Sayfa sayısı sınırı var mı?",
+        answer: "Hayır! Cihazınızın belleği yettiğince onlarca veya yüzlerce sayfadan oluşan PDF'leri düzenleyebilirsiniz."
+      }
+    ]
+  },
+  "maas-hesaplayici": {
+    id: "maas-hesaplayici",
+    title: "2026 Net-Brüt Maaş ve Bordro Hesaplayıcı",
+    description: "2026 güncel vergi dilimleri, SGK işçi/işveren payı ve asgari ücret istisnasıyla brütten nete ve netten brüte maaşınızı ve 12 aylık kümülatif bordronuzu hesaplayın.",
+    h1: "2026 Net-Brüt Maaş ve Bordro Hesaplayıcı",
+    intro: "Brüt maaşınızdan net elinize geçecek tutarı veya hedeflediğiniz net maaş için gereken brütü 2026 güncel vergi mevzuatıyla anında hesaplayın.",
+    aboutTitle: "2026 Gelir Vergisi Dilimleri ve Maaş Hesaplama",
+    aboutContent: "Türkiye vergi mevzuatına göre yıl içinde kümülatif gelir vergisi matrahı arttıkça çalışanlar %15'ten %20, %27 ve %35 vergi dilimlerine geçer. TurkConvert Maaş Hesaplayıcı, 2026 güncel dilimleri ve asgari ücret vergi istisnasını dikkate alarak yılın tüm 12 ayı için net maaşınızı ve işveren maliyetinizi kuruşu kuruşuna hesaplar.",
+    steps: [
+      { title: "Hesaplama Türünü Seçin", description: "Brüt'ten Net'e veya Net'ten Brüt'e seçeneğini belirleyin." },
+      { title: "Tutarınızı Girin", description: "Aylık maaş tutarınızı ve emeklilik durumunuzu belirtin." },
+      { title: "12 Aylık Dökümü İnceleyin", description: "Vergi dilimi geçişlerini ve net maaş dökümünüzü tek tıkla kopyalayın." }
+    ],
+    faqs: [
+      {
+        question: "Netten brüte hesaplama nasıl yapılıyor?",
+        answer: "Gelişmiş iteratif matematik motorumuz hedeflediğiniz net maaşı veren tam brüt tutarı 0.01 TL hassasiyetinde anında çözer."
+      },
+      {
+        question: "Asgari ücret vergi istisnası dahil mi?",
+        answer: "Evet. 2026 mevzuatına uygun olarak asgari ücrete kadar olan gelir ve damga vergisi istisnası otomatik olarak mahsup edilir."
+      },
+      {
+        question: "Emekli çalışanlar için hesaplama yapılabilir mi?",
+        answer: "Evet, 'Emekli Çalışan' kutucuğunu işaretleyerek Sosyal Güvenlik Destek Primi (SGDP %7.5) oranına göre hesaplama yapabilirsiniz."
+      }
+    ]
   }
 };
 

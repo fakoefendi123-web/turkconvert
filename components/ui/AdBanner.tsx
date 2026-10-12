@@ -30,9 +30,9 @@ export function AdBanner({
 
   return (
     <div
-      className={`my-8 mx-auto w-full max-w-5xl overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/60 p-3 text-center dark:border-gray-800/80 dark:bg-gray-900/40 ${className}`}
+      className={`my-8 mx-auto w-full max-w-5xl overflow-hidden rounded-2xl border border-slate-200/80 bg-white/60 p-3 text-center backdrop-blur-md dark:border-white/[0.08] dark:bg-obsidian-900/40 ${className}`}
     >
-      <div className="mb-1.5 text-[10px] font-medium tracking-wider text-gray-400 dark:text-gray-500 uppercase">
+      <div className="mb-1.5 text-[10px] font-semibold tracking-wider text-slate-400 dark:text-slate-500 uppercase">
         Sponsorlu Bağlantı
       </div>
       <div className="min-h-[90px] flex items-center justify-center">

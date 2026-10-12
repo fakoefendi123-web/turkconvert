@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X, Search, Sparkles } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { SearchCommandPalette } from "@/components/ui/SearchCommandPalette";
 
 const navLinks = [
@@ -27,45 +28,43 @@ export function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-gray-200 bg-white/80 backdrop-blur-md dark:border-gray-800 dark:bg-gray-950/80">
-        <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <header className="sticky top-3 z-50 w-full px-3 sm:px-6 transition-all">
+        <nav className="mx-auto flex h-14 max-w-6xl items-center justify-between rounded-2xl border border-slate-200/80 bg-white/75 px-4 shadow-lg shadow-slate-900/5 backdrop-blur-2xl transition-all dark:border-white/10 dark:bg-obsidian-900/80 dark:shadow-[0_10px_35px_-5px_rgba(0,0,0,0.5)]">
           {/* Logo */}
-          <Link
-            href="/"
-            className="text-xl font-bold tracking-tight text-gray-900 dark:text-white"
-          >
-            turk<span className="text-primary-600 dark:text-primary-400">convert</span>
-          </Link>
+          <BrandLogo size="sm" />
 
           {/* Desktop Navigation & Search */}
-          <div className="hidden items-center gap-2 md:flex">
+          <div className="hidden items-center gap-1.5 md:flex">
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50/80 px-3 py-1.5 text-xs text-gray-500 transition-colors hover:border-gray-300 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:border-gray-700"
+              className="group flex items-center gap-2.5 rounded-xl border border-slate-200/80 bg-slate-50/70 px-3 py-1.5 text-xs text-slate-500 transition-all hover:border-primary-400 hover:bg-white hover:text-slate-800 dark:border-white/10 dark:bg-obsidian-850/80 dark:text-slate-400 dark:hover:border-primary-500/50 dark:hover:bg-obsidian-800 dark:hover:text-white"
             >
-              <Search className="h-3.5 w-3.5" />
+              <Search className="h-3.5 w-3.5 transition-colors group-hover:text-primary-500" />
               <span>Araç ara...</span>
-              <kbd className="rounded border border-gray-200 bg-white px-1.5 py-0.5 text-[10px] font-semibold text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
+              <kbd className="rounded-md border border-slate-200 bg-white px-1.5 py-0.5 text-[10px] font-semibold text-slate-400 shadow-xs dark:border-white/10 dark:bg-obsidian-950 dark:text-slate-500">
                 Ctrl K
               </kbd>
             </button>
+
+            <div className="mx-1 h-4 w-px bg-slate-200 dark:bg-white/10" />
 
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
+                className="group relative inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-semibold text-slate-600 transition-all hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/[0.08] dark:hover:text-white"
               >
                 <span>{link.label}</span>
                 {link.isNew && (
-                  <span className="rounded-full bg-primary-100 px-1.5 py-0.5 text-[9px] font-bold text-primary-700 dark:bg-primary-900/50 dark:text-primary-300">
+                  <span className="flex items-center gap-0.5 rounded-full bg-gradient-to-r from-primary-500/15 to-violet-500/15 px-1.5 py-0.2 text-[9px] font-bold text-primary-600 border border-primary-500/20 dark:from-primary-400/20 dark:to-violet-400/20 dark:text-primary-300">
+                    <Sparkles className="h-2 w-2" />
                     Yeni
                   </span>
                 )}
               </Link>
             ))}
 
-            <div className="ml-1 border-l border-gray-200 pl-2 dark:border-gray-800">
+            <div className="ml-1 border-l border-slate-200 pl-2 dark:border-white/10">
               <ThemeToggle />
             </div>
           </div>
@@ -74,15 +73,15 @@ export function Navbar() {
           <div className="flex items-center gap-1 md:hidden">
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+              className="rounded-xl p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-white/10"
               aria-label="Ara"
             >
-              <Search className="h-5 w-5" />
+              <Search className="h-4 w-4" />
             </button>
             <ThemeToggle />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+              className="rounded-xl p-2 text-slate-500 transition-colors hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-white/10"
               aria-label="Menüyü aç"
             >
               {isMenuOpen ? (
@@ -94,24 +93,26 @@ export function Navbar() {
           </div>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile Dropdown Menu */}
         {isMenuOpen && (
-          <div className="border-t border-gray-200 bg-white px-4 py-3 dark:border-gray-800 dark:bg-gray-950 md:hidden">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                className="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
-              >
-                <span>{link.label}</span>
-                {link.isNew && (
-                  <span className="rounded-full bg-primary-100 px-1.5 py-0.5 text-[10px] font-bold text-primary-700 dark:bg-primary-900/50 dark:text-primary-300">
-                    Yeni
-                  </span>
-                )}
-              </Link>
-            ))}
+          <div className="mx-auto mt-2 max-w-6xl overflow-hidden rounded-2xl border border-slate-200/80 bg-white/95 p-3 shadow-2xl backdrop-blur-2xl dark:border-white/10 dark:bg-obsidian-900/95 md:hidden">
+            <div className="flex flex-col gap-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="flex items-center justify-between rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
+                >
+                  <span>{link.label}</span>
+                  {link.isNew && (
+                    <span className="rounded-full bg-primary-100 px-2 py-0.5 text-[10px] font-bold text-primary-700 dark:bg-primary-950 dark:text-primary-300">
+                      Yeni
+                    </span>
+                  )}
+                </Link>
+              ))}
+            </div>
           </div>
         )}
       </header>

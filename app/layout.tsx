@@ -69,7 +69,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="flex min-h-screen flex-col">
+          <div className="flex min-h-screen flex-col bg-mesh">
             <Navbar />
             <main className="flex-1">{children}</main>
             <div className="w-full px-4 sm:px-6 lg:px-8">
