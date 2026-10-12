@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Upload,
   FileText,
@@ -31,6 +31,15 @@ export default function PdfMergeTool() {
   const [mergedBlobUrl, setMergedBlobUrl] = useState<string | null>(null);
   const [mergedSize, setMergedSize] = useState<number>(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const mergedBlobUrlRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (mergedBlobUrlRef.current) {
+        URL.revokeObjectURL(mergedBlobUrlRef.current);
+      }
+    };
+  }, []);
 
   const handleFiles = async (files: File[]) => {
     const validFiles = files.filter(
@@ -85,7 +94,10 @@ export default function PdfMergeTool() {
   };
 
   const clearAll = () => {
-    if (mergedBlobUrl) URL.revokeObjectURL(mergedBlobUrl);
+    if (mergedBlobUrlRef.current) {
+      URL.revokeObjectURL(mergedBlobUrlRef.current);
+      mergedBlobUrlRef.current = null;
+    }
     setItems([]);
     setMergedBlobUrl(null);
   };
@@ -109,7 +121,11 @@ export default function PdfMergeTool() {
 
       const mergedBytes = await mergedPdf.save();
       const blob = new Blob([mergedBytes as any], { type: "application/pdf" });
+      if (mergedBlobUrlRef.current) {
+        URL.revokeObjectURL(mergedBlobUrlRef.current);
+      }
       const url = URL.createObjectURL(blob);
+      mergedBlobUrlRef.current = url;
 
       setMergedBlobUrl(url);
       setMergedSize(blob.size);
@@ -124,18 +140,7 @@ export default function PdfMergeTool() {
   const totalPages = items.reduce((acc, curr) => acc + (curr.pageCount || 0), 0);
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 text-xs font-semibold mb-3">
-          <Layers className="w-3.5 h-3.5" /> Limitsiz Sayfa • %100 Güvenli & Yerel İşlem
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-          PDF Birleştirici (PDF Merge)
-        </h1>
-        <p className="mt-3 text-base text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-          Birden fazla PDF belgesini dilediğiniz sırayla tek bir PDF dosyasında birleştirin. Belgeleriniz sunucuya yüklenmez, cihazınızda anında oluşturulur.
-        </p>
-      </div>
+    <div className="space-y-6">
 
       {/* Dropzone */}
       <div

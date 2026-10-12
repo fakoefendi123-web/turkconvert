@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
+import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
+import { getToolMetadata } from "@/lib/constants/tool-seo";
 import KdvCalculatorTool from "./KdvCalculatorTool";
 
-export const metadata: Metadata = {
-  title: "KDV & Tevkifat Hesaplayıcı - KDV Dahil/Hariç Hesaplama | TurkConvert",
-  description:
-    "2026 güncel %1, %10, %20 oranlarıyla KDV dahil ve hariç hesaplayın, tevkifat oranlarını anında öğrenin. Ücretsiz, pratik ve hızlı finans aracı.",
-  keywords: [
-    "kdv hesaplama",
-    "kdv dahil hesapla",
-    "kdv hariç hesapla",
-    "tevkifat hesaplama",
-    "kdv hesaplayıcı online",
-  ],
-};
+export const metadata: Metadata = getToolMetadata("kdv-hesaplayici");
 
 export default function KdvCalculatorPage() {
-  return <KdvCalculatorTool />;
+  return (
+    <ToolPageLayout toolId="kdv-hesaplayici">
+      <KdvCalculatorTool />
+    </ToolPageLayout>
+  );
 }

@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
+import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
+import { getToolMetadata } from "@/lib/constants/tool-seo";
 import IbanValidatorTool from "./IbanValidatorTool";
 
-export const metadata: Metadata = {
-  title: "IBAN Doğrulayıcı & Banka Bulucu - TR IBAN Kontrolü | TurkConvert",
-  description:
-    "Türkiye IBAN numarasını matematiksel Mod-97 algoritmasıyla doğrulayın, banka ve şube bilgilerini öğrenin. Ücretsiz, hızlı ve güvenli.",
-  keywords: [
-    "iban doğrulama",
-    "iban kontrol",
-    "iban banka bulma",
-    "tr iban doğrulayıcı",
-    "iban geçerlilik kontrolü",
-  ],
-};
+export const metadata: Metadata = getToolMetadata("iban-dogrulayici");
 
 export default function IbanValidatorPage() {
-  return <IbanValidatorTool />;
+  return (
+    <ToolPageLayout toolId="iban-dogrulayici">
+      <IbanValidatorTool />
+    </ToolPageLayout>
+  );
 }

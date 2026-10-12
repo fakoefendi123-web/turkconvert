@@ -1198,6 +1198,237 @@ export const toolsSeo: Record<string, ToolSeoInfo> = {
         answer: "Evet, 'Emekli Çalışan' kutucuğunu işaretleyerek Sosyal Güvenlik Destek Primi (SGDP %7.5) oranına göre hesaplama yapabilirsiniz."
       }
     ]
+  },
+  "kdv-hesaplayici": {
+    id: "kdv-hesaplayici",
+    title: "KDV & Tevkifat Hesaplayıcı - KDV Dahil ve Hariç Hesaplama",
+    description: "2026 güncel %1, %10, %20 ve özel KDV oranlarıyla KDV dahil veya hariç tutarları, tevkifat kesintilerini saniyeler içinde hatasız hesaplayın.",
+    h1: "KDV & Tevkifat Hesaplayıcı",
+    intro: "KDV hariç tutardan KDV dahile veya KDV dahil tutardan matraha kolayca geçiş yapın. 2/10'dan 10/10'a tevkifat oranlarını anında hesaplayın.",
+    aboutTitle: "KDV ve Tevkifat Nedir, Nasıl Hesaplanır?",
+    aboutContent: "Katma Değer Vergisi (KDV), mal ve hizmet teslimlerinde alıcıdan tahsil edilen bir tüketim vergisidir. Türkiye'de genel oran %20, temel gıdada %1, konaklama ve sağlıkta %10 olarak uygulanır. Tevkifat ise KDV'nin belirlenen oranlarda satıcı yerine doğrudan alıcı tarafından vergi dairesine yatırılması işlemidir.",
+    steps: [
+      { title: "Hesaplama Yönünü Seçin", description: "KDV Hariçten Dahile veya Dahilden Hariçe yönünü belirleyin." },
+      { title: "Tutarınızı Girin", description: "Hesaplamak istediğiniz para tutarını yazın." },
+      { title: "KDV ve Tevkifat Oranını Belirleyin", description: "%1, %10, %20 veya özel oranınızı ve varsa tevkifat oranını seçin." },
+      { title: "Sonuçları Kopyalayın", description: "Matrah, hesaplanan KDV ve ödenecek tutarları tek tıkla kopyalayın." }
+    ],
+    faqs: [
+      {
+        question: "KDV dahil fiyattan KDV hariç matrah nasıl bulunur?",
+        answer: "KDV dahil tutar, (1 + KDV Oranı / 100) değerine bölünür. Örneğin %20 KDV dahil 1.200 TL için: 1200 / 1.20 = 1.000 TL matrah bulunur."
+      },
+      {
+        question: "Tevkifatlı faturada alıcı ne kadar öder?",
+        answer: "Alıcı, KDV hariç matrahı ve satıcıda kalan tevkifatsız KDV payını satıcıya öder; tevkif edilen KDV kısmını ise 2 No'lu KDV beyannamesi ile devlete yatırır."
+      },
+      {
+        question: "Özel KDV oranları destekleniyor mu?",
+        answer: "Evet, standart %1, %10 ve %20 oranlarının yanı sıra dilediğiniz özel KDV oranını manuel olarak girip hesaplayabilirsiniz."
+      }
+    ]
+  },
+  "iban-dogrulayici": {
+    id: "iban-dogrulayici",
+    title: "IBAN Doğrulayıcı & Banka Bulucu - ISO 7064 Doğrulama",
+    description: "Türkiye IBAN numaralarının geçerliliğini ISO 7064 MOD-97 algoritmasıyla kontrol edin, banka ve şube bilgilerini saniyeler içinde öğrenin.",
+    h1: "IBAN Doğrulayıcı & Banka Bulucu",
+    intro: "Türkiye IBAN numarasının matematiksel doğruluğunu test edin, hesap numarasını ve hangi bankaya ait olduğunu güvenle tespit edin.",
+    aboutTitle: "IBAN Numarası ve ISO 7064 Doğrulama Standardı",
+    aboutContent: "Uluslararası Banka Hesap Numarası (IBAN), para transferlerinin hatasız gerçekleşmesini sağlayan standart bir numaralandırma sistemidir. Türkiye'de IBAN'lar 26 karakterden oluşur (TR + 2 kontrol hanesi + 5 haneli banka kodu + 1 haneli rezerv + 16 haneli hesap numarası). ISO 7064 Mod-97-10 algoritması, IBAN'daki basım hatalarını %99.9 oranında anında tespit eder.",
+    steps: [
+      { title: "IBAN Numarasını Girin", description: "Boşluklu veya boşluksuz 26 haneli IBAN numaranızı yapıştırın." },
+      { title: "Anında Doğrulama", description: "Sistem MOD-97 algoritmasını anında çalıştırır." },
+      { title: "Banka ve Hesap Bilgisini İnceleyin", description: "Hangi bankaya ait olduğunu ve hesap numarasını kontrol edin." },
+      { title: "Standart Formatlı Kopyalayın", description: "4'erli gruplara ayrılmış temiz IBAN'ı tek tıkla kopyalayın." }
+    ],
+    faqs: [
+      {
+        question: "IBAN sorgulaması güvenli mi, banka bilgilerim kaydedilir mi?",
+        answer: "Tamamen güvenlidir. İşlem %100 tarayıcınızda matematiksel olarak çözümlenir, hiçbir banka veya IBAN verisi sunucuya gönderilmez."
+      },
+      {
+        question: "Hangi bankalar destekleniyor?",
+        answer: "Ziraat, Garanti BBVA, İş Bankası, Yapı Kredi, Akbank, Vakıfbank, Halkbank, QNB Finansbank, Enpara, Papara ve Türkiye'deki tüm lisanslı bankalar desteklenir."
+      },
+      {
+        question: "Geçersiz IBAN uyarısı ne anlama gelir?",
+        answer: "IBAN uzunluğunun 26 karakterden farklı olduğunu, harf hatası yapıldığını veya kontrol basamaklarının matematiksel doğrulama testini geçemediğini gösterir."
+      }
+    ]
+  },
+  "sayiyi-yaziya-cevir": {
+    id: "sayiyi-yaziya-cevir",
+    title: "Yazıyla Sayı & Para Yazıcı - Çek, Senet ve Fatura Formatı",
+    description: "Sayıları ve para tutarlarını resmi dilekçe, sözleşme, çek ve faturalar için Türkçe okunuşuna dönüştürün. Kuruş ve para birimi destekli.",
+    h1: "Yazıyla Sayı ve Para Yazıcı",
+    intro: "Rakamla yazılan tutarları çek, senet, fatura ve resmi yazışmalarda tahrifata karşı korumalı bitişik veya resmi cümle formatında Türkçe yazıya çevirin.",
+    aboutTitle: "Çek ve Senetlerde Sayıların Yazıyla Belirtilmesi",
+    aboutContent: "Türk Ticaret Kanunu uyarınca bono, poliçe ve çeklerde bedelin hem rakam hem yazıyla gösterilmesi esastır. Yazıyla gösterilen tutar tahrifata karşı aralarda boşluk bırakılmadan (#YalnızcaOnBinTL#) yazılır. TurkConvert, trilyonlara kadar olan tüm tam sayı ve kuruşlu tutarları hatasız biçimde Türkçe kelimelere dönüştürür.",
+    steps: [
+      { title: "Tutarı veya Sayıyı Girin", description: "Örneğin 12500,50 veya 450 gibi sayınızı yazın." },
+      { title: "Para Birimini Seçin", description: "TL, USD, EUR veya Sadece Sayı seçeneğini belirleyin." },
+      { title: "İstediğiniz Formatı Kopyalayın", description: "Çek/Senet (#Bitişik#) veya Resmi Yazışma formatını tek tıkla kopyalayın." }
+    ],
+    faqs: [
+      {
+        question: "Kuruş ve ondalık basamaklar nasıl çevrilir?",
+        answer: "Virgülden veya noktadan sonraki kuruş basamakları otomatik olarak tespit edilip 'Yetmiş Beş Kuruş' şeklinde tam okunuşa eklenir."
+      },
+      {
+        question: "Çek ve senet formatı neden kare (#) işaretleriyle kapatılır?",
+        answer: "Metnin başına veya sonuna kötü niyetli kişilerce ekleme veya tahrifat yapılmasını önlemek amacıyla bankacılık teamülünde bitişik ve # işaretiyle kullanılır."
+      },
+      {
+        question: "Büyük sayılarda limit var mı?",
+        answer: "BigInt desteğimiz sayesinde milyon, milyar, trilyon ve katrilyon dahil tüm devasa sayılar kusursuz çevrilir."
+      }
+    ]
+  },
+  "pdf-split": {
+    id: "pdf-split",
+    title: "PDF Sayfalarını Ayırma - PDF Sayfalarını Böl ve Çıkar",
+    description: "PDF belgelerinizden dilediğiniz sayfaları çıkarın veya tüm sayfaları ayrı ayrı PDF'lere bölüp tek ZIP dosyasında indirin. Ücretsiz ve gizli.",
+    h1: "PDF Sayfalarını Ayırma (PDF Split)",
+    intro: "Çok sayfalı PDF belgelerinden ihtiyacınız olan sayfaları seçip yeni bir PDF yapın veya her sayfayı tek tek ayırın.",
+    aboutTitle: "PDF Sayfa Ayırma ve Bölme İşlemi",
+    aboutContent: "Büyük PDF dosyalarından sadece belirli sayfaları (örneğin sadece 1-3. sayfalar veya sözleşmenin son sayfası) almak istediğinizde PDF Split aracı sayfaları orijinal kalitesinde ayırır. Dosyalarınız sunucuya yüklenmeden doğrudan cihazınızda işlenir.",
+    steps: [
+      { title: "PDF Dosyanızı Yükleyin", description: "Ayırmak istediğiniz PDF belgesini sürükleyip bırakın." },
+      { title: "Ayırma Modunu Seçin", description: "Belirli sayfaları seçin veya 'Her Sayfayı Ayrı Dosya Yap' seçeneğini tıklayın." },
+      { title: "Sayfaları Belirleyin", description: "Örn: 1-3, 5 veya 2- gibi sayfa aralığı girin." },
+      { title: "İndirin", description: "Ayrılmış PDF belgenizi veya ZIP arşivinizi saniyeler içinde indirin." }
+    ],
+    faqs: [
+      {
+        question: "Belirli sayfaları seçerken nasıl yazmalıyım?",
+        answer: "Tekil sayfalar için virgül (1, 4, 7), aralıklar için tire (1-5) veya açık uçlu olarak (3-) kullanabilirsiniz."
+      },
+      {
+        question: "PDF sayfaları ayrılırken metin veya görsel kalitesi düşer mi?",
+        answer: "Hayır. Vektörel PDF yapısı ve gömülü yazı tipleri orijinal kalitesinde korunur."
+      },
+      {
+        question: "Şifreli PDF belgeleri destekleniyor mu?",
+        answer: "Kullanıcı şifresi kaldırılmış tüm standart PDF belgeleri sorunsuz işlenir."
+      }
+    ]
+  },
+  "pdf-merge": {
+    id: "pdf-merge",
+    title: "PDF Birleştirme - Birden Fazla PDF'i Tek Dosyada Birleştir",
+    description: "Farklı PDF belgelerini dilediğiniz sırada sıralayın ve tek bir PDF dosyasında birleştirin. Hızlı, sınırsız ve %100 tarayıcı içi işlem.",
+    h1: "PDF Dosyalarını Birleştirme (PDF Merge)",
+    intro: "Birden fazla PDF belgesini tek tıkla bir araya getirin. Sayfa sırasını kolayca düzenleyin ve tek dosya olarak indirin.",
+    aboutTitle: "PDF Birleştirme Neden Gereklidir?",
+    aboutContent: "Resmi başvurularda, fatura ve dekont ibrazlarında veya kurumsal raporlarda birden fazla PDF belgesinin tek dosya halinde sunulması istenir. TurkConvert PDF Birleştirici, belgelerinizi tarayıcınızda birleştirerek sunucuya dosya aktarmadan tam gizlilik sunar.",
+    steps: [
+      { title: "PDF Belgelerini Ekleyin", description: "Birleştirmek istediğiniz 2 veya daha fazla PDF dosyasını seçin." },
+      { title: "Sıralamayı Düzenleyin", description: "Yukarı/aşağı oklarıyla belgelerin birleşme sırasını belirleyin." },
+      { title: "Birleştir Butonuna Basın", description: "Tüm sayfalar tek bir belge haline getirilsin." },
+      { title: "İndirin", description: "Birleştirilmiş tek parça PDF belgenizi anında indirin." }
+    ],
+    faqs: [
+      {
+        question: "Kaç adet PDF birleştirebilirim?",
+        answer: "Sistemde dosya adedi sınırlaması yoktur; cihazınızın belleği elverdiğince onlarca PDF'i birleştirebilirsiniz."
+      },
+      {
+        question: "Birleştirmeden önce sayfaları sıralayabilir miyim?",
+        answer: "Evet, dosya listesindeki yukarı ve aşağı butonlarıyla belgelerin sırasını kolayca değiştirebilirsiniz."
+      },
+      {
+        question: "Dosyalarım sunucunuza yükleniyor mu?",
+        answer: "Hayır. İşlem WebAssembly ve pdf-lib ile %100 istemci tarafında gerçekleşir."
+      }
+    ]
+  },
+  "exif-cleaner": {
+    id: "exif-cleaner",
+    title: "Fotoğraf EXIF & Metadata Temizleyici - GPS Konumunu Sil",
+    description: "Fotoğraflarınızdaki evinizin GPS koordinatlarını, çekildiği tarihi ve kamera modeli gibi kişisel bilgileri tek tıkla silin. Güvenli paylaşım.",
+    h1: "Fotoğraf EXIF & Metadata Temizleyici",
+    intro: "Fotoğraflarınızı sosyal medyada veya internette paylaşmadan önce içinde saklanan gizli GPS koordinatlarını ve kamera verilerini temizleyin.",
+    aboutTitle: "EXIF Verisi Nedir ve Neden Temizlenmelidir?",
+    aboutContent: "Akıllı telefonlar ve dijital kameralar çektiğiniz her fotoğrafa EXIF (Exchangeable Image File Format) başlığı altında hassas veriler kaydeder. Bu veriler evinizin veya bulunduğunuz yerin enlem/boylam GPS koordinatlarını, çekim saatini ve cihaz seri numarasını içerir. EXIF temizleyici, görselin piksellerini korurken tüm bu izleri sıyırır.",
+    steps: [
+      { title: "Fotoğrafınızı Seçin", description: "Metadata temizliği yapmak istediğiniz görseli yükleyin." },
+      { title: "Otomatik Arındırma", description: "Canvas pikselleri sıyrılarak EXIF başlıkları tamamen yok edilir." },
+      { title: "Önizleyin ve Karşılaştırın", description: "Görsel kalitesinin bozulmadığını kontrol edin." },
+      { title: "Güvenle İndirin", description: "Temizlenmiş fotoğrafı indirip her yerde güvenle paylaşın." }
+    ],
+    faqs: [
+      {
+        question: "EXIF temizliği fotoğrafın kalitesini bozar mı?",
+        answer: "Hayır. Görsel pikselleri orijinal çözünürlüğünde korunur, yalnızca dosya başlığındaki gizli metin metaverileri silinir."
+      },
+      {
+        question: "Hangi bilgiler siliniyor?",
+        answer: "GPS enlem/boylam koordinatları, çekim tarihi, kamera/telefon modeli, lens bilgisi ve renk profili etiketleri tamamen kaldırılır."
+      },
+      {
+        question: "PNG ve JPEG formatları destekleniyor mu?",
+        answer: "Evet, hem JPEG hem de PNG fotoğraflarındaki tüm meta veriler güvenle temizlenir."
+      }
+    ]
+  },
+  "heic-to-jpg": {
+    id: "heic-to-jpg",
+    title: "HEIC to JPG Dönüştürücü - iPhone Fotoğraflarını JPG Yap",
+    description: "iPhone HEIC ve HEIF fotoğraflarınızı anında JPG formatına dönüştürün. Ücretsiz, hızlı, toplu dönüştürme ve %100 tarayıcı içi gizli işlem.",
+    h1: "HEIC to JPG Dönüştürücü",
+    intro: "Apple iPhone ve iPad (.heic / .heif) formatındaki fotoğraflarınızı Windows, Android ve tüm platformlarda açılabilen standart JPG'ye çevirin.",
+    aboutTitle: "HEIC Formatı Nedir, Neden JPG'ye Dönüştürülmeli?",
+    aboutContent: "HEIC (High Efficiency Image Container), Apple tarafından iOS 11'den itibaren kullanılan yüksek sıkıştırmalı bir fotoğraf formatıdır. Ancak birçok Windows bilgisayar, web sitesi ve eski cihaz HEIC dosyalarını doğrudan açamaz. TurkConvert, iPhone fotoğraflarınızı tarayıcınızda JPG'ye dönüştürür.",
+    steps: [
+      { title: "HEIC Fotoğraflarını Yükleyin", description: "iPhone fotoğraflarınızı sürükleyin veya dosya seçin." },
+      { title: "Kalite Ayarını Belirleyin", description: "İsteğe bağlı olarak JPG sıkıştırma kalitesini ayarlayın." },
+      { title: "Anında Dönüşüm", description: "Fotoğraflar WebAssembly ile cihazınızda saniyeler içinde dönüştürülür." },
+      { title: "Tek Tek veya ZIP İndirin", description: "Dönüştürülen fotoğrafları tek tıkla indirin." }
+    ],
+    faqs: [
+      {
+        question: "Toplu HEIC dönüştürme yapabilir miyim?",
+        answer: "Evet! Birden fazla HEIC fotoğrafını aynı anda yükleyebilir ve tek tıkla ZIP arşivi olarak indirebilirsiniz."
+      },
+      {
+        question: "Fotoğraflarım Apple sunucularına veya başka bir yere yükleniyor mu?",
+        answer: "Hayır. Dönüştürme işlemi tamamen tarayıcınızda çalışır, fotoğraflarınız cihazınızdan asla dışarı çıkmaz."
+      },
+      {
+        question: "Canlı Fotoğraflar (Live Photos) destekleniyor mu?",
+        answer: "Live Photo çekimlerinin ana HEIC fotoğraf karesi başarıyla JPG'ye aktarılır."
+      }
+    ]
+  },
+  "heic-to-png": {
+    id: "heic-to-png",
+    title: "HEIC to PNG Dönüştürücü - iPhone Fotoğraflarını PNG Yap",
+    description: "iPhone HEIC ve HEIF formatındaki fotoğraflarınızı kayıpsız şeffaflık ve yüksek netlik sunan PNG formatına anında dönüştürün.",
+    h1: "HEIC to PNG Dönüştürücü",
+    intro: "Apple aygıtlarınızdaki HEIC görsellerini yüksek kaliteli ve kayıpsız PNG formatına tek tıkla dönüştürün.",
+    aboutTitle: "HEIC'ten PNG'ye Dönüştürmenin Avantajları",
+    aboutContent: "PNG formatı kayıpsız (lossless) sıkıştırma algoritması kullanır ve görseldeki tüm detayları en yüksek keskinlikte saklar. Grafik tasarım, baskı ve düzenleme işlemleri için iPhone fotoğraflarını PNG'ye dönüştürmek en ideal çözümdür.",
+    steps: [
+      { title: "HEIC Dosyalarını Seçin", description: "Dönüştürmek istediğiniz iPhone fotoğraflarını ekleyin." },
+      { title: "PNG Formatını Doğrulayın", description: "Çıktı formatının PNG olduğunu kontrol edin." },
+      { title: "Dönüştürün", description: "Fotoğraflarınız saniyeler içinde kayıpsız PNG'ye çevrilsin." },
+      { title: "Kaydedin", description: "İster tek tek ister tümünü ZIP olarak indirin." }
+    ],
+    faqs: [
+      {
+        question: "Neden JPG yerine PNG tercih etmeliyim?",
+        answer: "PNG kayıpsız sıkıştırma sunduğu için görselde hiçbir sıkıştırma bozulması veya grenleşme yaşanmaz."
+      },
+      {
+        question: "Dönüştürme işlemi ücretsiz mi?",
+        answer: "Evet, tüm TurkConvert araçları gibi tamamen ücretsiz ve sınırsızdır."
+      },
+      {
+        question: "İşlem ne kadar sürer?",
+        answer: "Tarayıcı içi WebAssembly motoru sayesinde her fotoğraf genellikle 1 saniyeden kısa sürede dönüştürülür."
+      }
+    ]
   }
 };
 

@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
+import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
+import { getToolMetadata } from "@/lib/constants/tool-seo";
 import ExifCleanerTool from "./ExifCleanerTool";
 
-export const metadata: Metadata = {
-  title: "Fotoğraf EXIF & Metadata Temizleyici - Konum ve Kamera Bilgisi Sil | TurkConvert",
-  description:
-    "Fotoğraflarınızdaki GPS konumu, çekim saati ve cihaz bilgilerini saniyeler içinde temizleyin. Ücretsiz, güvenli ve %100 gizli.",
-  keywords: [
-    "exif temizleyici",
-    "metadata silme",
-    "fotoğraf konum silme",
-    "exif remover online",
-    "fotoğraf gizlilik temizleme",
-  ],
-};
+export const metadata: Metadata = getToolMetadata("exif-cleaner");
 
 export default function ExifCleanerPage() {
-  return <ExifCleanerTool />;
+  return (
+    <ToolPageLayout toolId="exif-cleaner">
+      <ExifCleanerTool />
+    </ToolPageLayout>
+  );
 }

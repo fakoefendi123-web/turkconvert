@@ -31,19 +31,31 @@ const TR_BANKS: Record<string, string> = {
 };
 
 // ISO 7064 MOD 97-10 IBAN Kontrol Algoritması
-function validateIbanMod97(cleanIban: string): boolean {
-  if (cleanIban.length !== 26 || !cleanIban.startsWith("TR")) return false;
+function validateIban(cleanIban: string): { isValid: boolean; errorReason?: string } {
+  if (!cleanIban.startsWith("TR")) {
+    return { isValid: false, errorReason: "IBAN 'TR' ülke kodu ile başlamalıdır." };
+  }
+  if (cleanIban.length !== 26) {
+    return { isValid: false, errorReason: `Türkiye IBAN numarası tam 26 karakter olmalıdır (Şu an: ${cleanIban.length} karakter).` };
+  }
+  const digitsPart = cleanIban.substring(2);
+  if (!/^\d{24}$/.test(digitsPart)) {
+    return { isValid: false, errorReason: "TR kodundan sonraki 24 karakter yalnızca rakamlardan oluşmalıdır." };
+  }
 
   // Harfleri (T=29, R=27) sona taşı: 2927
   const rearranged = cleanIban.substring(4) + "2927" + cleanIban.substring(2, 4);
 
-  // Büyük sayı bölme işlemi için parça parça mod al
   let remainder = 0;
   for (let i = 0; i < rearranged.length; i++) {
     remainder = (remainder * 10 + parseInt(rearranged[i], 10)) % 97;
   }
 
-  return remainder === 1;
+  if (remainder !== 1) {
+    return { isValid: false, errorReason: "Kontrol basamağı Mod-97 testini geçemedi (Hatalı numara veya yazım yanlışı)." };
+  }
+
+  return { isValid: true };
 }
 
 export default function IbanValidatorTool() {
@@ -68,9 +80,8 @@ export default function IbanValidatorTool() {
   const analysis = useMemo(() => {
     if (cleanIban.length < 5) return null;
 
+    const validation = validateIban(cleanIban);
     const isValidLength = cleanIban.length === 26;
-    const isValidFormat = cleanIban.startsWith("TR");
-    const isModValid = isValidLength && isValidFormat && validateIbanMod97(cleanIban);
 
     const bankCode = cleanIban.length >= 9 ? cleanIban.substring(4, 9) : "";
     const bankName = TR_BANKS[bankCode] || (bankCode ? "Diğer / Bilinmeyen Banka" : "");
@@ -78,7 +89,8 @@ export default function IbanValidatorTool() {
     const accountNumber = cleanIban.length === 26 ? cleanIban.substring(14) : "";
 
     return {
-      isValid: isModValid,
+      isValid: validation.isValid,
+      errorReason: validation.errorReason,
       isValidLength,
       bankCode,
       bankName,
@@ -94,19 +106,7 @@ export default function IbanValidatorTool() {
   };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 text-xs font-semibold mb-3">
-          <Building2 className="w-3.5 h-3.5" /> ISO 7064 Algoritmik Doğrulama
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-          IBAN Doğrulayıcı & Banka Bulucu
-        </h1>
-        <p className="mt-3 text-base text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-          Türkiye IBAN numarasının geçerliliğini doğrulayın, hangi banka ve hesaba ait olduğunu saniyeler içinde öğrenin.
-        </p>
-      </div>
-
+    <div className="space-y-6">
       <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
         <div>
           <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-2">
@@ -151,7 +151,7 @@ export default function IbanValidatorTool() {
                   <p className="text-xs opacity-80">
                     {analysis.isValid
                       ? "Matematiksel Mod-97 kontrolünden başarıyla geçti."
-                      : "Girdiğiniz IBAN numarası kontrol hanesi algoritmasıyla eşleşmiyor."}
+                      : analysis.errorReason || "Girdiğiniz IBAN numarası kontrol hanesi algoritmasıyla eşleşmiyor."}
                   </p>
                 </div>
               </div>

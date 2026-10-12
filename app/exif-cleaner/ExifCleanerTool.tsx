@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Upload,
   ShieldCheck,
@@ -23,6 +23,15 @@ export default function ExifCleanerTool() {
   const [cleanedSize, setCleanedSize] = useState<number>(0);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const previewUrlRef = useRef<string | null>(null);
+  const cleanedUrlRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
+      if (cleanedUrlRef.current) URL.revokeObjectURL(cleanedUrlRef.current);
+    };
+  }, []);
 
   const handleFile = (selectedFile: File) => {
     if (!selectedFile.type.startsWith("image/")) {
@@ -30,23 +39,31 @@ export default function ExifCleanerTool() {
       return;
     }
 
+    if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
+    if (cleanedUrlRef.current) URL.revokeObjectURL(cleanedUrlRef.current);
+
     setFile(selectedFile);
     const objectUrl = URL.createObjectURL(selectedFile);
+    previewUrlRef.current = objectUrl;
+    cleanedUrlRef.current = null;
     setPreviewUrl(objectUrl);
     setCleanedUrl(null);
 
-    cleanExif(selectedFile);
+    cleanExif(selectedFile, objectUrl);
   };
 
-  const cleanExif = (imgFile: File) => {
+  const cleanExif = (imgFile: File, srcUrl: string) => {
     setIsProcessing(true);
     const img = new Image();
     img.onload = () => {
       const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
+      canvas.width = img.naturalWidth || img.width;
+      canvas.height = img.naturalHeight || img.height;
       const ctx = canvas.getContext("2d");
-      if (!ctx) return;
+      if (!ctx) {
+        setIsProcessing(false);
+        return;
+      }
 
       // EXIF verilerini tamamen temizlemek için canvas üzerine saf pikselleri çiz
       ctx.drawImage(img, 0, 0);
@@ -57,7 +74,9 @@ export default function ExifCleanerTool() {
       canvas.toBlob(
         (blob) => {
           if (blob) {
+            if (cleanedUrlRef.current) URL.revokeObjectURL(cleanedUrlRef.current);
             const url = URL.createObjectURL(blob);
+            cleanedUrlRef.current = url;
             setCleanedUrl(url);
             setCleanedSize(blob.size);
           }
@@ -67,30 +86,31 @@ export default function ExifCleanerTool() {
         0.95
       );
     };
-    img.src = URL.createObjectURL(imgFile);
+
+    img.onerror = () => {
+      setIsProcessing(false);
+      alert("Görsel yüklenirken bir hata oluştu veya dosya bozuk.");
+    };
+
+    img.src = srcUrl;
   };
 
   const reset = () => {
-    if (previewUrl) URL.revokeObjectURL(previewUrl);
-    if (cleanedUrl) URL.revokeObjectURL(cleanedUrl);
+    if (previewUrlRef.current) {
+      URL.revokeObjectURL(previewUrlRef.current);
+      previewUrlRef.current = null;
+    }
+    if (cleanedUrlRef.current) {
+      URL.revokeObjectURL(cleanedUrlRef.current);
+      cleanedUrlRef.current = null;
+    }
     setFile(null);
     setPreviewUrl(null);
     setCleanedUrl(null);
   };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-3">
-          <Lock className="w-3.5 h-3.5" /> GPS & Konum Koruması • %100 Gizlilik
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-          Fotoğraf EXIF & Metadata Temizleyici
-        </h1>
-        <p className="mt-3 text-base text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-          Fotoğraflarınızdaki evinizin GPS konumu, çekildiği saat, telefon/kamera modeli gibi gizli bilgileri tek tıkla silin. İnternette güvenle paylaşın.
-        </p>
-      </div>
+    <div className="space-y-6">
 
       {!file ? (
         <div

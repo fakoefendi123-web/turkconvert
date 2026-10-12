@@ -1,24 +1,18 @@
 import type { Metadata } from "next";
+import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
+import { getToolMetadata } from "@/lib/constants/tool-seo";
 import HeicConverterTool from "../heic-to-jpg/HeicConverterTool";
 
-export const metadata: Metadata = {
-  title: "HEIC to PNG Dönüştürücü - iPhone Fotoğraflarını Kayıpsız PNG Yap | TurkConvert",
-  description:
-    "iPhone HEIC ve HEIF fotoğraflarınızı kayıpsız PNG formatına dönüştürün. Ücretsiz, hızlı, toplu dönüştürme ve %100 tarayıcı içi gizli işlem.",
-  keywords: [
-    "heic to png",
-    "heic png dönüştürücü",
-    "iphone fotoğrafı png yapma",
-    "kayıpsız heic dönüştürme",
-  ],
-};
+export const metadata: Metadata = getToolMetadata("heic-to-png");
 
 export default function HeicToPngPage() {
   return (
-    <HeicConverterTool
-      defaultFormat="image/png"
-      title="HEIC to PNG Dönüştürücü"
-      description="iPhone (.heic) fotoğraflarınızı en yüksek kalitede ve kayıpsız PNG formatına dönüştürün. Tek tek veya toplu dönüştürüp ZIP olarak indirin."
-    />
+    <ToolPageLayout toolId="heic-to-png">
+      <HeicConverterTool
+        defaultFormat="image/png"
+        title="HEIC to PNG Dönüştürücü"
+        description="iPhone (.heic) fotoğraflarınızı en yüksek kalitede ve kayıpsız PNG formatına dönüştürün. Tek tek veya toplu dönüştürüp ZIP olarak indirin."
+      />
+    </ToolPageLayout>
   );
 }

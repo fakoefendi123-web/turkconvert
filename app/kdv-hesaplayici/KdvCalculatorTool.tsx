@@ -10,7 +10,11 @@ export default function KdvCalculatorTool() {
   const [tevkifatRate, setTevkifatRate] = useState<string>("none");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
+  const [customRate, setCustomRate] = useState<string>("8");
+  const [isCustomRate, setIsCustomRate] = useState<boolean>(false);
+
   const parsedAmount = parseFloat(amount.replace(",", ".")) || 0;
+  const activeKdvRate = isCustomRate ? parseFloat(customRate.replace(",", ".")) || 0 : kdvRate;
 
   const results = useMemo(() => {
     let matrah = 0;
@@ -19,11 +23,11 @@ export default function KdvCalculatorTool() {
 
     if (calculationMode === "haric") {
       matrah = parsedAmount;
-      kdvAmount = (matrah * kdvRate) / 100;
+      kdvAmount = (matrah * activeKdvRate) / 100;
       total = matrah + kdvAmount;
     } else {
       total = parsedAmount;
-      matrah = total / (1 + kdvRate / 100);
+      matrah = total / (1 + activeKdvRate / 100);
       kdvAmount = total - matrah;
     }
 
@@ -46,7 +50,7 @@ export default function KdvCalculatorTool() {
       tahsilEdilecekKdv,
       odenecekTutar,
     };
-  }, [parsedAmount, kdvRate, calculationMode, tevkifatRate]);
+  }, [parsedAmount, activeKdvRate, calculationMode, tevkifatRate]);
 
   const copyToClipboard = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
@@ -62,19 +66,7 @@ export default function KdvCalculatorTool() {
   };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-3">
-          <Calculator className="w-3.5 h-3.5" /> 2026 Güncel Vergi Oranları & Tevkifat
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-          KDV & Tevkifat Hesaplayıcı
-        </h1>
-        <p className="mt-3 text-base text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-          KDV dahil veya hariç tutarları, tevkifat kesintilerini saniyeler içinde hatasız ve pratik şekilde hesaplayın.
-        </p>
-      </div>
-
+    <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Giriş Formu */}
         <div className="lg:col-span-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-sm space-y-5">
@@ -131,14 +123,17 @@ export default function KdvCalculatorTool() {
             <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-2">
               KDV Oranı:
             </label>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-4 gap-2">
               {[1, 10, 20].map((rate) => (
                 <button
                   key={rate}
                   type="button"
-                  onClick={() => setKdvRate(rate)}
+                  onClick={() => {
+                    setKdvRate(rate);
+                    setIsCustomRate(false);
+                  }}
                   className={`py-2.5 rounded-xl border-2 text-xs font-bold transition-all ${
-                    kdvRate === rate
+                    !isCustomRate && kdvRate === rate
                       ? "border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400"
                       : "border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-300"
                   }`}
@@ -146,7 +141,36 @@ export default function KdvCalculatorTool() {
                   %{rate}
                 </button>
               ))}
+              <button
+                type="button"
+                onClick={() => setIsCustomRate(true)}
+                className={`py-2.5 rounded-xl border-2 text-xs font-bold transition-all ${
+                  isCustomRate
+                    ? "border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400"
+                    : "border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-300"
+                }`}
+              >
+                Özel %
+              </button>
             </div>
+
+            {isCustomRate && (
+              <div className="mt-2.5 flex items-center gap-2">
+                <span className="text-xs text-gray-500 font-medium">Özel Oran:</span>
+                <div className="relative w-28">
+                  <input
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="0.5"
+                    value={customRate}
+                    onChange={(e) => setCustomRate(e.target.value)}
+                    className="w-full px-3 py-1.5 rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm font-bold text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                  <span className="absolute right-3 top-1.5 text-xs text-gray-400 font-bold">%</span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Tevkifat Oranı */}

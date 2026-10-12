@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
+import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
+import { getToolMetadata } from "@/lib/constants/tool-seo";
 import PdfSplitTool from "./PdfSplitTool";
 
-export const metadata: Metadata = {
-  title: "PDF Sayfalarını Ayırma - PDF Sayfalarını Böl ve Çıkar | TurkConvert",
-  description:
-    "PDF belgelerinizden dilediğiniz sayfaları çıkarın veya her sayfayı ayrı PDF olarak ayırıp ZIP indirin. Ücretsiz, hızlı ve %100 gizli.",
-  keywords: [
-    "pdf ayırma",
-    "pdf split",
-    "pdf sayfalarını ayırma",
-    "pdf bölme online",
-    "pdf sayfa çıkarma",
-  ],
-};
+export const metadata: Metadata = getToolMetadata("pdf-split");
 
 export default function PdfSplitPage() {
-  return <PdfSplitTool />;
+  return (
+    <ToolPageLayout toolId="pdf-split">
+      <PdfSplitTool />
+    </ToolPageLayout>
+  );
 }

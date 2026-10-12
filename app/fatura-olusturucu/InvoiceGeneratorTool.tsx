@@ -50,6 +50,17 @@ const DEFAULT_ITEMS: InvoiceItem[] = [
   },
 ];
 
+function toPdfText(str: string): string {
+  if (!str) return "";
+  return str
+    .replace(/İ/g, "I")
+    .replace(/ı/g, "i")
+    .replace(/Ş/g, "S")
+    .replace(/ş/g, "s")
+    .replace(/Ğ/g, "G")
+    .replace(/ğ/g, "g");
+}
+
 export default function InvoiceGeneratorTool() {
   const [docType, setDocType] = useState<string>("Fatura");
   const [currency, setCurrency] = useState<string>("TRY");
@@ -102,17 +113,6 @@ export default function InvoiceGeneratorTool() {
       // ignore
     }
   }, []);
-
-function toPdfText(str: string): string {
-  if (!str) return "";
-  return str
-    .replace(/İ/g, "I")
-    .replace(/ı/g, "i")
-    .replace(/Ş/g, "S")
-    .replace(/ş/g, "s")
-    .replace(/Ğ/g, "G")
-    .replace(/ğ/g, "g");
-}
 
   // Firma bilgilerini hatırla
   const handleSaveProfile = () => {

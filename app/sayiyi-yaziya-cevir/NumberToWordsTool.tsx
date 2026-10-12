@@ -26,51 +26,96 @@ function threeDigitsToWords(n: number): string {
   return str.trim();
 }
 
-function numberToTurkishWords(numStr: string): { tamKisimYazi: string; kesirKisimYazi: string } {
-  const clean = numStr.replace(/\s+/g, "").replace(/\./g, "").replace(",", ".");
-  const [tamPartStr = "0", kesirPartStr = ""] = clean.split(".");
+function parseTurkishNumber(input: string): { isNegative: boolean; tamStr: string; kesirStr: string } {
+  let s = input.trim();
+  const isNegative = s.startsWith("-");
+  if (isNegative) s = s.substring(1).trim();
+
+  s = s.replace(/\s+/g, "");
+
+  const lastComma = s.lastIndexOf(",");
+  const lastDot = s.lastIndexOf(".");
+
+  let tamStr = "0";
+  let kesirStr = "";
+
+  if (lastComma !== -1 && lastDot !== -1) {
+    if (lastComma > lastDot) {
+      tamStr = s.substring(0, lastComma).replace(/\./g, "");
+      kesirStr = s.substring(lastComma + 1);
+    } else {
+      tamStr = s.substring(0, lastDot).replace(/,/g, "");
+      kesirStr = s.substring(lastDot + 1);
+    }
+  } else if (lastComma !== -1) {
+    tamStr = s.substring(0, lastComma);
+    kesirStr = s.substring(lastComma + 1);
+  } else if (lastDot !== -1) {
+    const afterDot = s.substring(lastDot + 1);
+    if (afterDot.length <= 2) {
+      tamStr = s.substring(0, lastDot);
+      kesirStr = afterDot;
+    } else {
+      tamStr = s.replace(/\./g, "");
+    }
+  } else {
+    tamStr = s;
+  }
+
+  tamStr = tamStr.replace(/[^0-9]/g, "") || "0";
+  kesirStr = kesirStr.replace(/[^0-9]/g, "");
+
+  return { isNegative, tamStr, kesirStr };
+}
+
+function numberToTurkishWords(numStr: string): { tamKisimYazi: string; kesirKisimYazi: string; isNegative: boolean } {
+  const { isNegative, tamStr, kesirStr } = parseTurkishNumber(numStr);
 
   let tam: bigint;
   try {
-    tam = BigInt(tamPartStr || "0");
+    tam = BigInt(tamStr || "0");
   } catch {
     tam = BigInt(0);
   }
-  if (tam === BigInt(0)) return { tamKisimYazi: "Sıfır", kesirKisimYazi: "" };
-
-  const groups: number[] = [];
-  const zeroBig = BigInt(0);
-  const thousandBig = BigInt(1000);
-  while (tam > zeroBig) {
-    groups.push(Number(tam % thousandBig));
-    tam = tam / thousandBig;
-  }
 
   let words = "";
-  for (let i = groups.length - 1; i >= 0; i--) {
-    const val = groups[i];
-    if (val === 0) continue;
+  if (tam === BigInt(0)) {
+    words = "Sıfır";
+  } else {
+    const groups: number[] = [];
+    let temp = tam;
+    const zeroBig = BigInt(0);
+    const thousandBig = BigInt(1000);
+    while (temp > zeroBig) {
+      groups.push(Number(temp % thousandBig));
+      temp = temp / thousandBig;
+    }
 
-    // Bin basamağında "Bir Bin" denmez, sadece "Bin" denir
-    if (i === 1 && val === 1) {
-      words += "Bin ";
-    } else {
-      const gWords = threeDigitsToWords(val);
-      if (gWords) {
-        words += gWords + " " + BASAMAKLAR[i] + " ";
+    for (let i = groups.length - 1; i >= 0; i--) {
+      const val = groups[i];
+      if (val === 0) continue;
+
+      if (i === 1 && val === 1) {
+        words += "Bin ";
+      } else {
+        const gWords = threeDigitsToWords(val);
+        if (gWords) {
+          words += gWords + " " + BASAMAKLAR[i] + " ";
+        }
       }
     }
+    words = words.trim();
   }
 
   let kesirYazi = "";
-  if (kesirPartStr) {
-    const kVal = parseInt(kesirPartStr.substring(0, 2).padEnd(2, "0"), 10);
+  if (kesirStr) {
+    const kVal = parseInt(kesirStr.substring(0, 2).padEnd(2, "0"), 10);
     if (kVal > 0) {
       kesirYazi = threeDigitsToWords(kVal);
     }
   }
 
-  return { tamKisimYazi: words.trim(), kesirKisimYazi: kesirYazi.trim() };
+  return { tamKisimYazi: words, kesirKisimYazi: kesirYazi.trim(), isNegative };
 }
 
 export default function NumberToWordsTool() {
@@ -78,44 +123,70 @@ export default function NumberToWordsTool() {
   const [currency, setCurrency] = useState<"TL" | "USD" | "EUR" | "NONE">("TL");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
-  const { tamKisimYazi, kesirKisimYazi } = useMemo(() => {
+  const { tamKisimYazi, kesirKisimYazi, isNegative } = useMemo(() => {
     return numberToTurkishWords(inputVal);
   }, [inputVal]);
 
   // Fatura / Çek Resmi Formatı
   const invoiceFormat = useMemo(() => {
     if (!tamKisimYazi) return "";
+    const prefix = isNegative ? "Eksi" : "";
     const cleanTam = tamKisimYazi.replace(/\s+/g, "");
     const cleanKesir = kesirKisimYazi.replace(/\s+/g, "");
 
     if (currency === "TL") {
-      return `#${cleanTam}TL${cleanKesir ? cleanKesir + "Kr" : ""}#`;
+      if (cleanTam === "Sıfır" && cleanKesir) {
+        return `#${prefix}${cleanKesir}Kr#`;
+      }
+      return `#${prefix}${cleanTam}TL${cleanKesir ? cleanKesir + "Kr" : ""}#`;
     } else if (currency === "USD") {
-      return `#${cleanTam}USD${cleanKesir ? cleanKesir + "Cent" : ""}#`;
+      if (cleanTam === "Sıfır" && cleanKesir) {
+        return `#${prefix}${cleanKesir}Cent#`;
+      }
+      return `#${prefix}${cleanTam}USD${cleanKesir ? cleanKesir + "Cent" : ""}#`;
     } else if (currency === "EUR") {
-      return `#${cleanTam}EUR${cleanKesir ? cleanKesir + "Cent" : ""}#`;
+      if (cleanTam === "Sıfır" && cleanKesir) {
+        return `#${prefix}${cleanKesir}Cent#`;
+      }
+      return `#${prefix}${cleanTam}EUR${cleanKesir ? cleanKesir + "Cent" : ""}#`;
     }
-    return `#${cleanTam}${cleanKesir ? "Virgül" + cleanKesir : ""}#`;
-  }, [tamKisimYazi, kesirKisimYazi, currency]);
+    return `#${prefix}${cleanTam}${cleanKesir ? "Virgül" + cleanKesir : ""}#`;
+  }, [tamKisimYazi, kesirKisimYazi, isNegative, currency]);
 
   // Normal Okunuş
   const formalText = useMemo(() => {
     if (!tamKisimYazi) return "";
-    let res = "Yalnızca " + tamKisimYazi;
+    const prefix = isNegative ? "Eksi " : "";
+    let res = "";
+
     if (currency === "TL") {
-      res += " Türk Lirası";
-      if (kesirKisimYazi) res += " " + kesirKisimYazi + " Kuruş";
+      if (tamKisimYazi === "Sıfır" && kesirKisimYazi) {
+        res = `Yalnızca ${prefix}${kesirKisimYazi} Kuruş`;
+      } else {
+        res = `Yalnızca ${prefix}${tamKisimYazi} Türk Lirası`;
+        if (kesirKisimYazi) res += ` ${kesirKisimYazi} Kuruş`;
+      }
     } else if (currency === "USD") {
-      res += " Dolar";
-      if (kesirKisimYazi) res += " " + kesirKisimYazi + " Cent";
+      if (tamKisimYazi === "Sıfır" && kesirKisimYazi) {
+        res = `Yalnızca ${prefix}${kesirKisimYazi} Cent`;
+      } else {
+        res = `Yalnızca ${prefix}${tamKisimYazi} Dolar`;
+        if (kesirKisimYazi) res += ` ${kesirKisimYazi} Cent`;
+      }
     } else if (currency === "EUR") {
-      res += " Euro";
-      if (kesirKisimYazi) res += " " + kesirKisimYazi + " Cent";
-    } else if (kesirKisimYazi) {
-      res += " virgül " + kesirKisimYazi;
+      if (tamKisimYazi === "Sıfır" && kesirKisimYazi) {
+        res = `Yalnızca ${prefix}${kesirKisimYazi} Cent`;
+      } else {
+        res = `Yalnızca ${prefix}${tamKisimYazi} Euro`;
+        if (kesirKisimYazi) res += ` ${kesirKisimYazi} Cent`;
+      }
+    } else {
+      res = `${prefix}${tamKisimYazi}`;
+      if (kesirKisimYazi) res += ` virgül ${kesirKisimYazi}`;
+      return res;
     }
     return res + "tur.";
-  }, [tamKisimYazi, kesirKisimYazi, currency]);
+  }, [tamKisimYazi, kesirKisimYazi, isNegative, currency]);
 
   const copy = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
@@ -124,20 +195,8 @@ export default function NumberToWordsTool() {
   };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 text-xs font-semibold mb-3">
-          <Type className="w-3.5 h-3.5" /> Fatura & Çek/Senet Formatı
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-          Yazıyla Sayı & Para Yazıcı
-        </h1>
-        <p className="mt-3 text-base text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-          Sayıları ve para tutarlarını resmi dilekçe, fatura ve çek/senet için Türkçe okunuşuna dönüştürün.
-        </p>
-      </div>
-
-      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+    <div className="space-y-6">
+      <div className="space-y-6">
         <div>
           <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-2">
             Sayı veya Para Tutarını Girin:

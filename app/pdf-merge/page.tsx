@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
+import { ToolPageLayout } from "@/components/ui/ToolPageLayout";
+import { getToolMetadata } from "@/lib/constants/tool-seo";
 import PdfMergeTool from "./PdfMergeTool";
 
-export const metadata: Metadata = {
-  title: "PDF Birleştirici - Birden Fazla PDF'i Tek Dosya Yap | TurkConvert",
-  description:
-    "Birden fazla PDF belgesini sırasını belirleyerek ücretsiz ve güvenli tek dosyada birleştirin. %100 tarayıcı içi, limitsiz sayfa ve tam gizlilik.",
-  keywords: [
-    "pdf birleştirme",
-    "pdf merge",
-    "pdf birleştirici online",
-    "ücretsiz pdf birleştir",
-    "pdf dosyalarını birleştirme",
-  ],
-};
+export const metadata: Metadata = getToolMetadata("pdf-merge");
 
 export default function PdfMergePage() {
-  return <PdfMergeTool />;
+  return (
+    <ToolPageLayout toolId="pdf-merge">
+      <PdfMergeTool />
+    </ToolPageLayout>
+  );
 }

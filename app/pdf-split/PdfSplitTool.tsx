@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Upload,
   FileText,
@@ -46,15 +46,33 @@ export default function PdfSplitTool() {
     }
   };
 
+  const downloadUrlRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (downloadUrlRef.current) {
+        URL.revokeObjectURL(downloadUrlRef.current);
+      }
+    };
+  }, []);
+
   const parseRange = (input: string, maxPages: number): number[] => {
     const pages = new Set<number>();
-    const parts = input.split(",").map((p) => p.trim());
+    const parts = input.split(",").map((p) => p.trim()).filter(Boolean);
 
     for (const part of parts) {
       if (part.includes("-")) {
-        const [startStr, endStr] = part.split("-").map((s) => s.trim());
-        const start = parseInt(startStr, 10);
-        const end = parseInt(endStr, 10);
+        const segments = part.split("-").map((s) => s.trim());
+        let start = parseInt(segments[0], 10);
+        let end = parseInt(segments[1], 10);
+
+        // Açık uçlu aralık desteği: "3-" veya "-4"
+        if (segments[0] === "" && !isNaN(end)) {
+          start = 1;
+        } else if (segments[1] === "" && !isNaN(start)) {
+          end = maxPages;
+        }
+
         if (!isNaN(start) && !isNaN(end)) {
           const from = Math.max(1, Math.min(start, end));
           const to = Math.min(maxPages, Math.max(start, end));
@@ -95,7 +113,9 @@ export default function PdfSplitTool() {
 
         const bytes = await newDoc.save();
         const blob = new Blob([bytes as any], { type: "application/pdf" });
+        if (downloadUrlRef.current) URL.revokeObjectURL(downloadUrlRef.current);
         const url = URL.createObjectURL(blob);
+        downloadUrlRef.current = url;
 
         setDownloadUrl(url);
         setDownloadFilename(`${baseName}-sayfalar-${selectedPages.join("_")}.pdf`);
@@ -112,7 +132,9 @@ export default function PdfSplitTool() {
         }
 
         const zipBlob = await zip.generateAsync({ type: "blob" });
+        if (downloadUrlRef.current) URL.revokeObjectURL(downloadUrlRef.current);
         const url = URL.createObjectURL(zipBlob);
+        downloadUrlRef.current = url;
 
         setDownloadUrl(url);
         setDownloadFilename(`${baseName}-ayrilmis-sayfalar.zip`);
@@ -126,18 +148,7 @@ export default function PdfSplitTool() {
   };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6">
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-rose-600 dark:text-rose-400 text-xs font-semibold mb-3">
-          <Scissors className="w-3.5 h-3.5" /> Sayfa Çıkarıcı & Bölücü
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-          PDF Sayfalarını Ayırma (PDF Split)
-        </h1>
-        <p className="mt-3 text-base text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-          İstediğiniz sayfaları seçerek yeni bir PDF oluşturun veya tüm sayfaları tek tek ayırıp ZIP olarak indirin.
-        </p>
-      </div>
+    <div className="space-y-6">
 
       {!file ? (
         <div

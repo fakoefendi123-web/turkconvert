@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import {
   Upload,
   FileImage,
@@ -189,6 +189,14 @@ export default function HeicConverterTool({
     }
   };
 
+  useEffect(() => {
+    return () => {
+      items.forEach((i) => {
+        if (i.convertedUrl) URL.revokeObjectURL(i.convertedUrl);
+      });
+    };
+  }, [items]);
+
   const removeItem = (id: string) => {
     setItems((prev) => {
       const item = prev.find((i) => i.id === id);
@@ -207,20 +215,7 @@ export default function HeicConverterTool({
   const doneCount = items.filter((i) => i.status === "done").length;
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
-      {/* Başlık ve Bilgi */}
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 text-xs font-semibold mb-3">
-          <Sparkles className="w-3.5 h-3.5" /> iPhone & iPad Destekli • %100 İstemci Taraflı
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-          {title}
-        </h1>
-        <p className="mt-3 text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          {description}
-        </p>
-      </div>
-
+    <div className="space-y-6">
       {/* Kontrol Çubuğu (Format ve Kalite Ayarları) */}
       <div className="mb-6 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-4 sm:p-5 shadow-sm">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -399,27 +394,6 @@ export default function HeicConverterTool({
           </div>
         </div>
       )}
-
-      {/* SSS & Bilgilendirme Bölümü (SEO) */}
-      <div className="mt-16 border-t border-gray-200 dark:border-gray-800 pt-10">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white text-center mb-6">
-          Sıkça Sorulan Sorular
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-5 rounded-2xl bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800">
-            <h4 className="text-sm font-bold text-gray-900 dark:text-white">HEIC dosyası nedir?</h4>
-            <p className="mt-1.5 text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-              HEIC (High Efficiency Image Container), Apple tarafından iOS 11 ve sonrasında kullanılan modern bir görsel formatıdır. JPG&apos;ye göre daha az yer kaplar ancak Windows, Android ve bazı web sitelerinde açılamaz.
-            </p>
-          </div>
-          <div className="p-5 rounded-2xl bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800">
-            <h4 className="text-sm font-bold text-gray-900 dark:text-white">Fotoğraflarım sunucuya yükleniyor mu?</h4>
-            <p className="mt-1.5 text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-              Kesinlikle hayır! Dönüştürme işlemi WebAssembly teknolojisiyle tamamen telefonunuzun veya bilgisayarınızın tarayıcısında yapılır. Gizliliğiniz %100 korunur.
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
