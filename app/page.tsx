@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { RecentToolsBar } from "@/components/ui/RecentToolsBar";
 import { ToolsExplorer } from "@/components/ui/ToolsExplorer";
 import { UniversalDropzone } from "@/components/ui/UniversalDropzone";
@@ -8,7 +7,6 @@ import {
   Zap,
   ShieldCheck,
   Sparkles,
-  Compass,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -35,19 +33,6 @@ export const metadata: Metadata = {
   },
 };
 
-const QUICK_ACTIONS = [
-  { label: "📸 Biyometrik Foto", href: "/biyometrik-foto" },
-  { label: "📑 PDF Filigran & No", href: "/pdf-watermark" },
-  { label: "📱 HEIC to JPG", href: "/heic-to-jpg" },
-  { label: "💼 Maaş Hesapla", href: "/maas-hesaplayici" },
-  { label: "📑 PDF Birleştir", href: "/pdf-merge" },
-  { label: "✂️ PDF Sayfa Ayır", href: "/pdf-split" },
-  { label: "📸 Boyut Küçült", href: "/image-compressor" },
-  { label: "💰 KDV Hesapla", href: "/kdv-hesaplayici" },
-  { label: "🆔 TC Kimlik Doğrula", href: "/tc-kimlik-dogrulayici" },
-  { label: "✍️ Şeffaf İmza", href: "/seffaf-imza" },
-];
-
 export default function HomePage() {
   return (
     <div className="relative mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-14">
@@ -72,23 +57,6 @@ export default function HomePage() {
 
         {/* Akıllı Evrensel Dosya Bırakma Alanı (Universal Dropzone) */}
         <UniversalDropzone />
-
-        {/* Hızlı İhtiyaç Kapsülleri (Quick Actions) */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-          <span className="flex items-center gap-1 text-xs font-medium text-slate-400 dark:text-slate-500">
-            <Compass className="h-3.5 w-3.5" />
-            <span>Hızlı Çözümler:</span>
-          </span>
-          {QUICK_ACTIONS.map((action) => (
-            <Link
-              key={action.href}
-              href={action.href}
-              className="inline-flex items-center rounded-xl border border-slate-200/80 bg-white/80 px-3 py-1 text-xs font-medium text-slate-700 shadow-2xs backdrop-blur-md transition-all hover:border-primary-400 hover:bg-primary-50/40 hover:text-primary-600 dark:border-white/10 dark:bg-obsidian-900/70 dark:text-slate-300 dark:hover:border-primary-500/50 dark:hover:bg-obsidian-850 dark:hover:text-primary-300"
-            >
-              {action.label}
-            </Link>
-          ))}
-        </div>
 
         {/* Son Kullanılanlar Barı */}
         <RecentToolsBar />
