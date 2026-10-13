@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { FileUploader, FileInfo } from "@/components/ui/FileUploader";
 import { ConversionProgress } from "@/components/ui/ConversionProgress";
 import { ConversionResult } from "@/components/ui/ConversionResult";
@@ -9,7 +9,7 @@ import {
   compressImageAdvanced,
   CompressResult,
 } from "@/lib/converters/image";
-import { changeFileExtension } from "@/lib/utils";
+import { changeFileExtension, formatFileSize } from "@/lib/utils";
 import {
   RefreshCw,
   Sparkles,
@@ -17,7 +17,14 @@ import {
   CheckCircle2,
   Info,
   Maximize2,
+  Download,
+  Archive,
+  Layers,
+  Plus,
+  Trash2,
+  Image as ImageIcon,
 } from "lucide-react";
+import JSZip from "jszip";
 
 type ToolState = "idle" | "ready" | "converting" | "done" | "error";
 
@@ -49,94 +56,318 @@ const QUALITY_PRESETS: QualityPreset[] = [
   },
 ];
 
+interface BatchItem {
+  id: string;
+  file: File;
+  resultName?: string;
+  result?: CompressResult;
+  status: "idle" | "converting" | "done" | "error";
+}
+
 export default function ImageCompressorTool() {
   const [state, setState] = useState<ToolState>("idle");
-  const [file, setFile] = useState<File | null>(null);
-  const [originalPreviewUrl, setOriginalPreviewUrl] = useState<string>("");
+  const [files, setFiles] = useState<File[]>([]);
   const [quality, setQuality] = useState<number>(0.6);
   const [targetFormat, setTargetFormat] = useState<"auto" | "image/webp" | "image/jpeg">("auto");
   const [maxWidth, setMaxWidth] = useState<number | undefined>(undefined);
-  const [compressResult, setCompressResult] = useState<CompressResult | null>(null);
-  const [resultName, setResultName] = useState<string>("");
+
+  // Tekli dosya modu verileri
+  const [singlePreviewUrl, setSinglePreviewUrl] = useState<string>("");
+  const [singleCompressResult, setSingleCompressResult] = useState<CompressResult | null>(null);
+  const [singleResultName, setSingleResultName] = useState<string>("");
+
+  // Toplu dosya modu verileri
+  const [batchItems, setBatchItems] = useState<BatchItem[]>([]);
+  const [isZipping, setIsZipping] = useState(false);
+  const addMoreInputRef = useRef<HTMLInputElement>(null);
+
   const [errorMsg, setErrorMsg] = useState<string>("");
 
-  const handleFileSelect = useCallback((selectedFile: File) => {
-    setFile(selectedFile);
-    const url = URL.createObjectURL(selectedFile);
-    setOriginalPreviewUrl(url);
+  const isBatch = files.length > 1;
+
+  // Dosya seçildiğinde
+  const handleFilesSelect = useCallback((selectedFiles: File[]) => {
+    if (selectedFiles.length === 0) return;
+
+    setFiles(selectedFiles);
     setErrorMsg("");
+
+    if (selectedFiles.length === 1) {
+      const singleFile = selectedFiles[0];
+      const url = URL.createObjectURL(singleFile);
+      setSinglePreviewUrl(url);
+      setSingleCompressResult(null);
+    } else {
+      const items: BatchItem[] = selectedFiles.map((f, i) => ({
+        id: `${f.name}-${i}-${Date.now()}`,
+        file: f,
+        status: "idle",
+      }));
+      setBatchItems(items);
+    }
+
     setState("ready");
   }, []);
 
+  // Toplu modda daha fazla dosya ekleme
+  const handleAddMoreFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const newFiles = Array.from(e.target.files);
+      setFiles((prev) => [...prev, ...newFiles]);
+      const newItems: BatchItem[] = newFiles.map((f, i) => ({
+        id: `${f.name}-${i}-${Date.now()}`,
+        file: f,
+        status: "idle",
+      }));
+      setBatchItems((prev) => [...prev, ...newItems]);
+      e.target.value = "";
+    }
+  };
+
+  const handleRemoveBatchItem = (id: string) => {
+    setBatchItems((prev) => {
+      const updated = prev.filter((item) => item.id !== id);
+      if (updated.length <= 1) {
+        if (updated.length === 1) {
+          setFiles([updated[0].file]);
+          const url = URL.createObjectURL(updated[0].file);
+          setSinglePreviewUrl(url);
+          setSingleCompressResult(null);
+        } else {
+          setFiles([]);
+          setState("idle");
+        }
+      } else {
+        setFiles(updated.map((u) => u.file));
+      }
+      return updated;
+    });
+  };
+
+  // Sıkıştırma İşlemi
   const handleCompress = useCallback(async () => {
-    if (!file) return;
+    if (files.length === 0) return;
 
     setState("converting");
+
+    if (files.length === 1) {
+      const file = files[0];
+      try {
+        const res = await compressImageAdvanced(file, {
+          quality,
+          targetFormat,
+          maxWidth,
+        });
+
+        const newName = changeFileExtension(file.name, res.extension);
+        setSingleCompressResult(res);
+        setSingleResultName(newName);
+        setState("done");
+      } catch {
+        setErrorMsg("Görsel sıkıştırılırken bir sorun oluştu.");
+        setState("error");
+      }
+    } else {
+      // Toplu Sıkıştırma
+      const updatedItems = [...batchItems];
+      for (let i = 0; i < updatedItems.length; i++) {
+        updatedItems[i].status = "converting";
+        setBatchItems([...updatedItems]);
+
+        try {
+          const res = await compressImageAdvanced(updatedItems[i].file, {
+            quality,
+            targetFormat,
+            maxWidth,
+          });
+          const newName = changeFileExtension(updatedItems[i].file.name, res.extension);
+          updatedItems[i].result = res;
+          updatedItems[i].resultName = newName;
+          updatedItems[i].status = "done";
+        } catch {
+          updatedItems[i].status = "error";
+        }
+        setBatchItems([...updatedItems]);
+      }
+      setState("done");
+    }
+  }, [files, batchItems, quality, targetFormat, maxWidth]);
+
+  // Tekil indirme (Toplu moddayken tek öğe)
+  const handleDownloadItem = (item: BatchItem) => {
+    if (!item.result?.blob || !item.resultName) return;
+    const url = URL.createObjectURL(item.result.blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = item.resultName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  // Tümünü ZIP Olarak İndir
+  const handleDownloadAllZip = async () => {
+    const completed = batchItems.filter((i) => i.status === "done" && i.result?.blob);
+    if (completed.length === 0) return;
+
+    setIsZipping(true);
     try {
-      const res = await compressImageAdvanced(file, {
-        quality,
-        targetFormat,
-        maxWidth,
+      const zip = new JSZip();
+      completed.forEach((item) => {
+        if (item.result?.blob && item.resultName) {
+          zip.file(item.resultName, item.result.blob);
+        }
       });
 
-      const newName = changeFileExtension(file.name, res.extension);
-      setCompressResult(res);
-      setResultName(newName);
-      setState("done");
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      const url = URL.createObjectURL(zipBlob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `TurkConvert_Sikistirilmis_Gorseller_${Date.now()}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     } catch {
-      setErrorMsg(
-        "Görsel sıkıştırılırken bir sorun oluştu. Lütfen görseli kontrol edip tekrar deneyin."
-      );
-      setState("error");
+      alert("ZIP dosyası oluşturulurken bir sorun çıktı.");
+    } finally {
+      setIsZipping(false);
     }
-  }, [file, quality, targetFormat, maxWidth]);
+  };
 
+  // Sıfırlama
   const handleReset = useCallback(() => {
-    if (originalPreviewUrl) {
-      URL.revokeObjectURL(originalPreviewUrl);
-    }
-    if (compressResult?.previewUrl) {
-      URL.revokeObjectURL(compressResult.previewUrl);
-    }
-    setFile(null);
-    setOriginalPreviewUrl("");
+    if (singlePreviewUrl) URL.revokeObjectURL(singlePreviewUrl);
+    if (singleCompressResult?.previewUrl) URL.revokeObjectURL(singleCompressResult.previewUrl);
+    batchItems.forEach((b) => {
+      if (b.result?.previewUrl) URL.revokeObjectURL(b.result.previewUrl);
+    });
+
+    setFiles([]);
+    setSinglePreviewUrl("");
+    setSingleCompressResult(null);
+    setSingleResultName("");
+    setBatchItems([]);
     setQuality(0.6);
     setTargetFormat("auto");
     setMaxWidth(undefined);
-    setCompressResult(null);
-    setResultName("");
     setErrorMsg("");
     setState("idle");
-  }, [originalPreviewUrl, compressResult]);
+  }, [singlePreviewUrl, singleCompressResult, batchItems]);
 
   useEffect(() => {
     return () => {
-      if (originalPreviewUrl) URL.revokeObjectURL(originalPreviewUrl);
-      if (compressResult?.previewUrl) URL.revokeObjectURL(compressResult.previewUrl);
+      if (singlePreviewUrl) URL.revokeObjectURL(singlePreviewUrl);
+      if (singleCompressResult?.previewUrl) URL.revokeObjectURL(singleCompressResult.previewUrl);
+      batchItems.forEach((b) => {
+        if (b.result?.previewUrl) URL.revokeObjectURL(b.result.previewUrl);
+      });
     };
-  }, [originalPreviewUrl, compressResult]);
+  }, [singlePreviewUrl, singleCompressResult, batchItems]);
 
   return (
     <div className="space-y-6">
       {/* Dosya Yükleme */}
-      {(state === "idle" || (state === "error" && !file)) && (
+      {(state === "idle" || (state === "error" && files.length === 0)) && (
         <FileUploader
           accept="image/jpeg,image/png,image/webp"
-          acceptLabel="JPG, PNG, WEBP"
-          onFileSelect={handleFileSelect}
+          acceptLabel="JPG, PNG, WEBP (Tekli veya Toplu)"
+          multiple={true}
+          onFileSelect={(f) => handleFilesSelect([f])}
+          onFilesSelect={handleFilesSelect}
         />
       )}
 
-      {/* Sıkıştırma Ayarları ve Başlatma */}
-      {state === "ready" && file && (
+      {/* Hazırlık & Ayarlar Paneli */}
+      {state === "ready" && files.length > 0 && (
         <div className="space-y-6">
-          <FileInfo file={file} onRemove={handleReset} />
+          {/* Tekli Dosya Bilgisi veya Toplu Dosya Listesi */}
+          {!isBatch ? (
+            <FileInfo file={files[0]} onRemove={handleReset} />
+          ) : (
+            <div className="rounded-2xl border border-slate-200/80 bg-white/75 p-5 backdrop-blur-xl dark:border-white/10 dark:bg-obsidian-900/60">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-white/5">
+                <div className="flex items-center gap-2.5">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-100 text-primary-600 dark:bg-primary-950 dark:text-primary-400">
+                    <Layers className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                      Toplu Sıkıştırma Listesi
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      Toplam {batchItems.length} görsel seçildi (
+                      {formatFileSize(
+                        batchItems.reduce((acc, curr) => acc + curr.file.size, 0)
+                      )}
+                      )
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => addMoreInputRef.current?.click()}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-white/10 dark:bg-obsidian-850 dark:text-slate-200"
+                  >
+                    <Plus className="h-3.5 w-3.5" />
+                    <span>Daha Fazla Ekle</span>
+                  </button>
+                  <button
+                    onClick={handleReset}
+                    className="inline-flex items-center gap-1 rounded-xl border border-rose-200 bg-rose-50 px-2.5 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-100 dark:border-rose-950 dark:bg-rose-950/40 dark:text-rose-400"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                    <span>Temizle</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Liste Önizleme */}
+              <div className="mt-4 max-h-60 overflow-y-auto space-y-2 pr-1">
+                {batchItems.map((item, idx) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50/70 px-3.5 py-2 text-xs dark:border-white/5 dark:bg-obsidian-850/60"
+                  >
+                    <div className="flex items-center gap-2.5 truncate max-w-sm">
+                      <ImageIcon className="h-4 w-4 text-slate-400 shrink-0" />
+                      <span className="truncate font-medium text-slate-800 dark:text-slate-200">
+                        {item.file.name}
+                      </span>
+                      <span className="text-slate-400 text-[11px] shrink-0">
+                        ({formatFileSize(item.file.size)})
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={() => handleRemoveBatchItem(item.id)}
+                      className="text-slate-400 hover:text-rose-500 p-1"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Gizli Dosya Ekleme Inputu */}
+          <input
+            ref={addMoreInputRef}
+            type="file"
+            multiple
+            accept="image/jpeg,image/png,image/webp"
+            onChange={handleAddMoreFiles}
+            className="hidden"
+          />
 
           {/* Kalite Hazır Ayarları */}
           <div>
             <div className="mb-3 flex items-center justify-between">
               <label className="text-sm font-semibold text-gray-800 dark:text-gray-200">
-                Sıkıştırma Seviyesi
+                Sıkıştırma Seviyesi {isBatch && "(Tüm Görsellere Uygulanır)"}
               </label>
               <span className="text-xs font-medium text-primary-600 dark:text-primary-400">
                 %{Math.round(quality * 100)} Kalite
@@ -199,10 +430,6 @@ export default function ImageCompressorTool() {
                 onChange={(e) => setQuality(Number(e.target.value) / 100)}
                 className="w-full accent-primary-600"
               />
-              <div className="mt-1 flex justify-between text-[11px] text-gray-400">
-                <span>Daha Küçük Boyut (%10)</span>
-                <span>Daha Yüksek Netlik (%95)</span>
-              </div>
             </div>
           </div>
 
@@ -223,9 +450,6 @@ export default function ImageCompressorTool() {
                 <option value="image/webp">WEBP (En Yüksek Sıkıştırma)</option>
                 <option value="image/jpeg">JPG (Geniş Uyumluluk)</option>
               </select>
-              <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">
-                WEBP formatı JPG&apos;ye kıyasla ortalama %35 daha küçük boyut sağlar.
-              </p>
             </div>
 
             <div>
@@ -245,9 +469,6 @@ export default function ImageCompressorTool() {
                 <option value="1280">Maks. 1280px (HD)</option>
                 <option value="800">Maks. 800px (Blog & Küçük Görseller)</option>
               </select>
-              <p className="mt-1 text-[11px] text-gray-500 dark:text-gray-400">
-                Çok büyük fotoğrafların piksellerini orantılı küçülterek megabaytlarca tasarruf sağlar.
-              </p>
             </div>
           </div>
 
@@ -255,7 +476,7 @@ export default function ImageCompressorTool() {
           <div className="flex justify-center pt-2">
             <button onClick={handleCompress} className="btn-primary gap-2">
               <Sparkles className="h-4 w-4" />
-              Görseli Sıkıştır
+              {isBatch ? `${files.length} Görseli Topluca Sıkıştır` : "Görseli Sıkıştır"}
             </button>
           </div>
         </div>
@@ -263,14 +484,19 @@ export default function ImageCompressorTool() {
 
       {/* Sıkıştırma Süreci */}
       {state === "converting" && (
-        <ConversionProgress message="Görseliniz akıllı algoritma ile sıkıştırılıyor..." />
+        <ConversionProgress
+          message={
+            isBatch
+              ? `${files.length} görseliniz toplu olarak sıkıştırılıyor...`
+              : "Görseliniz akıllı algoritma ile sıkıştırılıyor..."
+          }
+        />
       )}
 
-      {/* Sonuç Ekranı ve Canlı Before / After Slider */}
-      {state === "done" && compressResult && file && (
+      {/* Tekli Dosya Sonuç Ekranı */}
+      {state === "done" && !isBatch && singleCompressResult && files[0] && (
         <div className="space-y-6">
-          {/* Zaten Optimize Edilmiş Bildirimi */}
-          {compressResult.alreadyOptimized && (
+          {singleCompressResult.alreadyOptimized && (
             <div className="flex items-start gap-3 rounded-xl border border-blue-200 bg-blue-50/70 p-4 text-xs text-blue-800 dark:border-blue-900/40 dark:bg-blue-950/30 dark:text-blue-300">
               <Info className="h-4 w-4 flex-shrink-0 mt-0.5 text-blue-600 dark:text-blue-400" />
               <div>
@@ -282,15 +508,13 @@ export default function ImageCompressorTool() {
             </div>
           )}
 
-          {/* İndirme ve Boyut Bilgisi */}
           <ConversionResult
-            fileName={resultName}
-            blob={compressResult.blob}
-            originalSize={file.size}
+            fileName={singleResultName}
+            blob={singleCompressResult.blob}
+            originalSize={files[0].size}
             onReset={handleReset}
           />
 
-          {/* Canlı Önizleme & Before-After Slider */}
           <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <div className="mb-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -305,11 +529,93 @@ export default function ImageCompressorTool() {
             </div>
 
             <BeforeAfterSlider
-              beforeImage={originalPreviewUrl}
-              afterImage={compressResult.previewUrl}
+              beforeImage={singlePreviewUrl}
+              afterImage={singleCompressResult.previewUrl}
               beforeLabel="Orijinal"
-              afterLabel={`Sıkıştırılmış (%${compressResult.savingsPercent} Tasarruf)`}
+              afterLabel={`Sıkıştırılmış (%${singleCompressResult.savingsPercent} Tasarruf)`}
             />
+          </div>
+        </div>
+      )}
+
+      {/* Toplu Dosya Sonuç Ekranı */}
+      {state === "done" && isBatch && (
+        <div className="space-y-6">
+          {/* Üst Özet Kartı */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-emerald-200 bg-emerald-50/70 p-5 dark:border-emerald-950 dark:bg-emerald-950/30">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600 dark:bg-emerald-900 dark:text-emerald-300">
+                <CheckCircle2 className="h-6 w-6" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-emerald-900 dark:text-emerald-200">
+                  Toplu Sıkıştırma Başarıyla Tamamlandı!
+                </h4>
+                <p className="text-xs text-emerald-700 dark:text-emerald-400">
+                  Toplam {batchItems.filter((i) => i.status === "done").length} görsel optimize edildi.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 w-full sm:w-auto">
+              <button
+                onClick={handleDownloadAllZip}
+                disabled={isZipping}
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-xs font-bold text-white shadow-md shadow-emerald-600/20 hover:bg-emerald-500"
+              >
+                <Archive className="h-4 w-4" />
+                <span>{isZipping ? "ZIP Paketleniyor..." : "Tümünü ZIP Olarak İndir"}</span>
+              </button>
+              <button
+                onClick={handleReset}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-white/10 dark:bg-obsidian-850 dark:text-slate-200"
+              >
+                <RefreshCw className="h-3.5 w-3.5" />
+                <span>Yeni İşlem</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Bireysel Dosya Listesi */}
+          <div className="rounded-2xl border border-slate-200/80 bg-white/80 p-4 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-obsidian-900/70 space-y-3">
+            <h5 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider px-2">
+              Sıkıştırılan Dosyalar:
+            </h5>
+            <div className="divide-y divide-slate-100 dark:divide-white/5">
+              {batchItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex items-center justify-between py-3 px-2 gap-3"
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-semibold text-slate-900 dark:text-white truncate">
+                      {item.resultName || item.file.name}
+                    </p>
+                    <div className="mt-0.5 flex items-center gap-2 text-[11px] text-slate-400">
+                      <span>{formatFileSize(item.file.size)}</span>
+                      <span>→</span>
+                      {item.result ? (
+                        <span className="font-bold text-emerald-600 dark:text-emerald-400">
+                          {formatFileSize(item.result.compressedSize)} (-%{item.result.savingsPercent})
+                        </span>
+                      ) : (
+                        <span className="text-rose-500">Hata</span>
+                      )}
+                    </div>
+                  </div>
+
+                  {item.status === "done" && item.result && (
+                    <button
+                      onClick={() => handleDownloadItem(item)}
+                      className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-primary-50 hover:text-primary-600 dark:border-white/10 dark:bg-obsidian-850 dark:text-slate-300"
+                    >
+                      <Download className="h-3.5 w-3.5" />
+                      <span>İndir</span>
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}

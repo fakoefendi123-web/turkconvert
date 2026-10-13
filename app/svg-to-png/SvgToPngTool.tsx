@@ -1,50 +1,88 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { FileUploader, FileInfo } from "@/components/ui/FileUploader";
-import { Download, RefreshCw, Layers } from "lucide-react";
-import { changeFileExtension } from "@/lib/utils";
+import { Download, RefreshCw, Layers, Archive, Plus, Trash2, CheckCircle2, FileImage } from "lucide-react";
+import { changeFileExtension, formatFileSize } from "@/lib/utils";
+import JSZip from "jszip";
+
+interface BatchSvgItem {
+  id: string;
+  file: File;
+  resultBlob?: Blob;
+  status: "idle" | "converting" | "done" | "error";
+}
 
 export default function SvgToPngTool() {
-  const [file, setFile] = useState<File | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
   const [scale, setScale] = useState<number>(2);
   const [background, setBackground] = useState<"transparent" | "white">("transparent");
   const [isConverting, setIsConverting] = useState(false);
+  const [isZipping, setIsZipping] = useState(false);
+  const [batchItems, setBatchItems] = useState<BatchSvgItem[]>([]);
   const [errorMsg, setErrorMsg] = useState("");
+  const addMoreInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileSelect = useCallback((selectedFile: File) => {
-    setFile(selectedFile);
+  const isBatch = files.length > 1;
+
+  const handleFilesSelect = useCallback((selectedFiles: File[]) => {
+    if (selectedFiles.length === 0) return;
+    setFiles(selectedFiles);
     setErrorMsg("");
+
+    const items: BatchSvgItem[] = selectedFiles.map((f, i) => ({
+      id: `${f.name}-${i}-${Date.now()}`,
+      file: f,
+      status: "idle",
+    }));
+    setBatchItems(items);
   }, []);
 
-  const handleConvertAndDownload = async () => {
-    if (!file) return;
-    setIsConverting(true);
-    setErrorMsg("");
+  const handleAddMore = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const newFiles = Array.from(e.target.files);
+      setFiles((prev) => [...prev, ...newFiles]);
+      const newItems: BatchSvgItem[] = newFiles.map((f, i) => ({
+        id: `${f.name}-${i}-${Date.now()}`,
+        file: f,
+        status: "idle",
+      }));
+      setBatchItems((prev) => [...prev, ...newItems]);
+      e.target.value = "";
+    }
+  };
 
-    try {
-      const svgText = await file.text();
-      const blob = new Blob([svgText], { type: "image/svg+xml;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
+  const handleRemoveItem = (id: string) => {
+    setBatchItems((prev) => {
+      const updated = prev.filter((i) => i.id !== id);
+      setFiles(updated.map((u) => u.file));
+      return updated;
+    });
+  };
 
+  const convertSingleSvg = async (svgFile: File, s: number, bg: "transparent" | "white"): Promise<Blob> => {
+    const svgText = await svgFile.text();
+    const blob = new Blob([svgText], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    return new Promise((resolve, reject) => {
       const img = new Image();
       img.onload = () => {
         const canvas = document.createElement("canvas");
         const naturalW = img.naturalWidth || 512;
         const naturalH = img.naturalHeight || 512;
 
-        canvas.width = naturalW * scale;
-        canvas.height = naturalH * scale;
+        canvas.width = naturalW * s;
+        canvas.height = naturalH * s;
 
         const ctx = canvas.getContext("2d");
         if (!ctx) {
           URL.revokeObjectURL(url);
-          setIsConverting(false);
-          setErrorMsg("Canvas oluşturulamadı.");
+          reject(new Error("Canvas oluşturulamadı"));
           return;
         }
 
-        if (background === "white") {
+        if (bg === "white") {
           ctx.fillStyle = "#ffffff";
           ctx.fillRect(0, 0, canvas.width, canvas.height);
         } else {
@@ -55,58 +93,210 @@ export default function SvgToPngTool() {
         URL.revokeObjectURL(url);
 
         canvas.toBlob((pngBlob) => {
-          setIsConverting(false);
-          if (!pngBlob) {
-            setErrorMsg("PNG dönüştürme başarısız oldu.");
-            return;
-          }
-          const pngUrl = URL.createObjectURL(pngBlob);
-          const a = document.createElement("a");
-          a.href = pngUrl;
-          a.download = changeFileExtension(file.name, "png");
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(pngUrl);
+          if (pngBlob) resolve(pngBlob);
+          else reject(new Error("PNG oluşturulamadı"));
         }, "image/png");
       };
 
       img.onerror = () => {
         URL.revokeObjectURL(url);
-        setIsConverting(false);
-        setErrorMsg("SVG dosyası işlenirken hata oluştu. Lütfen geçerli bir SVG yükleyin.");
+        reject(new Error("SVG işlenemedi"));
       };
 
       img.src = url;
-    } catch {
+    });
+  };
+
+  const handleConvert = async () => {
+    if (files.length === 0) return;
+    setIsConverting(true);
+    setErrorMsg("");
+
+    if (files.length === 1) {
+      try {
+        const blob = await convertSingleSvg(files[0], scale, background);
+        const pngUrl = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = pngUrl;
+        a.download = changeFileExtension(files[0].name, "png");
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(pngUrl);
+      } catch {
+        setErrorMsg("SVG dönüştürülürken bir hata oluştu.");
+      } finally {
+        setIsConverting(false);
+      }
+    } else {
+      // Toplu
+      const updated = [...batchItems];
+      for (let i = 0; i < updated.length; i++) {
+        updated[i].status = "converting";
+        setBatchItems([...updated]);
+
+        try {
+          const blob = await convertSingleSvg(updated[i].file, scale, background);
+          updated[i].resultBlob = blob;
+          updated[i].status = "done";
+        } catch {
+          updated[i].status = "error";
+        }
+        setBatchItems([...updated]);
+      }
       setIsConverting(false);
-      setErrorMsg("Dosya okunurken bir sorun oluştu.");
+    }
+  };
+
+  const handleDownloadSingleItem = (item: BatchSvgItem) => {
+    if (!item.resultBlob) return;
+    const url = URL.createObjectURL(item.resultBlob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = changeFileExtension(item.file.name, "png");
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadAllZip = async () => {
+    const completed = batchItems.filter((i) => i.status === "done" && i.resultBlob);
+    if (completed.length === 0) return;
+
+    setIsZipping(true);
+    try {
+      const zip = new JSZip();
+      completed.forEach((item) => {
+        if (item.resultBlob) {
+          zip.file(changeFileExtension(item.file.name, "png"), item.resultBlob);
+        }
+      });
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      const url = URL.createObjectURL(zipBlob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `TurkConvert_SVG_PNG_${Date.now()}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch {
+      alert("ZIP dosyası oluşturulurken hata meydana geldi.");
+    } finally {
+      setIsZipping(false);
     }
   };
 
   const handleReset = () => {
-    setFile(null);
+    setFiles([]);
+    setBatchItems([]);
     setErrorMsg("");
   };
 
   return (
     <div className="space-y-6">
-      {!file ? (
+      {files.length === 0 ? (
         <FileUploader
           accept=".svg,image/svg+xml"
-          acceptLabel="SVG"
-          onFileSelect={handleFileSelect}
+          acceptLabel="SVG (Tekli veya Toplu)"
+          multiple={true}
+          onFileSelect={(f) => handleFilesSelect([f])}
+          onFilesSelect={handleFilesSelect}
         />
       ) : (
         <div className="space-y-6">
-          <FileInfo file={file} onRemove={handleReset} />
+          {!isBatch ? (
+            <FileInfo file={files[0]} onRemove={handleReset} />
+          ) : (
+            <div className="rounded-2xl border border-slate-200/80 bg-white/75 p-5 backdrop-blur-xl dark:border-white/10 dark:bg-obsidian-900/60">
+              <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-white/5">
+                <div className="flex items-center gap-2.5">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-100 text-primary-600 dark:bg-primary-950 dark:text-primary-400">
+                    <Layers className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                      Toplu SVG Dönüştürme Listesi
+                    </h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      Toplam {batchItems.length} SVG dosyası seçildi
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => addMoreInputRef.current?.click()}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-white/10 dark:bg-obsidian-850 dark:text-slate-200"
+                  >
+                    <Plus className="h-3.5 w-3.5" />
+                    <span>Daha Fazla Ekle</span>
+                  </button>
+                  <button
+                    onClick={handleReset}
+                    className="inline-flex items-center gap-1 rounded-xl border border-rose-200 bg-rose-50 px-2.5 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-100 dark:border-rose-950 dark:bg-rose-950/40 dark:text-rose-400"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                    <span>Temizle</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="mt-4 max-h-52 overflow-y-auto space-y-2 pr-1">
+                {batchItems.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50/70 px-3.5 py-2 text-xs dark:border-white/5 dark:bg-obsidian-850/60"
+                  >
+                    <div className="flex items-center gap-2.5 truncate max-w-sm">
+                      <FileImage className="h-4 w-4 text-slate-400 shrink-0" />
+                      <span className="truncate font-medium text-slate-800 dark:text-slate-200">
+                        {item.file.name}
+                      </span>
+                      <span className="text-slate-400 text-[11px] shrink-0">
+                        ({formatFileSize(item.file.size)})
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      {item.status === "done" && item.resultBlob && (
+                        <button
+                          onClick={() => handleDownloadSingleItem(item)}
+                          className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2 py-1 text-[11px] font-semibold text-primary-600 hover:bg-primary-50 dark:border-white/10 dark:bg-obsidian-850 dark:text-primary-400"
+                        >
+                          <Download className="h-3 w-3" />
+                          <span>İndir</span>
+                        </button>
+                      )}
+                      <button
+                        onClick={() => handleRemoveItem(item.id)}
+                        className="text-slate-400 hover:text-rose-500 p-1"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <input
+            ref={addMoreInputRef}
+            type="file"
+            multiple
+            accept=".svg,image/svg+xml"
+            onChange={handleAddMore}
+            className="hidden"
+          />
 
           {/* Ayarlar */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {/* Çözünürlük Çarpanı */}
             <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
               <label className="mb-2 block text-xs font-semibold text-gray-700 dark:text-gray-300">
-                Çözünürlük Kalitesi
+                Çözünürlük Kalitesi {isBatch && "(Tümüne Uygulanır)"}
               </label>
               <div className="grid grid-cols-4 gap-2">
                 {[1, 2, 4, 8].map((s) => (
@@ -164,11 +354,6 @@ export default function SvgToPngTool() {
                   Beyaz Arka Plan
                 </button>
               </div>
-              <p className="mt-2 text-[11px] text-gray-400">
-                {background === "transparent"
-                  ? "Saydam arka plan (logo ve ikonlar için idealdir)"
-                  : "Beyaz dolgu ile düz zemin"}
-              </p>
             </div>
           </div>
 
@@ -178,19 +363,35 @@ export default function SvgToPngTool() {
             </div>
           )}
 
-          {/* Dönüştür Butonu */}
+          {/* Dönüştür Butonları */}
           <div className="flex flex-wrap justify-center gap-3">
             <button
-              onClick={handleConvertAndDownload}
+              onClick={handleConvert}
               disabled={isConverting}
               className="btn-primary gap-2"
             >
               <Download className="h-4 w-4" />
-              {isConverting ? "Dönüştürülüyor..." : "PNG Olarak İndir"}
+              {isConverting
+                ? "Dönüştürülüyor..."
+                : isBatch
+                ? `${batchItems.length} SVG'yi PNG'ye Dönüştür`
+                : "PNG Olarak İndir"}
             </button>
+
+            {isBatch && batchItems.some((i) => i.status === "done") && (
+              <button
+                onClick={handleDownloadAllZip}
+                disabled={isZipping}
+                className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-xs font-bold text-white shadow-md shadow-emerald-600/20 hover:bg-emerald-500"
+              >
+                <Archive className="h-4 w-4" />
+                <span>{isZipping ? "ZIP Paketleniyor..." : "Tümünü ZIP İndir"}</span>
+              </button>
+            )}
+
             <button onClick={handleReset} className="btn-secondary gap-2">
               <RefreshCw className="h-4 w-4" />
-              Yeni SVG
+              Yeni Dosyalar
             </button>
           </div>
         </div>
