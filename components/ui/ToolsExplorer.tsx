@@ -20,6 +20,10 @@ import {
 } from "lucide-react";
 
 const NEW_TOOL_IDS = new Set([
+  "biyometrik-foto",
+  "pdf-watermark",
+  "tc-kimlik-dogrulayici",
+  "yuzde-hesaplayici",
   "maas-hesaplayici",
   "pdf-organize",
   "heic-to-jpg",
@@ -39,6 +43,10 @@ const NEW_TOOL_IDS = new Set([
 ]);
 
 const POPULAR_TOOL_IDS = new Set([
+  "biyometrik-foto",
+  "pdf-watermark",
+  "tc-kimlik-dogrulayici",
+  "yuzde-hesaplayici",
   "maas-hesaplayici",
   "pdf-organize",
   "heic-to-jpg",

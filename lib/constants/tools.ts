@@ -35,6 +35,10 @@ import {
   Building2,
   Wallet,
   LayoutGrid,
+  Camera,
+  Stamp,
+  BadgeCheck,
+  Percent,
 } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
@@ -247,6 +251,14 @@ export const tools: ToolInfo[] = [
     category: "image",
     icon: Lock,
   },
+  {
+    id: "biyometrik-foto",
+    name: "Biyometrik & Vesikalık Fotoğraf",
+    description: "E-Devlet, Pasaport, Vize ve ÖSYM için 50x60mm ve 35x45mm şablonuyla fotoğraf oluşturun.",
+    href: "/biyometrik-foto",
+    category: "image",
+    icon: Camera,
+  },
 
   // PDF Araçları
   {
@@ -304,6 +316,14 @@ export const tools: ToolInfo[] = [
     href: "/pdf-organize",
     category: "pdf",
     icon: LayoutGrid,
+  },
+  {
+    id: "pdf-watermark",
+    name: "PDF Sayfa Numaralandırıcı & Filigran",
+    description: "PDF belgelerinize sayfa numarası ekleyin veya TASLAK/GİZLİDİR filigranı basın.",
+    href: "/pdf-watermark",
+    category: "pdf",
+    icon: Stamp,
   },
 
   // Metin Araçları
@@ -470,6 +490,22 @@ export const tools: ToolInfo[] = [
     href: "/maas-hesaplayici",
     category: "other",
     icon: Wallet,
+  },
+  {
+    id: "tc-kimlik-dogrulayici",
+    name: "T.C. Kimlik Doğrulayıcı & Üretici",
+    description: "T.C. Kimlik numarasını resmi mod-10 algoritması ile doğrulayın ve test kimlik üretin.",
+    href: "/tc-kimlik-dogrulayici",
+    category: "other",
+    icon: BadgeCheck,
+  },
+  {
+    id: "yuzde-hesaplayici",
+    name: "Yüzde & İskonto Hesaplayıcı",
+    description: "Yüzde bulma, artış/azalış, KDV/zam ve indirim/iskonto hesaplamalarını anında yapın.",
+    href: "/yuzde-hesaplayici",
+    category: "other",
+    icon: Percent,
   },
 ];
 

@@ -17,6 +17,8 @@ import {
   PenTool,
   Zap,
   Clipboard,
+  Camera,
+  Stamp,
 } from "lucide-react";
 
 export function UniversalDropzone() {
@@ -275,6 +277,20 @@ export function UniversalDropzone() {
                   </p>
                 </button>
                 <button
+                  onClick={() => router.push("/biyometrik-foto")}
+                  className="group rounded-2xl border border-slate-200/80 bg-slate-50/60 p-4 text-left transition-all hover:border-emerald-500 hover:bg-white hover:shadow-md dark:border-white/10 dark:bg-obsidian-850/60 dark:hover:border-emerald-500 dark:hover:bg-obsidian-800"
+                >
+                  <div className="flex items-center justify-between text-sm font-bold text-slate-900 dark:text-white">
+                    <span className="flex items-center gap-2">
+                      <Camera className="h-4 w-4 text-emerald-500" /> Biyometrik / Vesikalık Yap
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-emerald-500 transition-transform group-hover:translate-x-1" />
+                  </div>
+                  <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                    E-Devlet, pasaport veya vize için standart 50x60mm formatında kırpın
+                  </p>
+                </button>
+                <button
                   onClick={() => router.push("/seffaf-imza")}
                   className="group rounded-2xl border border-slate-200/80 bg-slate-50/60 p-4 text-left transition-all hover:border-indigo-500 hover:bg-white hover:shadow-md dark:border-white/10 dark:bg-obsidian-850/60 dark:hover:border-indigo-500 dark:hover:bg-obsidian-800"
                 >
@@ -293,6 +309,20 @@ export function UniversalDropzone() {
 
             {detectedFile.type === "pdf" && (
               <>
+                <button
+                  onClick={() => router.push("/pdf-watermark")}
+                  className="group rounded-2xl border border-slate-200/80 bg-slate-50/60 p-4 text-left transition-all hover:border-violet-500 hover:bg-white hover:shadow-md dark:border-white/10 dark:bg-obsidian-850/60 dark:hover:border-violet-500 dark:hover:bg-obsidian-800"
+                >
+                  <div className="flex items-center justify-between text-sm font-bold text-slate-900 dark:text-white">
+                    <span className="flex items-center gap-2">
+                      <Stamp className="h-4 w-4 text-violet-500" /> Sayfa No & Filigran Ekle
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-violet-500 transition-transform group-hover:translate-x-1" />
+                  </div>
+                  <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                    Evraklara sayfa numarası basın veya TASLAK/GİZLİDİR damgası vurun
+                  </p>
+                </button>
                 <button
                   onClick={() => router.push("/pdf-merge")}
                   className="group rounded-2xl border border-slate-200/80 bg-slate-50/60 p-4 text-left transition-all hover:border-primary-500 hover:bg-white hover:shadow-md dark:border-white/10 dark:bg-obsidian-850/60 dark:hover:border-primary-500 dark:hover:bg-obsidian-800"

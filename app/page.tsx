@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { HeroSearchTrigger } from "@/components/ui/HeroSearchTrigger";
 import { RecentToolsBar } from "@/components/ui/RecentToolsBar";
 import { ToolsExplorer } from "@/components/ui/ToolsExplorer";
 import { UniversalDropzone } from "@/components/ui/UniversalDropzone";
@@ -15,14 +14,14 @@ import {
 export const metadata: Metadata = {
   title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme, Sıkıştırma ve Düzenleme Araçları",
   description:
-    "Görsel sıkıştırma, HEIC to JPG, PDF birleştirme ve ayırma, şeffaf imza, KDV hesaplayıcı, IBAN doğrulayıcı dahil %100 güvenli ve ücretsiz online araçlar.",
+    "Görsel sıkıştırma, HEIC to JPG, biyometrik fotoğraf, PDF filigran ve birleştirme, şeffaf imza, KDV hesaplayıcı, IBAN ve TC doğrulayıcı dahil %100 güvenli ve ücretsiz online araçlar.",
   alternates: {
     canonical: "https://turkconvert.online/",
   },
   openGraph: {
     title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme ve Düzenleme Araçları",
     description:
-      "Görsel sıkıştırma, HEIC to JPG, PDF birleştirme ve ayırma, şeffaf imza, KDV hesaplayıcı, IBAN doğrulayıcı dahil %100 güvenli ve ücretsiz online araçlar.",
+      "Görsel sıkıştırma, HEIC to JPG, biyometrik fotoğraf, PDF filigran ve birleştirme, şeffaf imza, KDV hesaplayıcı, IBAN ve TC kontrolü dahil %100 güvenli, ücretsiz araçlar.",
     url: "https://turkconvert.online/",
     siteName: "TurkConvert",
     type: "website",
@@ -32,19 +31,21 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "TurkConvert - Ücretsiz Online Dosya Dönüştürme ve Düzenleme Araçları",
     description:
-      "Görsel sıkıştırma, HEIC to JPG, PDF birleştirme ve ayırma, şeffaf imza, KDV hesaplayıcı ve IBAN kontrolü dahil %100 güvenli, ücretsiz araçlar.",
+      "Görsel sıkıştırma, HEIC to JPG, biyometrik fotoğraf, PDF filigran ve birleştirme, şeffaf imza, KDV ve TC kontrolü dahil %100 güvenli, ücretsiz araçlar.",
   },
 };
 
 const QUICK_ACTIONS = [
+  { label: "📸 Biyometrik Foto", href: "/biyometrik-foto" },
+  { label: "📑 PDF Filigran & No", href: "/pdf-watermark" },
   { label: "📱 HEIC to JPG", href: "/heic-to-jpg" },
+  { label: "💼 Maaş Hesapla", href: "/maas-hesaplayici" },
   { label: "📑 PDF Birleştir", href: "/pdf-merge" },
-  { label: "✂️ PDF Ayır", href: "/pdf-split" },
+  { label: "✂️ PDF Sayfa Ayır", href: "/pdf-split" },
   { label: "📸 Boyut Küçült", href: "/image-compressor" },
   { label: "💰 KDV Hesapla", href: "/kdv-hesaplayici" },
-  { label: "🏦 IBAN Kontrol", href: "/iban-dogrulayici" },
+  { label: "🆔 TC Kimlik Doğrula", href: "/tc-kimlik-dogrulayici" },
   { label: "✍️ Şeffaf İmza", href: "/seffaf-imza" },
-  { label: "🧾 PDF Fatura", href: "/fatura-olusturucu" },
 ];
 
 export default function HomePage() {
@@ -72,13 +73,10 @@ export default function HomePage() {
         {/* Akıllı Evrensel Dosya Bırakma Alanı (Universal Dropzone) */}
         <UniversalDropzone />
 
-        {/* Hızlı Arama Kutusu */}
-        <HeroSearchTrigger />
-
         {/* Hızlı İhtiyaç Kapsülleri (Quick Actions) */}
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
           <span className="flex items-center gap-1 text-xs font-medium text-slate-400 dark:text-slate-500">
-            <Compass className="h-3 w-3" />
+            <Compass className="h-3.5 w-3.5" />
             <span>Hızlı Çözümler:</span>
           </span>
           {QUICK_ACTIONS.map((action) => (
@@ -95,28 +93,30 @@ export default function HomePage() {
         {/* Son Kullanılanlar Barı */}
         <RecentToolsBar />
 
-        {/* Özellik Rozetleri */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+        {/* Özellik Güven Rozetleri */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-5 text-xs text-slate-500 dark:text-slate-400">
           <div className="flex items-center gap-1.5 font-medium">
-            <Zap className="h-4 w-4 text-primary-500" />
+            <Zap className="h-3.5 w-3.5 text-primary-500" />
             <span>Sıfır Bekleme, Anında İşlem</span>
           </div>
+          <span className="hidden sm:inline text-slate-300 dark:text-slate-700">•</span>
           <div className="flex items-center gap-1.5 font-medium">
-            <ShieldCheck className="h-4 w-4 text-emerald-500" />
+            <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
             <span>%100 İstemci Taraflı Gizlilik</span>
           </div>
+          <span className="hidden sm:inline text-slate-300 dark:text-slate-700">•</span>
           <div className="flex items-center gap-1.5 font-medium">
-            <Sparkles className="h-4 w-4 text-violet-500" />
-            <span>Üyelik ve Kayıt Zorunluluğu Yok</span>
+            <Sparkles className="h-3.5 w-3.5 text-violet-500" />
+            <span>Üyelik Yok, Tamamen Ücretsiz</span>
           </div>
         </div>
       </section>
 
-      {/* Asimetrik Bento Grid Vitrini */}
-      <BentoGridShowcase />
-
       {/* Tüm Araçlar Kitaplığı & Filtreleme (Tools Explorer) */}
       <ToolsExplorer />
+
+      {/* Asimetrik Bento Grid Vitrini (Alt Keşif Alanı) */}
+      <BentoGridShowcase />
 
       {/* Structured Data for Google (WebSite & Organization) */}
       <script

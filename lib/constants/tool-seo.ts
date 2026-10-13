@@ -1429,6 +1429,126 @@ export const toolsSeo: Record<string, ToolSeoInfo> = {
         answer: "Tarayıcı içi WebAssembly motoru sayesinde her fotoğraf genellikle 1 saniyeden kısa sürede dönüştürülür."
       }
     ]
+  },
+  "biyometrik-foto": {
+    id: "biyometrik-foto",
+    title: "Biyometrik & Vesikalık Fotoğraf Boyutlandırıcı - E-Devlet, Pasaport, Vize",
+    description: "E-Devlet, pasaport, ehliyet, vize ve ÖSYM için standart 50x60mm biyometrik ve 35x45mm vesikalık fotoğraflar oluşturun, kırpın ve 4'lü baskı tabakası indirin.",
+    h1: "Biyometrik & Vesikalık Fotoğraf Boyutlandırıcı",
+    intro: "Resmi başvurularınız için fotoğraflarınızı ICAO ve E-Devlet standartlarına (50x60mm / 35x45mm) uygun olarak anında kırpın ve 300 DPI kalitesinde kaydedin.",
+    aboutTitle: "Biyometrik Fotoğraf Standartları Nelerdir?",
+    aboutContent: "Biyometrik fotoğraflar; pasaport, sürücü belgesi, kimlik kartı ve vize başvurularında yüz tanıma sistemlerinin doğru çalışması için ICAO tarafından belirlenen 50x60 mm veya 35x45 mm boyutlarında, arka planı desensiz ve açık renk (tercihen beyaz), gölgesiz ve yüzün fotoğrafın %70-80'ini kapladığı özel fotoğraflardır. TurkConvert Biyometrik Fotoğraf Aracı ile herhangi bir portre fotoğrafınızı yüz hizalama şablonuyla standartlara uygun biçimde kırpabilir, 4'lü veya 8'li tabaka halinde basıma hazır indirebilirsiniz.",
+    steps: [
+      { title: "Portre Fotoğrafınızı Yükleyin", description: "Dönüştürmek istediğiniz net bir portre fotoğrafı seçin." },
+      { title: "Şablonu Seçin", description: "50x60mm Biyometrik veya 35x45mm Vesikalık ebadını belirleyin." },
+      { title: "Kılavuz Çizgileriyle Hizalayın", description: "Çene ve baş üstü çizgilerini referans alarak görseli hizalayın." },
+      { title: "Tekli veya 4'lü Tabaka İndirin", description: "Dijital başvuru veya fotoğraf kağıdına baskı için hazır çıktıyı alın." }
+    ],
+    faqs: [
+      {
+        question: "E-Devlet ve Pasaport için geçerli midir?",
+        answer: "Evet, ICAO 50x60 mm ve 300 DPI standartlarına tam uyumlu dijital ve baskı çıktısı üretir."
+      },
+      {
+        question: "Biyometrik fotoğrafın boyutu kaç piksel olmalıdır?",
+        answer: "50x60 mm ebat 300 DPI baskı kalitesinde yaklaşık 591x709 pikseldir."
+      },
+      {
+        question: "Fotoğrafım sunucuya yükleniyor mu?",
+        answer: "Hayır, tüm kırpma ve filtreleme işlemleri %100 tarayıcınızda ve cihazınızda gerçekleşir."
+      },
+      {
+        question: "4'lü tabaka ne işe yarar?",
+        answer: "10x15 cm standart fotoğraf kağıdına evde veya fotoğrafçıda tek baskı fiyatına 4 adet vesikalık çıkarmanızı sağlar."
+      }
+    ]
+  },
+  "pdf-watermark": {
+    id: "pdf-watermark",
+    title: "PDF Sayfa Numaralandırıcı & Filigran Ekleme - Online Damga & Sayfa No",
+    description: "PDF belgelerinize sayfa numarası ('Sayfa 1 / 10') ekleyin, TASLAK veya GİZLİDİR metin filigranı basın. %100 ücretsiz, hızlı ve güvenli.",
+    h1: "PDF Sayfa Numaralandırıcı & Filigran Damgası",
+    intro: "Resmi evraklarınız, mahkeme dilekçeleriniz, tez ve raporlarınız için PDF sayfalarını numaralandırın veya güvenlik filigranı ekleyin.",
+    aboutTitle: "PDF Numaralandırma ve Filigran Neden Önemlidir?",
+    aboutContent: "Resmi kurumlara, mahkemelere (UYAP), üniversitelere ve iş ortaklarına sunulan çok sayfalı PDF belgelerinin karışmasını önlemek için standart sayfa numaralandırması (Sayfa X / Y) yasal ve kurumsal bir zorunluluktur. Ayrıca hassas raporların izinsiz dağıtımını engellemek için arka plana 'GİZLİDİR', 'TASLAK' veya 'KOPYALANAMAZ' damgası vurulması veri güvenliği sağlar.",
+    steps: [
+      { title: "PDF Belgenizi Seçin", description: "Numaralandırmak veya filigran eklemek istediğiniz PDF'i yükleyin." },
+      { title: "İşlem Türünü Belirleyin", description: "Sayfa numaralandırma veya metin filigranı modunu seçin." },
+      { title: "Konum ve Formatı Ayarlayın", description: "Yazı boyutu, sayfa konumu veya filigran açısını düzenleyin." },
+      { title: "İndirin", description: "Damgalanmış PDF belgenizi anında cihazınıza kaydedin." }
+    ],
+    faqs: [
+      {
+        question: "Sayfa numaraları hangi formatta yazılabilir?",
+        answer: "'Sayfa 1 / 15', 'Sayfa 1' veya yalnızca '1' seçenekleri mevcuttur."
+      },
+      {
+        question: "Filigran metni belgemi okunmaz hale getirir mi?",
+        answer: "Hayır, opaklık (şeffaflık) ayarı sayesinde metnin arkasında zarif ve okunabilir bir güvenlik damgası olarak durur."
+      },
+      {
+        question: "PDF dosyalarım güvende mi?",
+        answer: "Evet, pdf-lib motoru ile %100 tarayıcınızda işlenir, sunucuya hiçbir veri gitmez."
+      }
+    ]
+  },
+  "tc-kimlik-dogrulayici": {
+    id: "tc-kimlik-dogrulayici",
+    title: "T.C. Kimlik No Doğrulayıcı & Test Kimlik Üretici - Resmi Algoritma",
+    description: "11 haneli T.C. Kimlik numarasını resmi mod-10 algoritması ile anında doğrulayın ve yazılım testleriniz için geçerli test kimlik numarası üretin.",
+    h1: "T.C. Kimlik No Doğrulayıcı & Test Üretici",
+    intro: "T.C. Kimlik numarasının 10. ve 11. hane matematiksel kurallara uygunluğunu kontrol edin, kural detaylarını inceleyin veya testler için geçerli numara üretin.",
+    aboutTitle: "T.C. Kimlik Numarası Algoritması Nasıl Çalışır?",
+    aboutContent: "Türkiye Cumhuriyeti Kimlik Numarası rastgele bir sayı dizisi değildir; matematiksel bir sağlama (checksum) algoritmasına dayanır: 11 haneden oluşur ve ilk hanesi 0 olamaz. 1, 3, 5, 7 ve 9. hanelerin toplamının 7 katından; 2, 4, 6 ve 8. hanelerin toplamı çıkarılıp 10'a bölündüğünde kalan (mod 10) 10. haneyi verir. İlk 10 hanenin toplamının 10'a bölümünden kalan ise 11. haneyi verir. Bu araç, bu kuralları saniyeler içinde analiz eder ve yazılımcılar için test verisi oluşturur.",
+    steps: [
+      { title: "Kimlik Numarasını Girin", description: "11 haneli T.C. kimlik numarasını kutucuğa yazın." },
+      { title: "Algoritmik Analizi İnceleyin", description: "Basamak kurallarının tek tek sağlanıp sağlanmadığını görün." },
+      { title: "Hata Bildirimlerini Kontrol Edin", description: "Geçersiz basamak varsa tam sebebini öğrenin." },
+      { title: "Test Kimlik No Üretin", description: "Yazılım testleriniz için tek tıkla geçerli rastgele test numarası alın." }
+    ],
+    faqs: [
+      {
+        question: "Bu sorgulama Nüfus Müdürlüğü'ne (MERNİS) mi soruluyor?",
+        answer: "Hayır, isim/soyisim sorgusu yapılmaz; numaranın matematiksel ve algoritmik olarak geçerli olup olmadığı yerel olarak denetlenir."
+      },
+      {
+        question: "Girdiğim kimlik numarası kaydediliyor mu?",
+        answer: "Kesinlikle hayır; hiçbir veri sunucuya iletilmez, tamamen tarayıcınızda hesaplanır."
+      },
+      {
+        question: "Test kimlik üretici gerçek kişilere mi aittir?",
+        answer: "Hayır, sadece form doğrulama testlerini geçebilecek matematiksel geçerliliğe sahip rastgele sayılardır."
+      }
+    ]
+  },
+  "yuzde-hesaplayici": {
+    id: "yuzde-hesaplayici",
+    title: "Yüzde Hesaplayıcı - İskonto, KDV, Zam ve Yüzde Değişim Hesaplama",
+    description: "A sayısının %B'si kaçtır, iki sayı arasındaki yüzde değişim, KDV/zam ekleme ve iskonto indirim hesaplamalarını anında yapın. Ücretsiz ve pratik.",
+    h1: "Yüzde, İskonto & Kâr Marjı Hesaplayıcı",
+    intro: "Ticaret, finans, alışveriş ve dersleriniz için tüm yüzde hesaplama formüllerini tek bir interaktif stüdyoda anında hesaplayın.",
+    aboutTitle: "Yüzde Hesaplama Formülleri Nelerdir?",
+    aboutContent: "Yüzde hesaplamaları günlük hayatta en sık karşılaşılan matematiksel işlemlerdir. Bir ürünün indirimli fiyatını bulmak, faturalara KDV veya zam eklemek, iki fiyat arasındaki artış/azalış oranını hesaplamak veya bir tutarın belirli bir yüzdesini bulmak karmaşık gelebilir. TurkConvert Yüzde Hesaplayıcı, 5 temel formülü tek ekranda hazır kartlar olarak sunarak sonuçları ve işlem açıklamalarını saniyeler içinde verir.",
+    steps: [
+      { title: "Hesaplama Modunu Seçin", description: "Yüzde bulma, değişim, zam veya iskonto kartlarından birini belirleyin." },
+      { title: "Tutarları Girin", description: "İlgili alanlara başlangıç ve yüzde değerlerini yazın." },
+      { title: "Anlık Sonucu Görün", description: "Tuşa basmaya gerek kalmadan sonuçları anında izleyin." },
+      { title: "Kopyalayın", description: "İstediğiniz sonucu tek tıkla panonuza aktarın." }
+    ],
+    faqs: [
+      {
+        question: "İskonto (indirim) nasıl hesaplanır?",
+        answer: "Ürün tutarından girilen yüzde oranı çarpılıp çıkarılarak nihai indirimli fiyat bulunur."
+      },
+      {
+        question: "Yüzde değişim formülü nedir?",
+        answer: "((Son Değer - İlk Değer) / İlk Değer) * 100 formülü ile artış veya azalış yüzdesi belirlenir."
+      },
+      {
+        question: "Kullanımı ücretsiz mi?",
+        answer: "Evet, tüm hesaplayıcılar gibi sınırsız ve ücretsizdir."
+      }
+    ]
   }
 };
 
