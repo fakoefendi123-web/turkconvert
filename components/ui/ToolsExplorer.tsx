@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 
 const NEW_TOOL_IDS = new Set([
+  "text-to-png",
   "biyometrik-foto",
   "pdf-watermark",
   "tc-kimlik-dogrulayici",
@@ -43,6 +44,7 @@ const NEW_TOOL_IDS = new Set([
 ]);
 
 const POPULAR_TOOL_IDS = new Set([
+  "text-to-png",
   "biyometrik-foto",
   "pdf-watermark",
   "tc-kimlik-dogrulayici",

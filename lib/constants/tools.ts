@@ -39,6 +39,7 @@ import {
   Stamp,
   BadgeCheck,
   Percent,
+  TextQuote,
 } from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
@@ -374,6 +375,14 @@ export const tools: ToolInfo[] = [
     href: "/sayiyi-yaziya-cevir",
     category: "text",
     icon: Type,
+  },
+  {
+    id: "text-to-png",
+    name: "Metin → PNG (Resme Çevirici)",
+    description: "Yazılarınızı şeffaf PNG çıkartması veya şık sosyal medya alıntı kartı olarak resme dönüştürün.",
+    href: "/text-to-png",
+    category: "text",
+    icon: TextQuote,
   },
 
   // Geliştirici Araçları

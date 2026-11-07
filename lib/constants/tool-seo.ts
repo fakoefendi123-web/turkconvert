@@ -1549,6 +1549,43 @@ export const toolsSeo: Record<string, ToolSeoInfo> = {
         answer: "Evet, tüm hesaplayıcılar gibi sınırsız ve ücretsizdir."
       }
     ]
+  },
+  "text-to-png": {
+    id: "text-to-png",
+    title: "Metin to PNG Dönüştürücü - Yazıyı Resme Çevirme (Şeffaf PNG)",
+    description: "Yazılarınızı, sözlerinizi ve kod parçacıklarınızı şeffaf PNG çıkartması veya modern görsel karta dönüştürün. Ücretsiz, hızlı ve yüksek çözünürlüklü metin resim yapıcı.",
+    h1: "Metin to PNG Dönüştürücü (Yazıyı Resme Çevirme)",
+    intro: "Herhangi bir metni, alıntıyı veya kod bloğunu saniyeler içinde şeffaf arka planlı bir PNG çıkartmasına ya da şık bir sosyal medya görsel kartına dönüştürün.",
+    aboutTitle: "Metin to PNG (Yazıyı Resme Dönüştürme) Nedir ve Nerelerde Kullanılır?",
+    aboutContent: "Metin to PNG aracı; dijital tasarımcılar, sosyal medya yöneticileri, yazılımcılar ve içerik üreticileri için metinleri görselleştiren güçlü bir yardımcıdır. Canva veya Photoshop gibi programlarda arka planı olmayan saydam metin çıkartmaları (stickers) oluşturabilir, Instagram ve X (Twitter) için şık alıntı kartları hazırlayabilir veya terminal görünümlü kod blokları türetebilirsiniz. TurkConvert ile tüm işlem tarayıcınızdaki HTML5 Canvas motorunda anında ve tam gizlilikle işlenir.",
+    steps: [
+      { title: "Metninizi Yazın veya Yapıştırın", description: "Görsele dönüştürmek istediğiniz yazıyı, sözü veya kod parçacığını kutucuğa girin." },
+      { title: "Şablon veya Stil Belirleyin", description: "Şeffaf çıkartma, Instagram alıntı kartı, macOS terminal penceresi veya klasik edebi şablonlardan birini seçin." },
+      { title: "Tipografi ve Renkleri Özelleştirin", description: "Font ailesi, yazı boyutu, hizalama, arka plan gradyanı ve en-boy oranını dilediğiniz gibi ayarlayın." },
+      { title: "PNG Olarak İndirin veya Kopyalayın", description: "Tek tıkla yüksek çözünürlüklü PNG olarak kaydedin veya doğrudan panoya kopyalayın." }
+    ],
+    faqs: [
+      {
+        question: "Şeffaf (transparent) PNG nedir ve nerelerde kullanılır?",
+        answer: "Şeffaf PNG, arka planı olmayan ve sadece metnin piksellerini içeren bir resim formatıdır. Canva, Photoshop, Premiere Pro, CapCut gibi video ve görsel düzenleme araçlarında başka bir arka planın veya videonun üzerine doğrudan yerleştirmek için idealdir."
+      },
+      {
+        question: "Çıktı görselinin çözünürlüğü ve kalitesi nasıldır?",
+        answer: "Araç 1x, 2x (Retina) ve 3x (Ultra HD) çözünürlük çarpanlarını destekler. Bu sayede oluşturduğunuz metinler en yüksek çözünürlüklü ekranlarda bile keskin ve net görünür."
+      },
+      {
+        question: "Türkçe karakter desteği bulunuyor mu?",
+        answer: "Evet, tüm Türkçe karakterler (ç, ğ, ı, ö, ş, ü, İ, Ğ, Ş, Ö, Ç, Ü) eksiksiz olarak desteklenmektedir."
+      },
+      {
+        question: "Metinlerim veya oluşturduğum görseller sunucuya aktarılır mı?",
+        answer: "Hayır. Çizim işlemi HTML5 Canvas teknolojisi ile tamamen sizin tarayıcınızda ve cihazınızda gerçekleşir. Hiçbir metniniz uzak bir sunucuya kaydedilmez."
+      },
+      {
+        question: "Oluşturduğum görselleri ticari projelerimde kullanabilir miyim?",
+        answer: "Evet, TurkConvert üzerinde oluşturduğunuz tüm metin görselleri tamamen size aittir; dilediğiniz kişisel veya ticari projede ücretsiz olarak kullanabilirsiniz."
+      }
+    ]
   }
 };
 
