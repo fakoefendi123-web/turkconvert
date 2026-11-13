@@ -12,7 +12,7 @@ const navLinks = [
   { href: "/biyometrik-foto", label: "Biyometrik Foto", isNew: true },
   { href: "/heic-to-jpg", label: "HEIC to JPG" },
   { href: "/pdf-watermark", label: "PDF Filigran", isNew: true },
-  { href: "/maas-hesaplayici", label: "Maaş Hesapla" },
+  { href: "/ekip", label: "Ekip" },
   { href: "/hakkimizda", label: "Hakkımızda" },
 ];
 

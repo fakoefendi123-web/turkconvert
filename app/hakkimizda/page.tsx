@@ -11,6 +11,7 @@ import {
   ArrowRight,
   Code2,
 } from "lucide-react";
+import { TeamMembers } from "@/components/team/TeamMembers";
 
 export const metadata: Metadata = {
   title: "Hakkımızda | Gizliliğe Saygılı Yeni Nesil Web Araçları",
@@ -205,6 +206,11 @@ export default function HakkimizdaPage() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Ekip Üyeleri & Canlı Discord Vitrini */}
+      <div className="mt-16">
+        <TeamMembers />
       </div>
 
       {/* Call to Action Banner */}

@@ -17,6 +17,7 @@ const popularTools = [
 
 const legalLinks = [
   { href: "/hakkimizda", label: "Hakkımızda" },
+  { href: "/ekip", label: "Ekip & Yapımcılar" },
   { href: "/gizlilik", label: "Gizlilik Politikası" },
   { href: "/kullanim-kosullari", label: "Kullanım Koşulları" },
   { href: "/iletisim", label: "İletişim" },
